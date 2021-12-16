@@ -32,6 +32,12 @@ export default {
         return {
             menu: [
                 {label: "Dashboard", icon: "pi pi-home", to: "/"},
+                {label: "User management", icon: "pi pi-users", to: "/"},
+                {label: "Banner management", icon: "pi pi-images", to: "/"},
+                {label: "FAQ", icon: "pi pi-question-circle", to: "/"},
+                {label: "1:1 Query", icon: "pi pi-file-o", to: "/"},
+                {label: "Notice", icon: "pi pi-bell", to: "/notice"},
+                {label: "CMS", icon: "pi pi-book", to: "/empty"},
                 {
                     label: "UI Kit", icon: "pi pi-star-o",
                     items: [
