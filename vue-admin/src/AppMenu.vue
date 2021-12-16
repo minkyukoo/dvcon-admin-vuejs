@@ -38,6 +38,7 @@ export default {
                 {label: "1:1 Query", icon: "pi pi-file-o", to: "/"},
                 {label: "Notice", icon: "pi pi-bell", to: "/notice"},
                 {label: "CMS", icon: "pi pi-book", to: "/empty"},
+                
                 {
                     label: "UI Kit", icon: "pi pi-star-o",
                     items: [
