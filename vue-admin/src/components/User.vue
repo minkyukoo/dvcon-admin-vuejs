@@ -25,19 +25,24 @@
 					
 				</div>
 				<div class="p-formgrid p-grid">
-					<div class="p-field p-col">
-						<label for="name2">Name</label>
-						<InputText id="name2" type="text" />
+					<div class="p-field p-col-12 p-md-3">
+						<label for="pass">Password</label>
+						<InputText id="pass" type="password" placeholder="password"/>
 					</div>
-					<div class="p-field p-col">
-						<label for="email2">Email</label>
-						<InputText id="email2" type="text" />
-					</div>
-					<div class="p-field p-col">
-						<label for="email2">Email</label>
-						<InputText id="email2" type="text" />
+					<div class="p-field p-col-12 p-md-3">
+						<label for="verify-pass">Verify Password</label>
+						<InputText id="verify-pass" type="password" placeholder="verify password"/>
 					</div>
 				</div>
+				
+				
+				<div class="p-d-flex p-jc-end">
+					<Button label="Help" class="p-button-outlined p-button-help p-mr-2 p-mb-2" ><img alt="logo" src="assets/demo/images/logo-white.svg" style="width: 1.5rem"/> initialization</Button>
+					<Button label="Primary" class="p-mr-2 p-mb-2"><img alt="logo" src="assets/demo/images/logo-white.svg" style="width: 1.5rem"/> Confirm</Button>
+				</div>
+				
+				
+			
 			</div>
 
 		</div>
@@ -59,5 +64,8 @@
 	}
 </script>
 <style scoped>
-
+.p-fluid .p-button {
+    width: auto;
+	
+}
 </style>
