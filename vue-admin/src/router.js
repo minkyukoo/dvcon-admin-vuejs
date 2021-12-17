@@ -11,6 +11,11 @@ const routes = [
         },
     },
     {
+        path: '/banner-management',
+        name: 'BannerManagement',
+        component: () => import('./pages/BannerManagement.vue')
+    },
+    {
         path: '/formlayout',
         name: 'formlayout',
         component: () => import('./components/FormLayoutDemo.vue'),
