@@ -26,31 +26,30 @@
     <div class="p-grid cms_table_wrap">
         <div class="p-col-12">
 			<div class="card">
-				<h5>Subheader Grouping</h5>
+                <div class="heading_wrap">
+                    <h5>Content Management</h5>
+                    <Button label="New" icon="pi pi-plus" class="p-mr-2 p-mb-2"></Button>
+                </div>
 				<DataTable :value="customer3" rowGroupMode="subheader" groupRowsBy="representative.name"
                     sortMode="single" sortField="representative.name" :sortOrder="1" scrollable scrollHeight="400px">
-                    <Column field="representative.name" header="Representative"></Column>
-                    <Column field="name" header="Name" style="min-width:200px"></Column>
-                    <Column field="country" header="Country" style="min-width:200px">
-                        <template #body="slotProps">
-                            <img src="assets/demo/flags/flag_placeholder.png" :class="'flag flag-' + slotProps.data.country.code" width="30" />
-                            <span class="image-text p-ml-2">{{slotProps.data.country.name}}</span>
-                        </template>
-                    </Column>
-                    <Column field="company" header="Company" style="min-width:200px"></Column>
-                    <Column field="status" header="Status" style="min-width:200px">
+                    <!-- <Column field="representative.name" header="Representative"></Column> -->
+                    <Column field="name" header="Number" style="min-width:200px"></Column>
+                   
+                    <Column field="company" header="Title" style="min-width:200px"></Column>
+                    
+                    <Column field="date" header="Date of modification" style="min-width:200px"></Column>
+                    <Column field="status" header="Management" style="min-width:200px">
                         <template #body="slotProps">
                             <span :class="'customer-badge status-' + slotProps.data.status">{{slotProps.data.status}}</span>
                         </template>
                     </Column>
-                    <Column field="date" header="Date" style="min-width:200px"></Column>
                     <template #groupheader="slotProps">
 						<img :alt="slotProps.data.representative.name" :src="'assets/demo/images/avatar/' + slotProps.data.representative.image" width="32" style="vertical-align: middle" />
                         <span class="image-text">{{slotProps.data.representative.name}}</span>
                     </template>
-                    <template #groupfooter="slotProps">
+                    <!-- <template #groupfooter="slotProps">
                         <td style="text-align: right" class="p-text-bold p-pr-6">Total Customers: {{calculateCustomerTotal(slotProps.data.representative.name)}}</td>
-                    </template>
+                    </template> -->
                 </DataTable>
 			</div>
 		</div>
@@ -79,19 +78,21 @@
 				expandedRows: [],
 				statuses: [
 					'unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal'
+                    // <Button icon="pi pi-check" class="p-button-rounded p-button-outlined p-mr-2 p-mb-2" />,
+                    // <Button icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined p-mr-2 p-mb-2" />
 				],
-				representatives: [
-					{name: "Amy Elsner", image: 'amyelsner.png'},
-					{name: "Anna Fali", image: 'annafali.png'},
-					{name: "Asiya Javayant", image: 'asiyajavayant.png'},
-					{name: "Bernardo Dominic", image: 'bernardodominic.png'},
-					{name: "Elwin Sharvill", image: 'elwinsharvill.png'},
-					{name: "Ioni Bowcher", image: 'ionibowcher.png'},
-					{name: "Ivan Magalhaes",image: 'ivanmagalhaes.png'},
-					{name: "Onyama Limba", image: 'onyamalimba.png'},
-					{name: "Stephen Shaw", image: 'stephenshaw.png'},
-					{name: "XuXue Feng", image: 'xuxuefeng.png'}
-				],
+				// representatives: [
+				// 	{name: "Amy Elsner", image: 'amyelsner.png'},
+				// 	{name: "Anna Fali", image: 'annafali.png'},
+				// 	{name: "Asiya Javayant", image: 'asiyajavayant.png'},
+				// 	{name: "Bernardo Dominic", image: 'bernardodominic.png'},
+				// 	{name: "Elwin Sharvill", image: 'elwinsharvill.png'},
+				// 	{name: "Ioni Bowcher", image: 'ionibowcher.png'},
+				// 	{name: "Ivan Magalhaes",image: 'ivanmagalhaes.png'},
+				// 	{name: "Onyama Limba", image: 'onyamalimba.png'},
+				// 	{name: "Stephen Shaw", image: 'stephenshaw.png'},
+				// 	{name: "XuXue Feng", image: 'xuxuefeng.png'}
+				// ],
 			}
 		},
 		customerService: null,
@@ -174,5 +175,11 @@
     width: 100%;
     text-align: right;
     margin-top: 30px;
+}
+.heading_wrap{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 </style>
