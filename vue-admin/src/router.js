@@ -311,7 +311,15 @@ const routes = [
         path: '/access',
         name: 'access',
         component: () => import('./pages/Access.vue')
-    }
+    },
+    {
+        path: '/faq',
+        name: 'faq',
+        component: () => import('./pages/Faq.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Faq' }],
+        },
+    },
 ];
 
 const router = createRouter({
