@@ -37,8 +37,8 @@
 				
 				
 				<div class="p-d-flex p-jc-end">
-					<Button label="Help" class="p-button-outlined p-button-help p-mr-2 p-mb-2" ><img alt="logo" src="assets/demo/images/logo-white.svg" style="width: 1.5rem"/> initialization</Button>
-					<Button label="Primary" class="p-mr-2 p-mb-2"><img alt="logo" src="assets/demo/images/logo-white.svg" style="width: 1.5rem"/> Confirm</Button>
+					<Button label="Help" class="p-button-outlined p-button-help p-mr-2 p-mb-2" ><img alt="logo" src="assets/demo/images/refreshing.png" style="width: 1rem;margin:0px 10px 0px 0px"/>initialization</Button>
+					<Button label="Primary" class="p-mr-2 p-mb-2"><img alt="logo" src="assets/demo/images/floppy-disk.png" style="width: 1rem;margin:0px 10px 0px 0px"/> Confirm</Button>
 				</div>
 				
 				
