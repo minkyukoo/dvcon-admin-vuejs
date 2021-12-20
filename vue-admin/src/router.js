@@ -311,6 +311,11 @@ const routes = [
         path: '/access',
         name: 'access',
         component: () => import('./pages/Access.vue')
+    },
+    {
+        path: '/cms',
+        name: 'cms',
+        component: () => import('./pages/Cms.vue')
     }
 ];
 

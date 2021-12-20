@@ -37,7 +37,7 @@ export default {
                 {label: "FAQ", icon: "pi pi-question-circle", to: "/"},
                 {label: "1:1 Query", icon: "pi pi-file-o", to: "/"},
                 {label: "Notice", icon: "pi pi-bell", to: "/notice"},
-                {label: "CMS", icon: "pi pi-book", to: "/empty"},
+                {label: "CMS", icon: "pi pi-book", to: "/cms"},
                 {
                     label: "UI Kit", icon: "pi pi-star-o",
                     items: [
@@ -86,7 +86,7 @@ export default {
                         {label: "Error", icon: "pi pi-times-circle", to: "/error"},
                         {label: "Not Found", icon: "pi pi-exclamation-circle", to: "/notfound"},
                         {label: "Access Denied", icon: "pi pi-lock", to: "/access"},
-                        {label: "Empty", icon: "pi pi-circle-off", to: "/empty"}
+                        {label: "Empty", icon: "pi pi-circle-off", to: "/Cms"}
                     ],
                 },
                 {
