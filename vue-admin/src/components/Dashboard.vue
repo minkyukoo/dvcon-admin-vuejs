@@ -599,6 +599,10 @@ export default {
 		}
 	},
     mounted() {
+         let user=localStorage.getItem('user-data');
+    if(!user){
+      this.$router.push({name:'login'});
+    }
         this.refreshChart();
     },
     methods: {

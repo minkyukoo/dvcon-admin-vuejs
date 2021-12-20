@@ -11,6 +11,15 @@ const routes = [
         },
     },
     {
+        path: '/user',
+        name: 'User',
+        exact: true,
+        component: () => import('./components/User.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'User', label: 'User' }],
+        },
+    },
+    {
         path: '/formlayout',
         name: 'formlayout',
         component: () => import('./components/FormLayoutDemo.vue'),
