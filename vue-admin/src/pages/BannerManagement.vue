@@ -106,20 +106,20 @@ export default {
         this.customerService.getCustomersMedium().then((data) => (this.customer3 = data));
     },
     methods: {
-        // onRowExpand(event) {
-        //     this.$toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
-        // },
-        // onRowCollapse(event) {
-        //     this.$toast.add({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
-        // },
-        // expandAll() {
-        //     this.expandedRows = this.products.filter((p) => p.id);
-        //     this.$toast.add({ severity: 'success', summary: 'All Rows Expanded', life: 3000 });
-        // },
-        // collapseAll() {
-        //     this.expandedRows = null;
-        //     this.$toast.add({ severity: 'success', summary: 'All Rows Collapsed', life: 3000 });
-        // },
+        onRowExpand(event) {
+            this.$toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
+        },
+        onRowCollapse(event) {
+            this.$toast.add({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
+        },
+        expandAll() {
+            this.expandedRows = this.products.filter((p) => p.id);
+            this.$toast.add({ severity: 'success', summary: 'All Rows Expanded', life: 3000 });
+        },
+        collapseAll() {
+            this.expandedRows = null;
+            this.$toast.add({ severity: 'success', summary: 'All Rows Collapsed', life: 3000 });
+        },
         calculateCustomerTotal(name) {
             let total = 0;
             if (this.customer3) {
