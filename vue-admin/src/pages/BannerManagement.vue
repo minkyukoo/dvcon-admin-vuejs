@@ -105,6 +105,7 @@
                                 <Button label="correction" icon="pi pi-pencil" iconPos="left" class="p-button p-button-info p-button-sm p-mr-2 p-mb-2"></Button>
                                 <Button label="Delete" icon="pi pi-calendar" iconPos="left" class="p-button p-button-danger p-button-sm p-mr-2 p-mb-2"></Button>
                             </template>
+                            
                         </Column>
                         <!-- <template #expansion="slotProps">
                                 <div class="orders-subtable">
@@ -149,7 +150,6 @@
                                 </div>
                             </template> -->
                     </DataTable>
-                    
                 </div>
             </div>
         </div>
