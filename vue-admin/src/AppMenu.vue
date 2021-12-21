@@ -32,13 +32,13 @@ export default {
         return {
             menu: [
                 {label: "Dashboard", icon: "pi pi-home", to: "/"},
-                {label: "User management", icon: "pi pi-users", to: "/"},
-                {label: "Banner management", icon: "pi pi-images", to: "/"},
+                {label: "User management", icon: "pi pi-users", to: "/user"},
+                {label: "Banner management", icon: "pi pi-images", to: "/onprogress"},
                 {label: "FAQ", icon: "pi pi-question-circle", to: "/faq"},
-                {label: "1:1 Query", icon: "pi pi-file-o", to: "/"},
+                {label: "1:1 Query", icon: "pi pi-file-o", to: "/onprogress"},
                 {label: "Notice", icon: "pi pi-bell", to: "/notice"},
-                {label: "CMS", icon: "pi pi-book", to: "/empty"},
-                
+                {label: "CMS", icon: "pi pi-book", to: "/onprogress"},
+                // onprogress ==> file not ready , when the file ll be ready change the path
                 {
                     label: "UI Kit", icon: "pi pi-star-o",
                     items: [
