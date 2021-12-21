@@ -47,71 +47,7 @@
                     <template #loading>
                         Loading customers data. Please wait.
                     </template>
-                    <Column field="name" header="Name" style="min-width:12rem">
-                        <template #body="{data}">
-                            <span class="p-column-title">Name</span>
-                            {{data.name}}
-                        </template>
-                        <!-- <template #filter="{filterModel}">
-                            <InputText type="text" v-model="filterModel.value" class="p-column-filter" placeholder="Search by name"/>
-                        </template> -->
-                    </Column>
-                    <Column header="Country" filterField="country.name" style="min-width:12rem">
-                        <template #body="{data}">
-                            <span class="p-column-title">Country</span>
-                            <img src="assets/demo/flags/flag_placeholder.png" :alt="data.country.name" :class="'flag flag-' + data.country.code" width="30" />
-                            <span style="margin-left: .5em; vertical-align: middle" class="image-text">{{data.country.name}}</span>
-                        </template>
-                        <!-- <template #filter="{filterModel}">
-                            <InputText type="text" v-model="filterModel.value" class="p-column-filter" placeholder="Search by country"/>
-                        </template> -->
-                        <template #filterclear="{filterCallback}">
-                            <Button type="button" icon="pi pi-times" @click="filterCallback()" class="p-button-secondary"></Button>
-                        </template>
-                        <template #filterapply="{filterCallback}">
-                            <Button type="button" icon="pi pi-check" @click="filterCallback()" class="p-button-success"></Button>
-                        </template>
-                        <template #filterfooter>
-                            <div class="p-px-3 p-pt-0 p-pb-3 p-text-center p-text-bold">Customized Buttons</div>
-                        </template>
-                    </Column>
-                    <Column header="Agent" filterField="representative" :showFilterMatchModes="false" :filterMenuStyle="{'width':'14rem'}" style="min-width:14rem">
-                        <template #body="{data}">
-                            <span class="p-column-title">Agent</span>
-                            <img :alt="data.representative.name" :src="'assets/demo/images/avatar/' + data.representative.image" width="32" style="vertical-align: middle" />
-                            <span style="margin-left: .5em; vertical-align: middle" class="image-text">{{data.representative.name}}</span>
-                        </template>
-                        <!-- <template #filter="{filterModel}">
-                            <div class="p-mb-3 p-text-bold">Agent Picker</div>
-                            <MultiSelect v-model="filterModel.value" :options="representatives" optionLabel="name" placeholder="Any" class="p-column-filter" style="width: 12rem">
-                                <template #option="slotProps">
-                                    <div class="p-multiselect-representative-option">
-                                        <img :alt="slotProps.option.name" :src="'assets/demo/images/avatar/' + slotProps.option.image" width="32" style="vertical-align: middle" />
-                                        <span style="margin-left: .5em; vertical-align: middle" class="image-text">{{slotProps.option.name}}</span>
-                                    </div>
-                                </template>
-                            </MultiSelect> -->
-                        <!-- </template> -->
-                    </Column>
-                    <Column header="Date" filterField="date" dataType="date" style="min-width:10rem">
-                        <template #body="{data}">
-                            <span class="p-column-title">Date</span>
-                            {{formatDate(data.date)}}
-                        </template>
-                        <!-- <template #filter="{filterModel}">
-                            <Calendar v-model="filterModel.value" dateFormat="mm/dd/yy" placeholder="mm/dd/yyyy" />
-                        </template> -->
-                    </Column>
-                    <Column header="Balance" filterField="balance" dataType="numeric" style="min-width:10rem">
-                        <template #body="{data}">
-                            <span class="p-column-title">Balance</span>
-                            {{formatCurrency(data.balance)}}
-                        </template>
-                        <!-- <template #filter="{filterModel}">
-                            <InputNumber v-model="filterModel.value" mode="currency" currency="USD" locale="en-US" />
-                        </template> -->
-                    </Column>
-                    <Column field="status" header="Status" :filterMenuStyle="{'width':'14rem'}" style="min-width:12rem">
+					<Column field="status" header="Number" :filterMenuStyle="{'width':'14rem'}" style="min-width:12rem">
                         <template #body="{data}">
                             <span class="p-column-title">Status</span>
                             <span :class="'customer-badge status-' + data.status">{{data.status}}</span>
@@ -128,6 +64,59 @@
                             </Dropdown>
                         </template> -->
                     </Column>
+                    <Column field="name" header="Title" style="min-width:12rem">
+                        <template #body="{data}">
+                            <span class="p-column-title">Name</span>
+                            {{data.name}}
+                        </template>
+                        <!-- <template #filter="{filterModel}">
+                            <InputText type="text" v-model="filterModel.value" class="p-column-filter" placeholder="Search by name"/>
+                        </template> -->
+                    </Column>
+                    <!-- <Column header="Country" filterField="country.name" style="min-width:12rem"> -->
+                        <!-- <template #body="{data}">
+                            <span class="p-column-title">Country</span>
+                            <img src="assets/demo/flags/flag_placeholder.png" :alt="data.country.name" :class="'flag flag-' + data.country.code" width="30" />
+                            <span style="margin-left: .5em; vertical-align: middle" class="image-text">{{data.country.name}}</span>
+                        </template> -->
+                        
+                        <!-- <template #filterclear="{filterCallback}">
+                            <Button type="button" icon="pi pi-times" @click="filterCallback()" class="p-button-secondary"></Button>
+                        </template> -->
+                        <!-- <template #filterapply="{filterCallback}">
+                            <Button type="button" icon="pi pi-check" @click="filterCallback()" class="p-button-success"></Button>
+                        </template>
+                        <template #filterfooter>
+                            <div class="p-px-3 p-pt-0 p-pb-3 p-text-center p-text-bold">Customized Buttons</div>
+                        </template> -->
+                    <!-- </Column> -->
+                    <!-- <Column header="Agent" filterField="representative" :showFilterMatchModes="false" :filterMenuStyle="{'width':'14rem'}" style="min-width:14rem">
+                        <template #body="{data}">
+                            <span class="p-column-title">Agent</span>
+                            <img :alt="data.representative.name" :src="'assets/demo/images/avatar/' + data.representative.image" width="32" style="vertical-align: middle" />
+                            <span style="margin-left: .5em; vertical-align: middle" class="image-text">{{data.representative.name}}</span>
+                        </template>
+                        
+                    </Column> -->
+                    <Column header="Date of modification" filterField="date" dataType="date" style="min-width:10rem">
+                        <template #body="{data}">
+                            <span class="p-column-title">Date</span>
+                            {{formatDate(data.date)}}
+                        </template>
+                        <!-- <template #filter="{filterModel}">
+                            <Calendar v-model="filterModel.value" dateFormat="mm/dd/yy" placeholder="mm/dd/yyyy" />
+                        </template> -->
+                    </Column>
+                    <!-- <Column header="Balance" filterField="balance" dataType="numeric" style="min-width:10rem">
+                        <template #body="{data}">
+                            <span class="p-column-title">Balance</span>
+                            {{formatCurrency(data.balance)}}
+                        </template>
+                        <template #filter="{filterModel}">
+                            <InputNumber v-model="filterModel.value" mode="currency" currency="USD" locale="en-US" />
+                        </template>
+                    </Column> -->
+                    
                     <!-- <Column field="activity" header="Activity" :showFilterMatchModes="false" style="min-width:12rem">
                         <template #body="{data}">
                             <span class="p-column-title">Activity</span>
@@ -141,7 +130,7 @@
                             </div>
                         </template>
                     </Column> -->
-                    <Column field="verified" header="Verified" dataType="boolean" bodyClass="p-text-center" style="min-width:8rem">
+                    <Column field="verified" header="management" dataType="boolean" bodyClass="p-text-center" style="min-width:8rem">
                         <template #body="{data}">
                             <span class="p-column-title">Verified</span>
                             <i class="pi" :class="{'true-icon pi-check-circle': data.verified, 'false-icon pi-times-circle': !data.verified}"></i>
