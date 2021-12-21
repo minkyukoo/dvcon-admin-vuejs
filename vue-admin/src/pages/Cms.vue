@@ -3,12 +3,10 @@
         <div class="p-col-12">
             <div class="card">
                 <h5>Search</h5>
+				<p>Title</p>
                 <div class="p-grid p-formgrid">
 					<div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0">
-						<span class="p-input-icon-right">
-							<InputText type="text" placeholder="Search" />
-							<i class="pi pi-search" />
-						</span>
+						<InputText type="text" placeholder="Title"></InputText>
 					</div>
 				</div>
                 <div class="button_wrap">
@@ -30,27 +28,129 @@
                     <h5>Content Management</h5>
                     <Button label="New" icon="pi pi-plus" class="p-mr-2 p-mb-2"></Button>
                 </div>
-				<DataTable :value="customer3" rowGroupMode="subheader" groupRowsBy="representative.name"
-                    sortMode="single" sortField="representative.name" :sortOrder="1" scrollable scrollHeight="400px">
-                    <!-- <Column field="representative.name" header="Representative"></Column> -->
-                    <Column field="name" header="Number" style="min-width:200px"></Column>
-                   
-                    <Column field="company" header="Title" style="min-width:200px"></Column>
-                    
-                    <Column field="date" header="Date of modification" style="min-width:200px"></Column>
-                    <Column field="status" header="Management" style="min-width:200px">
-                        <template #body="slotProps">
-                            <span :class="'customer-badge status-' + slotProps.data.status">{{slotProps.data.status}}</span>
+				<DataTable :value="customer1" :paginator="true" class="p-datatable-gridlines" :rows="10" dataKey="id" :rowHover="true" 
+							v-model:filters="filters1" filterDisplay="menu" :loading="loading1" :filters="filters1" responsiveLayout="scroll"
+							:globalFilterFields="['name','country.name','representative.name','balance','status']" >
+					
+					<!-- <template #header>
+                        <div class="p-d-flex p-jc-between p-flex-column p-flex-sm-row">
+                            <Button type="button" icon="pi pi-filter-slash" label="Clear" class="p-button-outlined p-mb-2" @click="clearFilter1()"/>
+                            <span class="p-input-icon-left p-mb-2">
+                                <i class="pi pi-search" />
+                                <InputText v-model="filters1['global'].value" placeholder="Keyword Search" style="width: 100%"/>
+                            </span>
+                        </div>
+                    </template> -->
+                    <template #empty>
+                        No customers found.
+                    </template>
+                    <template #loading>
+                        Loading customers data. Please wait.
+                    </template>
+                    <Column field="name" header="Name" style="min-width:12rem">
+                        <template #body="{data}">
+                            <span class="p-column-title">Name</span>
+                            {{data.name}}
+                        </template>
+                        <!-- <template #filter="{filterModel}">
+                            <InputText type="text" v-model="filterModel.value" class="p-column-filter" placeholder="Search by name"/>
+                        </template> -->
+                    </Column>
+                    <Column header="Country" filterField="country.name" style="min-width:12rem">
+                        <template #body="{data}">
+                            <span class="p-column-title">Country</span>
+                            <img src="assets/demo/flags/flag_placeholder.png" :alt="data.country.name" :class="'flag flag-' + data.country.code" width="30" />
+                            <span style="margin-left: .5em; vertical-align: middle" class="image-text">{{data.country.name}}</span>
+                        </template>
+                        <!-- <template #filter="{filterModel}">
+                            <InputText type="text" v-model="filterModel.value" class="p-column-filter" placeholder="Search by country"/>
+                        </template> -->
+                        <template #filterclear="{filterCallback}">
+                            <Button type="button" icon="pi pi-times" @click="filterCallback()" class="p-button-secondary"></Button>
+                        </template>
+                        <template #filterapply="{filterCallback}">
+                            <Button type="button" icon="pi pi-check" @click="filterCallback()" class="p-button-success"></Button>
+                        </template>
+                        <template #filterfooter>
+                            <div class="p-px-3 p-pt-0 p-pb-3 p-text-center p-text-bold">Customized Buttons</div>
                         </template>
                     </Column>
-                    <template #groupheader="slotProps">
-						<img :alt="slotProps.data.representative.name" :src="'assets/demo/images/avatar/' + slotProps.data.representative.image" width="32" style="vertical-align: middle" />
-                        <span class="image-text">{{slotProps.data.representative.name}}</span>
-                    </template>
-                    <!-- <template #groupfooter="slotProps">
-                        <td style="text-align: right" class="p-text-bold p-pr-6">Total Customers: {{calculateCustomerTotal(slotProps.data.representative.name)}}</td>
-                    </template> -->
-                </DataTable>
+                    <Column header="Agent" filterField="representative" :showFilterMatchModes="false" :filterMenuStyle="{'width':'14rem'}" style="min-width:14rem">
+                        <template #body="{data}">
+                            <span class="p-column-title">Agent</span>
+                            <img :alt="data.representative.name" :src="'assets/demo/images/avatar/' + data.representative.image" width="32" style="vertical-align: middle" />
+                            <span style="margin-left: .5em; vertical-align: middle" class="image-text">{{data.representative.name}}</span>
+                        </template>
+                        <!-- <template #filter="{filterModel}">
+                            <div class="p-mb-3 p-text-bold">Agent Picker</div>
+                            <MultiSelect v-model="filterModel.value" :options="representatives" optionLabel="name" placeholder="Any" class="p-column-filter" style="width: 12rem">
+                                <template #option="slotProps">
+                                    <div class="p-multiselect-representative-option">
+                                        <img :alt="slotProps.option.name" :src="'assets/demo/images/avatar/' + slotProps.option.image" width="32" style="vertical-align: middle" />
+                                        <span style="margin-left: .5em; vertical-align: middle" class="image-text">{{slotProps.option.name}}</span>
+                                    </div>
+                                </template>
+                            </MultiSelect> -->
+                        <!-- </template> -->
+                    </Column>
+                    <Column header="Date" filterField="date" dataType="date" style="min-width:10rem">
+                        <template #body="{data}">
+                            <span class="p-column-title">Date</span>
+                            {{formatDate(data.date)}}
+                        </template>
+                        <!-- <template #filter="{filterModel}">
+                            <Calendar v-model="filterModel.value" dateFormat="mm/dd/yy" placeholder="mm/dd/yyyy" />
+                        </template> -->
+                    </Column>
+                    <Column header="Balance" filterField="balance" dataType="numeric" style="min-width:10rem">
+                        <template #body="{data}">
+                            <span class="p-column-title">Balance</span>
+                            {{formatCurrency(data.balance)}}
+                        </template>
+                        <!-- <template #filter="{filterModel}">
+                            <InputNumber v-model="filterModel.value" mode="currency" currency="USD" locale="en-US" />
+                        </template> -->
+                    </Column>
+                    <Column field="status" header="Status" :filterMenuStyle="{'width':'14rem'}" style="min-width:12rem">
+                        <template #body="{data}">
+                            <span class="p-column-title">Status</span>
+                            <span :class="'customer-badge status-' + data.status">{{data.status}}</span>
+                        </template>
+                        <!-- <template #filter="{filterModel}">
+                            <Dropdown v-model="filterModel.value" :options="statuses" placeholder="Any" class="p-column-filter" :showClear="true">
+                                <template #value="slotProps">
+                                    <span :class="'customer-badge status-' + slotProps.value" v-if="slotProps.value">{{slotProps.value}}</span>
+                                    <span v-else>{{slotProps.placeholder}}</span>
+                                </template>
+                                <template #option="slotProps">
+                                    <span :class="'customer-badge status-' + slotProps.option">{{slotProps.option}}</span>
+                                </template>
+                            </Dropdown>
+                        </template> -->
+                    </Column>
+                    <!-- <Column field="activity" header="Activity" :showFilterMatchModes="false" style="min-width:12rem">
+                        <template #body="{data}">
+                            <span class="p-column-title">Activity</span>
+                            <ProgressBar :value="data.activity" :showValue="false"></ProgressBar>
+                        </template>
+                        <template #filter={filterModel}>
+                            <Slider v-model="filterModel.value" range class="p-m-3"></Slider>
+                            <div class="p-d-flex p-ai-center p-jc-between p-px-2">
+                                <span>{{filterModel.value ? filterModel.value[0] : 0}}</span>
+                                <span>{{filterModel.value ? filterModel.value[1] : 100}}</span>
+                            </div>
+                        </template>
+                    </Column> -->
+                    <Column field="verified" header="Verified" dataType="boolean" bodyClass="p-text-center" style="min-width:8rem">
+                        <template #body="{data}">
+                            <span class="p-column-title">Verified</span>
+                            <i class="pi" :class="{'true-icon pi-check-circle': data.verified, 'false-icon pi-times-circle': !data.verified}"></i>
+                        </template>
+                        <!-- <template #filter={filterModel}>
+                            <TriStateCheckbox v-model="filterModel.value" />
+                        </template> -->
+                    </Column>
+				</DataTable>
 			</div>
 		</div>
     </div>
@@ -78,21 +178,27 @@
 				expandedRows: [],
 				statuses: [
 					'unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal'
-                    // <Button icon="pi pi-check" class="p-button-rounded p-button-outlined p-mr-2 p-mb-2" />,
-                    // <Button icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined p-mr-2 p-mb-2" />
 				],
-				// representatives: [
-				// 	{name: "Amy Elsner", image: 'amyelsner.png'},
-				// 	{name: "Anna Fali", image: 'annafali.png'},
-				// 	{name: "Asiya Javayant", image: 'asiyajavayant.png'},
-				// 	{name: "Bernardo Dominic", image: 'bernardodominic.png'},
-				// 	{name: "Elwin Sharvill", image: 'elwinsharvill.png'},
-				// 	{name: "Ioni Bowcher", image: 'ionibowcher.png'},
-				// 	{name: "Ivan Magalhaes",image: 'ivanmagalhaes.png'},
-				// 	{name: "Onyama Limba", image: 'onyamalimba.png'},
-				// 	{name: "Stephen Shaw", image: 'stephenshaw.png'},
-				// 	{name: "XuXue Feng", image: 'xuxuefeng.png'}
-				// ],
+			
+				dropdownItems: [
+					{name: 'male', code: 'male'},
+					{name: 'female', code: 'female'},
+					{name: 'others', code: 'others'}
+				],
+				dropdownItem: null,
+			
+				representatives: [
+					{name: "Amy Elsner", image: 'amyelsner.png'},
+					{name: "Anna Fali", image: 'annafali.png'},
+					{name: "Asiya Javayant", image: 'asiyajavayant.png'},
+					{name: "Bernardo Dominic", image: 'bernardodominic.png'},
+					{name: "Elwin Sharvill", image: 'elwinsharvill.png'},
+					{name: "Ioni Bowcher", image: 'ionibowcher.png'},
+					{name: "Ivan Magalhaes",image: 'ivanmagalhaes.png'},
+					{name: "Onyama Limba", image: 'onyamalimba.png'},
+					{name: "Stephen Shaw", image: 'stephenshaw.png'},
+					{name: "XuXue Feng", image: 'xuxuefeng.png'}
+				],
 			}
 		},
 		customerService: null,
