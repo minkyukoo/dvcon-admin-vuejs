@@ -324,8 +324,12 @@ const routes = [
     {
         path: '/cms',
         name: 'cms',
-        component: () => import('./pages/Cms.vue')
+        component: () => import('./pages/Cms.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Cms' }],
+        },
     },
+    {
         path: '/faq',
         name: 'faq',
         component: () => import('./pages/Faq.vue'),
