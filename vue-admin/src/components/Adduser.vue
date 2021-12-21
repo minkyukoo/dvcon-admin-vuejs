@@ -2,7 +2,7 @@
     <div class="p-grid">
         <div class="p-col-12">
             <div class="card p-fluid">
-                <h4><strong>Search</strong></h4>
+                <h4><strong>New</strong></h4>
                 <div class="p-formgrid p-grid">
                     <div class="p-field p-col">
                         <label for="nameuser">Name</label>

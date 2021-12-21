@@ -29,6 +29,15 @@ const routes = [
         },
     },
     {
+        path: '/query',
+        name: 'Query',
+        exact: true,
+        component: () => import('./components/menu/Query.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'Query', label: '1.1 Query' }],
+        },
+    },
+    {
         path: '/formlayout',
         name: 'formlayout',
         component: () => import('./components/FormLayoutDemo.vue'),
