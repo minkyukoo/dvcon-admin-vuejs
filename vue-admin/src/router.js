@@ -322,6 +322,10 @@ const routes = [
         component: () => import('./pages/Access.vue')
     },
     {
+        path: '/cms',
+        name: 'cms',
+        component: () => import('./pages/Cms.vue')
+    },
         path: '/faq',
         name: 'faq',
         component: () => import('./pages/Faq.vue'),
