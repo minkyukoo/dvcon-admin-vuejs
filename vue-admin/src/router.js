@@ -323,7 +323,7 @@ const routes = [
     },
     {
         path: '/faq',
-        name: 'faq',
+        name: 'Faq',
         component: () => import('./pages/Faq.vue'),
         meta: {
             breadcrumb: [{ parent: 'Pages', label: 'Faq' }],
