@@ -96,8 +96,8 @@
                         <template #body="{data}">
                             <span class="p-column-title">Management</span>
                             <p style="display: none;">{{formatCurrency(data.balance)}}</p>
-							<Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label="last year" icon="pi pi-refresh" />
-							<Button type="button" class="p-button-outlined p-button-danger p-mr-2 p-mb-2" label="last year" icon="pi pi-trash" />
+							<Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label="Correction" icon="pi pi-user-edit" />
+							<Button type="button" class="p-button-outlined p-button-danger p-mr-2 p-mb-2" label="Delete" icon="pi pi-trash" />
 						</template>
                     </Column>
 				</DataTable>
