@@ -11,6 +11,15 @@ const routes = [
         },
     },
     {
+        path: '/user',
+        name: 'User',
+        exact: true,
+        component: () => import('./components/User.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'User', label: 'User' }],
+        },
+    },
+    {
         path: '/formlayout',
         name: 'formlayout',
         component: () => import('./components/FormLayoutDemo.vue'),
@@ -316,7 +325,14 @@ const routes = [
         path: '/cms',
         name: 'cms',
         component: () => import('./pages/Cms.vue')
-    }
+    },
+        path: '/faq',
+        name: 'faq',
+        component: () => import('./pages/Faq.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Faq' }],
+        },
+    },
 ];
 
 const router = createRouter({
