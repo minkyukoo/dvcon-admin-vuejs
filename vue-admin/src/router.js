@@ -20,6 +20,15 @@ const routes = [
         },
     },
     {
+        path: '/add-user',
+        name: 'Adduser',
+        exact: true,
+        component: () => import('./components/Adduser.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'User', label: 'Add User' }],
+        },
+    },
+    {
         path: '/formlayout',
         name: 'formlayout',
         component: () => import('./components/FormLayoutDemo.vue'),
