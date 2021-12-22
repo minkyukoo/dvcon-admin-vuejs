@@ -29,6 +29,24 @@ const routes = [
         },
     },
     {
+        path: '/view-user',
+        name: 'ViewUser',
+        exact: true,
+        component: () => import('./components/ViewUser.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'User', label: 'View User' }],
+        },
+    },
+    {
+        path: '/edit-user',
+        name: 'UpdateUser',
+        exact: true,
+        component: () => import('./components/UpdateUser.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'User', label: 'Update User' }],
+        },
+    },
+    {
         path: '/query',
         name: 'Query',
         exact: true,

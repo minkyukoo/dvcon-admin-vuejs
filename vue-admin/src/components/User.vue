@@ -1,5 +1,6 @@
 <template>
     <div class="p-grid">
+        <Toast />
         <div class="p-col-12">
             <div class="card p-fluid">
                 <h4><strong>Search</strong></h4>
@@ -193,9 +194,11 @@
                             <span class="p-column-title">Balance</span>
                             <p style="display:none">{{ formatCurrency(data.balance) }}</p>
                             <div style="display:flex">
-                            <Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> view</Button>
-                            <Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button>
-                            <Button label="danger" class="p-button-outlined p-button-danger p-mr-2 p-mb-2"><i class="pi pi-minus p-mr-2"></i> Delete</Button>
+                             <router-link to="/view-user"><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> view</Button>
+                             </router-link>
+                             <router-link to="/edit-user"><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link>
+                            <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined" @click="del" />
+                            <ConfirmDialog group="dialog" />
                             </div>
                         </template>
                         <!-- <template #filter="{filterModel}">
@@ -214,6 +217,15 @@ import ProductService from '../service/ProductService';
 export default {
     data() {
         return {
+            display: false,
+				position: 'center',
+				visibleLeft: false,
+				visibleRight: false,
+				visibleTop: false,
+				visibleBottom: false,
+				visibleFull: false,
+				
+				selectedProduct: null,
             calendarValue: null,
             calendarValue1: null,
             customer1: null,
@@ -268,6 +280,15 @@ export default {
         this.loading2 = false;
     },
     methods: {
+        open() {
+				this.display = true;
+			},
+			close() {
+				this.display = false;
+			},
+            toggle(event) {
+				this.$refs.op.toggle(event);
+			},
         initFilters1() {
             this.filters1 = {
                 global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -320,6 +341,21 @@ export default {
 
             return total;
         },
+        del() {
+				this.$confirm.require({
+					group: 'dialog',
+					header: 'Confirmation',
+					message: 'Are you sure you want to delete?',
+					icon: 'pi pi-exclamation-triangle',
+					accept: () => {
+						this.$toast.add({severity:'info', summary:'Confirmed', detail:'You have accepted', life: 3000});
+                        
+					},
+					reject: () => {
+						this.$toast.add({severity:'error', summary:'Rejected', detail:'You have rejected', life: 3000});
+					}
+				});
+			},
     },
 };
 </script>
