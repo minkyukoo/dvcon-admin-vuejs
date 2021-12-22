@@ -34,7 +34,7 @@
                     </div>
                 </div>
 
-                <div class="p-d-flex p-jc-end">
+                <div class="p-d-flex p-mt-2">
                     <Button label="Primary" class="p-mr-2 p-mb-2"><i class="pi pi-search p-mr-2"></i> search</Button>
                     <Button label="Help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-refresh p-mr-2"></i> redo</Button>
                     
