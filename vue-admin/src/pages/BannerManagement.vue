@@ -44,7 +44,15 @@
             <div class="p-grid">
                 <div class="p-col-12">
                     <Toast />
-                    <DataTable :value="products" dataKey="id" responsiveLayout="scroll" scrollable scrollHeight="400px" class="p-mt-3">
+                    <div class="p-d-flex p-jc-between">
+                        <h4>Banner Management</h4>
+                        <div>
+                            <router-link to="/create-banner">
+                                <Button label="New" icon="pi pi-plus" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
+                            </router-link>
+                        </div>
+                    </div>
+                    <DataTable :value="products" dataKey="id" responsiveLayout="scroll" :paginator="true" :rows="4" :rowHover="true">
                         <!-- <template #header>
                                 <div class="table-header-container">
                                     <Button icon="pi pi-plus" label="Expand All" @click="expandAll" class="p-mr-2 p-mb-2" />
@@ -52,37 +60,37 @@
                                 </div>
                             </template> -->
                         <!-- <Column :expander="true" headerStyle="width: 3rem" /> -->
-                        <Column field="name" header="Number">
+                        <Column field="name" header="Number" >
                             <template #body="slotProps">
                                 <span class="p-column-title">Number</span>
                                 {{ slotProps.data.number }}
                             </template>
                         </Column>
-                        <Column field="name" header="Title" :sortable="true">
+                        <Column field="name" header="Title" :sortable="true" >
                             <template #body="slotProps">
                                 <span class="p-column-title">Title</span>
                                 {{ slotProps.data.name }}
                             </template>
                         </Column>
-                        <Column field="name" header="Subtitle" :sortable="true">
+                        <Column field="name" header="Subtitle" :sortable="true" >
                             <template #body="slotProps">
                                 <span class="p-column-title">Subtitle</span>
                                 {{ slotProps.data.name }}
                             </template>
                         </Column>
-                        <Column header="Image">
+                        <Column header="Image" >
                             <template #body="slotProps">
                                 <span class="p-column-title">Image</span>
                                 <img :src="'assets/demo/images/product/' + slotProps.data.image" :alt="slotProps.data.image" class="product-image" />
                             </template>
                         </Column>
-                        <Column field="price" header="Banner Position" :sortable="true">
+                        <Column field="price" header="Banner Position" :sortable="true" >
                             <template #body="slotProps">
                                 <span class="p-column-title">Banner Position</span>
                                 {{ formatCurrency(slotProps.data.bannerPosition) }}
                             </template>
                         </Column>
-                        <Column field="category" header="Creation Date" :sortable="true">
+                        <Column field="category" header="Creation Date" :sortable="true" >
                             <template #body="slotProps">
                                 <span class="p-column-title">Creation Date</span>
                                 {{ formatCurrency(slotProps.data.creationDate) }}
@@ -102,10 +110,12 @@
                         </Column> -->
                         <Column field="inventoryStatus" header="Status" >
                             <template #body>
-                                <Button label="correction" icon="pi pi-pencil" iconPos="left" class="p-button p-button-info p-button-sm p-mr-2 p-mb-2"></Button>
-                                <Button label="Delete" icon="pi pi-calendar" iconPos="left" class="p-button p-button-danger p-button-sm p-mr-2 p-mb-2"></Button>
+                                <router-link to="/edit-banner">
+                                    <Button label="correction" icon="pi pi-pencil" iconPos="left" 
+                                    class="p-button p-button-info p-button-sm p-mr-2 p-mb-2"></Button>
+                                </router-link>
+                                <Button label="Delete" icon="pi pi-trash" iconPos="left" class="p-button p-button-danger p-button-sm p-mr-2 p-mb-2"></Button>
                             </template>
-                            
                         </Column>
                         <!-- <template #expansion="slotProps">
                                 <div class="orders-subtable">
@@ -158,7 +168,7 @@
 
 <script>
 import ProductService from '../service/ProductService';
-import CustomerService from '../service/CustomerService';
+// import CustomerService from '../service/CustomerService';
 // import {FilterMatchMode,FilterOperator} from 'primevue/api';
 export default {
     data() {
@@ -173,52 +183,27 @@ export default {
             dropdownValue: null,
             calendarValue1: null,
             calendarValue2: null,
-            customer3: null,
-            customer2: null,
+            // customer3: null,
+            // customer2: null,
             products: null,
         };
     },
     customerService: null,
     productService: null,
     created() {
-        this.customerService = new CustomerService();
         this.productService = new ProductService();
+        // this.customerService = new CustomerService();
     },
     mounted() {
-        this.customerService.getCustomersMedium().then((data) => (this.customer3 = data));
         this.productService.getProductsWithOrdersSmall().then((data) => (this.products = data));
     },
     methods: {
-        // initFilters1() {
-        //     this.filters1 = {
-        //         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        //         name: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-        //         'country.name': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-        //         representative: { value: null, matchMode: FilterMatchMode.IN },
-        //         date: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
-        //         balance: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
-        //         status: { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
-        //         activity: { value: null, matchMode: FilterMatchMode.BETWEEN },
-        //         verified: { value: null, matchMode: FilterMatchMode.EQUALS },
-        //     };
-        // },
-        // clearFilter1() {
-        //     this.initFilters1();
-        // },
         onRowExpand(event) {
             this.$toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
         },
         onRowCollapse(event) {
             this.$toast.add({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
         },
-        // expandAll() {
-        //     this.expandedRows = this.products.filter((p) => p.id);
-        //     this.$toast.add({ severity: 'success', summary: 'All Rows Expanded', life: 3000 });
-        // },
-        // collapseAll() {
-        //     this.expandedRows = null;
-        //     this.$toast.add({ severity: 'success', summary: 'All Rows Collapsed', life: 3000 });
-        // },
         formatCurrency(value) {
             return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
         },
@@ -228,18 +213,6 @@ export default {
                 month: '2-digit',
                 year: 'numeric',
             });
-        },
-        calculateCustomerTotal(name) {
-            let total = 0;
-            if (this.customer3) {
-                for (let customer of this.customer3) {
-                    if (customer.representative.name === name) {
-                        total++;
-                    }
-                }
-            }
-
-            return total;
         },
     },
 };
