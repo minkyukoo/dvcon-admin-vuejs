@@ -63,16 +63,12 @@
                             <span class="p-column-title">management</span>
                             <p style="display:none">{{ formatCurrency(data.balance) }}</p>
                             <div style="display:flex">
-                             <router-link to="/view-user"><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> view</Button>
-                             </router-link>
                              <router-link to="/edit-user"><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link>
                             <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined" @click="del" />
                             <ConfirmDialog group="dialog" />
                             </div>
                         </template>
-                        <!-- <template #filter="{filterModel}">
-                            <InputNumber v-model="filterModel.value" mode="currency" currency="USD" locale="en-US" />
-                        </template> -->
+                      
                     </Column>
 				</DataTable>
 			</div>
@@ -137,7 +133,7 @@
 			this.productService.getProductsWithOrdersSmall().then(data => this.products = data);
 			this.customerService.getcontentlarge().then(data => {
 				this.content1 = data;
-                console.log(data) ;
+                // console.log(data) ;
 				this.loading1 = false;
 				this.content1.forEach(customer => customer.date = new Date(customer.date));
 			});
