@@ -28,7 +28,7 @@
                     <h5>Content Management</h5>
                     <Button label="New" icon="pi pi-plus" class="p-mr-2 p-mb-2"></Button>
                 </div>
-				<DataTable :value="customer1" :paginator="true" class="p-datatable-gridlines" :rows="10" dataKey="id" :rowHover="true" 
+				<DataTable :value="content1" :paginator="true" class="p-datatable-gridlines" :rows="10" dataKey="id" :rowHover="true" 
 							v-model:filters="filters1" filterDisplay="menu" :loading="loading1" :filters="filters1" responsiveLayout="scroll"
 							:globalFilterFields="['name','country.name','representative.name','balance','status']" >
                     <template #empty>
@@ -57,11 +57,22 @@
                         </template>
                         
                     </Column>
-                    <Column field="verified" header="management" dataType="boolean" bodyClass="p-text-center" style="min-width:8rem">
+                    
+                    <Column header="management" filterField="exra" dataType="numeric">
                         <template #body="{data}">
-                            <span class="p-column-title">Verified</span>
-                            <i class="pi" :class="{'true-icon pi-check-circle': data.verified, 'false-icon pi-times-circle': !data.verified}"></i>
+                            <span class="p-column-title">management</span>
+                            <p style="display:none">{{ formatCurrency(data.balance) }}</p>
+                            <div style="display:flex">
+                             <router-link to="/view-user"><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> view</Button>
+                             </router-link>
+                             <router-link to="/edit-user"><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link>
+                            <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined" @click="del" />
+                            <ConfirmDialog group="dialog" />
+                            </div>
                         </template>
+                        <!-- <template #filter="{filterModel}">
+                            <InputNumber v-model="filterModel.value" mode="currency" currency="USD" locale="en-US" />
+                        </template> -->
                     </Column>
 				</DataTable>
 			</div>
@@ -82,6 +93,7 @@
 				customer1: null,
 				customer2: null,
 				customer3: null,
+                content1:null,
 				filters1: null,
 				filters2: {},
 				loading1: true,
@@ -123,12 +135,13 @@
 		},
 		mounted() {
 			this.productService.getProductsWithOrdersSmall().then(data => this.products = data);
-			this.customerService.getCustomersLarge().then(data => {
-				this.customer1 = data; 
+			this.customerService.getcontentlarge().then(data => {
+				this.content1 = data;
+                console.log(data) ;
 				this.loading1 = false;
-				this.customer1.forEach(customer => customer.date = new Date(customer.date));
+				this.content1.forEach(customer => customer.date = new Date(customer.date));
 			});
-			this.customerService.getCustomersLarge().then(data => this.customer2 = data);
+			this.customerService.getcontentlarge().then(data => this.customer2 = data);
 			this.customerService.getCustomersMedium().then(data => this.customer3 = data);
 			this.loading2 = false;
 		},
@@ -171,6 +184,8 @@
 					day: '2-digit',
 					month: '2-digit',
 					year: 'numeric',
+                    hour:'2-digit',
+                    minute:'2-digit',
 				});
 			},
 			calculateCustomerTotal(name) {
