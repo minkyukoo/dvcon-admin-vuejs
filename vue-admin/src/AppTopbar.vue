@@ -6,17 +6,27 @@
                     <i class="pi pi-bars"></i>
                 </a>
                 <router-link id="logo-link" class="layout-topbar-logo" to="/">
-                    <img :src="'assets/layout/images/logo-' + (topbarTheme === 'dark' ? 'freya-white' : 'freya') + '.svg'" alt="freya-layout"/>
+                    <img :src="'assets/layout/images/logo-' + (topbarTheme === 'dark' ? 'freya-white' : 'freya') + '.svg'" alt="freya-layout" />
                 </router-link>
             </div>
 
-            <AppMenu :layoutMode="layoutMode" :sidebarActive="sidebarActive" :sidebarStatic="sidebarStatic" :menuActive="menuActive" :mobileMenuActive="mobileMenuActive" 
-                @sidebar-mouse-leave="onSidebarMouseLeave" @sidebar-mouse-over="onSidebarMouseOver" @toggle-menu="onToggleMenu" 
-                @menu-click="onMenuClick" @menuitem-click="onMenuItemClick" @root-menuitem-click="onRootMenuItemClick" />
+            <AppMenu
+                :layoutMode="layoutMode"
+                :sidebarActive="sidebarActive"
+                :sidebarStatic="sidebarStatic"
+                :menuActive="menuActive"
+                :mobileMenuActive="mobileMenuActive"
+                @sidebar-mouse-leave="onSidebarMouseLeave"
+                @sidebar-mouse-over="onSidebarMouseOver"
+                @toggle-menu="onToggleMenu"
+                @menu-click="onMenuClick"
+                @menuitem-click="onMenuItemClick"
+                @root-menuitem-click="onRootMenuItemClick"
+            />
 
             <div class="layout-topbar-right">
                 <ul class="layout-topbar-actions">
-                    <li ref="search" class="topbar-item search-item" :class="{'active-topmenuitem': searchActive}">
+                    <li ref="search" class="topbar-item search-item" :class="{ 'active-topmenuitem': searchActive }">
                         <a tabindex="0" @click="onTopbarSearchToggle">
                             <i class="topbar-icon pi pi-search"></i>
                         </a>
@@ -38,9 +48,9 @@
                         </ul>
                     </li>
 
-                    <li ref="profile" class="topbar-item user-profile" :class="{'active-topmenuitem fadeInDown': topbarUserMenuActive}">
+                    <li ref="profile" class="topbar-item user-profile" :class="{ 'active-topmenuitem fadeInDown': topbarUserMenuActive }">
                         <a @click="onTopbarUserMenuClick">
-                            <img src="assets/layout/images/avatar-profilemenu.png" alt="freya-layout"/>
+                            <img src="assets/layout/images/avatar-profilemenu.png" alt="freya-layout" />
                         </a>
                         <ul class="fadeInDown">
                             <li>
@@ -63,6 +73,11 @@
                                     <span>Notifications</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="/">
+                                    <span @click="logout">Logout</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -78,10 +93,22 @@
 <script>
 import AppMenu from './AppMenu';
 export default {
-    name: "AppTopbar",
-    emits: ["menu-click", "menuitem-click", "root-menuitem-click", "menu-button-click", "toggle-menu", "right-menubutton-click", 
-        "sidebar-mouse-over", "sidebar-mouse-leave", "topbar-search-toggle", "topbar-search-click", "topbar-search-hide", 
-        "topbar-usermenu-click", "update:searchClick"],
+    name: 'AppTopbar',
+    emits: [
+        'menu-click',
+        'menuitem-click',
+        'root-menuitem-click',
+        'menu-button-click',
+        'toggle-menu',
+        'right-menubutton-click',
+        'sidebar-mouse-over',
+        'sidebar-mouse-leave',
+        'topbar-search-toggle',
+        'topbar-search-click',
+        'topbar-search-hide',
+        'topbar-usermenu-click',
+        'update:searchClick',
+    ],
     props: {
         searchActive: Boolean,
         searchClick: Boolean,
@@ -94,7 +121,7 @@ export default {
         layoutMode: String,
         topbarTheme: String,
         menuActive: Boolean,
-        mobileMenuActive: Boolean
+        mobileMenuActive: Boolean,
     },
     unmounted() {
         if (this.subscription) {
@@ -103,60 +130,62 @@ export default {
     },
     methods: {
         onMenuClick(event) {
-            this.$emit("menu-click", event);
+            this.$emit('menu-click', event);
         },
         onMenuItemClick(event) {
-            this.$emit("menuitem-click", event);
+            this.$emit('menuitem-click', event);
         },
-		onRootMenuItemClick(event) {
-			this.$emit("root-menuitem-click", event);
-		},
+        onRootMenuItemClick(event) {
+            this.$emit('root-menuitem-click', event);
+        },
         onMenuButtonClick(event) {
-            this.$emit("menu-button-click", event);
+            this.$emit('menu-button-click', event);
         },
         onToggleMenu(event) {
-            this.$emit("toggle-menu", event);
+            this.$emit('toggle-menu', event);
         },
         onTopbarSearchToggle(event) {
             this.$emit('topbar-search-toggle', event);
             this.onSearchFocus();
         },
         onTopbarSearchClick(event) {
-            this.$emit("topbar-search-click", event);
+            this.$emit('topbar-search-click', event);
         },
         onInputKeydown(event) {
             const key = event.which;
-            
+
             //escape, tab and enter
             if (key === 27 || key === 9 || key === 13) {
-                this.$emit("topbar-search-hide", event);
+                this.$emit('topbar-search-hide', event);
             }
         },
         onTopbarUserMenuClick(event) {
-            this.$emit("topbar-usermenu-click", event)
+            this.$emit('topbar-usermenu-click', event);
         },
         onRightMenuButtonClick(event) {
-            this.$emit("right-menubutton-click", event);
+            this.$emit('right-menubutton-click', event);
         },
         onSidebarMouseOver() {
-            this.$emit("sidebar-mouse-over");
+            this.$emit('sidebar-mouse-over');
         },
         onSidebarMouseLeave() {
-            this.$emit("sidebar-mouse-leave");
-        }, 
+            this.$emit('sidebar-mouse-leave');
+        },
+        logout() {
+            localStorage.clear();
+        },
         onSearchFocus() {
-            if(window.innerWidth >= 576) {
+            if (window.innerWidth >= 576) {
                 this.$refs.desktopInput.$el.focus();
-            }
-            else {
+            } else {
                 this.$nextTick(function() {
                     this.$refs.phoneInput.$el.focus();
-                })
+                });
             }
-        }
-    }, 
-    components: { 
-        AppMenu
-    }
+        },
+    },
+    components: {
+        AppMenu,
+    },
 };
 </script>
