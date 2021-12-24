@@ -24,4 +24,9 @@ export default class CustomerService {
             .get("assets/demo/data/customers-xlarge.json")
             .then(res => res.data.data);
     }
+    getcontentlarge() {
+        return axios
+            .get("assets/demo/data/contentlarge.json")
+            .then(res => res.data.data);
+    }
 }
