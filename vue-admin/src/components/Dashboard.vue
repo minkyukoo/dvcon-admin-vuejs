@@ -3,7 +3,9 @@
         <div class="p-grid">
             <div class="p-col-12">
                 <div class="notification">
-                    <h6>👋  Hello! Welcome to Hit! Before start please complete your profile to know you better. <a href="#">Profile settings <i class="pi pi-arrow-up"></i></a></h6>
+                    <h6>
+                        👋 Hello! Welcome to Hit! Before start please complete your profile to know you better. <a href="#">Profile settings <i class="pi pi-arrow-up"></i></a>
+                    </h6>
                 </div>
             </div>
 
@@ -86,8 +88,7 @@
                             <i class="pi pi-circle-on"></i>
                             <div class="event-content">
                                 <span class="event-title">Capacity</span>
-                                <span>Reached 80% CPU capacity in Ireland. Automatic
-                                            capacity increase initiated.</span>
+                                <span>Reached 80% CPU capacity in Ireland. Automatic capacity increase initiated.</span>
                                 <span class="time">1:30PM</span>
                             </div>
                         </li>
@@ -119,7 +120,6 @@
                     <a href="#">See all</a>
                 </div>
             </div>
-
 
             <div class="p-col-12 p-md-6">
                 <div class="p-grid">
@@ -245,7 +245,6 @@
                             </li>
                             <a href="#">See all(4)</a>
                         </ul>
-
                     </div>
                     <Button type="button" label="Go to full stock page" class="p-button-outlined"></Button>
                 </div>
@@ -510,7 +509,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -526,17 +524,13 @@ export default {
                     {
                         label: 'Revenue',
                         data: [12, 19, 3, 5, 2, 3, 9],
-                        borderColor: [
-                            '#FFA928',
-                        ],
+                        borderColor: ['#FFA928'],
                         borderWidth: 4,
                         fill: true,
-                        backgroundColor: [
-                            'rgba(255, 169, 40, .2)'
-                        ],
-                        tension: .4
-                    }
-                ]
+                        backgroundColor: ['rgba(255, 169, 40, .2)'],
+                        tension: 0.4,
+                    },
+                ],
             },
             chartOptions1: {
                 legend: {
@@ -544,7 +538,7 @@ export default {
                 },
                 maintainAspectRatio: false,
                 hover: {
-                    mode: 'index'
+                    mode: 'index',
                 },
                 scales: {
                     x: {
@@ -552,8 +546,8 @@ export default {
                     },
                     y: {
                         display: false,
-                    }
-                }
+                    },
+                },
             },
             chart2: null,
             chartOptions2: {
@@ -562,7 +556,7 @@ export default {
                 },
                 maintainAspectRatio: false,
                 hover: {
-                    mode: 'index'
+                    mode: 'index',
                 },
                 scales: {
                     x: {
@@ -571,38 +565,38 @@ export default {
                             color: 'transparent',
                         },
                         ticks: {
-                            color: '#BFC2C6'
-                        }
+                            color: '#BFC2C6',
+                        },
                     },
                     y: {
                         display: true,
                         grid: {
-                            color:  'rgba(191, 194, 198, .45)',
-                            borderDash:[5, 10],
+                            color: 'rgba(191, 194, 198, .45)',
+                            borderDash: [5, 10],
                         },
                         ticks: {
-                            color:  '#BFC2C6',
+                            color: '#BFC2C6',
                             min: 0,
                             stepSize: 5,
-                        }
-                    }
-                }
-            }
-        }
+                        },
+                    },
+                },
+            },
+        };
     },
     watch: {
-		'$appState.isNewThemeLoaded'(isLoaded) {
-			if (isLoaded) {
-				this.refreshChart();
-				this.$appState.isNewThemeLoaded = false;
-			}
-		}
-	},
+        '$appState.isNewThemeLoaded'(isLoaded) {
+            if (isLoaded) {
+                this.refreshChart();
+                this.$appState.isNewThemeLoaded = false;
+            }
+        },
+    },
     mounted() {
-         let user=localStorage.getItem('user-data');
-    if(!user){
-      this.$router.push({name:'login'});
-    }
+        let user = localStorage.getItem('token');
+        if (!user) {
+            this.$router.push({ name: 'login' });
+        }
         this.refreshChart();
     },
     methods: {
@@ -622,15 +616,14 @@ export default {
                         borderWidth: 4,
                         fill: true,
                         backgroundColor: [backgroundColor],
-                        tension: .4
-                    }
-                ]
-            }
-        }
-    }
+                        tension: 0.4,
+                    },
+                ],
+            };
+        },
+    },
 };
 </script>
-
 
 <style lang="scss" scoped>
 .layout-dashboard {

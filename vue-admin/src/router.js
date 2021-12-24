@@ -20,6 +20,42 @@ const routes = [
         },
     },
     {
+        path: '/add-user',
+        name: 'Adduser',
+        exact: true,
+        component: () => import('./components/Adduser.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'User', label: 'Add User' }],
+        },
+    },
+    {
+        path: '/user/view-user',
+        name: 'ViewUser',
+        exact: true,
+        component: () => import('./components/ViewUser.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'User', label: 'View User' }],
+        },
+    },
+    {
+        path: '/user/edit-user',
+        name: 'UpdateUser',
+        exact: true,
+        component: () => import('./components/UpdateUser.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'User', label: 'Update User' }],
+        },
+    },
+    {
+        path: '/query',
+        name: 'Query',
+        exact: true,
+        component: () => import('./components/menu/Query.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'Query', label: '1.1 Query' }],
+        },
+    },
+    {
         path: '/formlayout',
         name: 'formlayout',
         component: () => import('./components/FormLayoutDemo.vue'),

@@ -181,6 +181,7 @@
 					icon: 'pi pi-exclamation-triangle',
 					accept: () => {
 						this.$toast.add({severity:'info', summary:'Confirmed', detail:'You have accepted', life: 3000});
+						
 					},
 					reject: () => {
 						this.$toast.add({severity:'error', summary:'Rejected', detail:'You have rejected', life: 3000});
