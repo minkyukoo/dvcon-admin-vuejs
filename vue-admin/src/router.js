@@ -330,7 +330,7 @@ const routes = [
         },
         // children:[
         //     {
-        //         path: '/edit',
+        //         path: 'edit',
         //         name: 'Cmsedit',
         //         component: () => import('./pages/Cmsedit.vue'), 
         //         meta: {
@@ -348,14 +348,16 @@ const routes = [
             breadcrumb: [{ parent: 'Pages', label: 'Faq' }],
         },
     },
+
     {
-        path: '/cmsedit',
-        name: 'cmsedit',
+        path: '/cms/edit',
+        name: 'Cmsedit',
         component: () => import('./pages/Cmsedit.vue'),
         meta: {
             breadcrumb: [{ parent: 'Pages', label: 'Cmsedit' }],
         },
     },
+    
 ];
 
 const router = createRouter({

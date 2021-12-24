@@ -63,7 +63,7 @@
                             <span class="p-column-title">management</span>
                             <p style="display:none">{{ formatCurrency(data.balance) }}</p>
                             <div style="display:flex">
-                             <router-link to="/cmsedit"><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link>
+                             <router-link to="/cms/edit"><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link>
                             <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined" @click="del" />
                             <ConfirmDialog group="dialog" />
                             </div>
@@ -71,6 +71,7 @@
                       
                     </Column>
 				</DataTable>
+				<router-view></router-view>
 			</div>
 		</div>
     </div>
