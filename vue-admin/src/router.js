@@ -328,13 +328,32 @@ const routes = [
         meta: {
             breadcrumb: [{ parent: 'Pages', label: 'Cms' }],
         },
+        // children:[
+        //     {
+        //         path: '/edit',
+        //         name: 'Cmsedit',
+        //         component: () => import('./pages/Cmsedit.vue'), 
+        //         meta: {
+        //             breadcrumb: [{ parent: 'Pages', label: 'Cmsedit' }],
+        //         },  
+        //     }
+        // ]
     },
+
     {
         path: '/faq',
         name: 'faq',
         component: () => import('./pages/Faq.vue'),
         meta: {
             breadcrumb: [{ parent: 'Pages', label: 'Faq' }],
+        },
+    },
+    {
+        path: '/edit',
+        name: 'Cmsedit',
+        component: () => import('./pages/Cmsedit.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Cmsedit' }],
         },
     },
 ];
