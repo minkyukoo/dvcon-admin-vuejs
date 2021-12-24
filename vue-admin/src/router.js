@@ -349,8 +349,8 @@ const routes = [
         },
     },
     {
-        path: '/edit',
-        name: 'Cmsedit',
+        path: '/cmsedit',
+        name: 'cmsedit',
         component: () => import('./pages/Cmsedit.vue'),
         meta: {
             breadcrumb: [{ parent: 'Pages', label: 'Cmsedit' }],
