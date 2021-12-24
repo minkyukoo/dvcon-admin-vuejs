@@ -29,10 +29,10 @@ export default {
         };
     },
     methods: {
-        Login() {
-            // localStorage.setItem('user-data',{username: this.username,password:this.password});
+        async Login() {
+            // localStorage.setItem('token',{username: this.username,password:this.password});
             // window.location = "/#/"
-            axios({
+            await axios({
                 method: 'post',
                 url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/auth/login',
                 data: {
@@ -48,7 +48,7 @@ export default {
                     console.log(response);
                     if (response.data.status === 200) {
                         console.log(response.data.status);
-                        localStorage.setItem('user-data', response.data.data.token);
+                        localStorage.setItem('token', response.data.data.token);
                         window.location = '/#/';
                     }
                 })

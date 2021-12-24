@@ -85,7 +85,7 @@
                     <template #loading>
                         Loading customers data. Please wait.
                     </template>
-                    
+
                     <Column field="name" header="Name" style="min-width:12rem">
                         <template #body="{data}">
                             <span class="p-column-title">Name</span>
@@ -189,16 +189,19 @@
                             <TriStateCheckbox v-model="filterModel.value" />
                         </template> -->
                     </Column>
-                     <Column header="extra" filterField="exra" dataType="numeric">
+                    <Column header="extra" filterField="exra" dataType="numeric">
                         <template #body="{data}">
                             <span class="p-column-title">Balance</span>
                             <p style="display:none">{{ formatCurrency(data.balance) }}</p>
                             <div style="display:flex">
-                             <router-link to="/view-user"><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> view</Button>
-                             </router-link>
-                             <router-link to="/edit-user"><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link>
-                            <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined" @click="del" />
-                            <ConfirmDialog group="dialog" />
+                                <router-link to="/user/view-user"
+                                    ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> view</Button>
+                                </router-link>
+                                <router-link to="/user/edit-user"
+                                    ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link
+                                >
+                                <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined" @click="del" />
+                                <ConfirmDialog group="dialog" />
                             </div>
                         </template>
                         <!-- <template #filter="{filterModel}">
@@ -218,14 +221,14 @@ export default {
     data() {
         return {
             display: false,
-				position: 'center',
-				visibleLeft: false,
-				visibleRight: false,
-				visibleTop: false,
-				visibleBottom: false,
-				visibleFull: false,
-				
-				selectedProduct: null,
+            position: 'center',
+            visibleLeft: false,
+            visibleRight: false,
+            visibleTop: false,
+            visibleBottom: false,
+            visibleFull: false,
+
+            selectedProduct: null,
             calendarValue: null,
             calendarValue1: null,
             customer1: null,
@@ -267,6 +270,7 @@ export default {
         this.customerService = new CustomerService();
         this.productService = new ProductService();
         this.initFilters1();
+        
     },
     mounted() {
         this.productService.getProductsWithOrdersSmall().then(data => (this.products = data));
@@ -278,17 +282,20 @@ export default {
         this.customerService.getCustomersLarge().then(data => (this.customer2 = data));
         this.customerService.getCustomersMedium().then(data => (this.customer3 = data));
         this.loading2 = false;
+
+        
+        
     },
     methods: {
         open() {
-				this.display = true;
-			},
-			close() {
-				this.display = false;
-			},
-            toggle(event) {
-				this.$refs.op.toggle(event);
-			},
+            this.display = true;
+        },
+        close() {
+            this.display = false;
+        },
+        toggle(event) {
+            this.$refs.op.toggle(event);
+        },
         initFilters1() {
             this.filters1 = {
                 global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -342,20 +349,19 @@ export default {
             return total;
         },
         del() {
-				this.$confirm.require({
-					group: 'dialog',
-					header: 'Confirmation',
-					message: 'Are you sure you want to delete?',
-					icon: 'pi pi-exclamation-triangle',
-					accept: () => {
-						this.$toast.add({severity:'info', summary:'Confirmed', detail:'You have accepted', life: 3000});
-                        
-					},
-					reject: () => {
-						this.$toast.add({severity:'error', summary:'Rejected', detail:'You have rejected', life: 3000});
-					}
-				});
-			},
+            this.$confirm.require({
+                group: 'dialog',
+                header: 'Confirmation',
+                message: 'Are you sure you want to delete?',
+                icon: 'pi pi-exclamation-triangle',
+                accept: () => {
+                    this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+                },
+                reject: () => {
+                    this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+                },
+            });
+        },
     },
 };
 </script>

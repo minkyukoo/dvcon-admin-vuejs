@@ -74,9 +74,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/">
-                                    <span @click="logout">Logout</span>
-                                </a>
+                                <div><span @click="logout">Logout</span></div>
                             </li>
                         </ul>
                     </li>
@@ -173,6 +171,7 @@ export default {
         },
         logout() {
             localStorage.clear();
+            this.$router.push({ name: 'login' });
         },
         onSearchFocus() {
             if (window.innerWidth >= 576) {
