@@ -39,4 +39,9 @@ export default class CustomerService {
         })
              .then(res => res.data.data.users);
     }
+    getcontentlarge() {
+        return axios
+            .get("assets/demo/data/contentlarge.json")
+            .then(res => res.data.data);
+    }
 }

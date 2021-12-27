@@ -34,10 +34,10 @@ export default {
                 {label: "Dashboard", icon: "pi pi-home", to: "/"},
                 {label: "User management", icon: "pi pi-users", to: "/user"},
                 {label: "Banner management", icon: "pi pi-images", to: "/onprogress"},
-                {label: "FAQ", icon: "pi pi-question-circle", to: "/onprogress"},
+                {label: "FAQ", icon: "pi pi-question-circle", to: "/faq"},
                 {label: "1:1 Query", icon: "pi pi-file-o", to: "/query"},
                 {label: "Notice", icon: "pi pi-bell", to: "/onprogress"},
-                {label: "CMS", icon: "pi pi-book", to: "/onprogress"},
+                {label: "CMS", icon: "pi pi-book", to: "/cms"},
                 // onprogress ==> file not ready , when the file ll be ready change the path
                 {
                     label: "UI Kit", icon: "pi pi-star-o",
@@ -87,7 +87,7 @@ export default {
                         {label: "Error", icon: "pi pi-times-circle", to: "/error"},
                         {label: "Not Found", icon: "pi pi-exclamation-circle", to: "/notfound"},
                         {label: "Access Denied", icon: "pi pi-lock", to: "/access"},
-                        {label: "Empty", icon: "pi pi-circle-off", to: "/empty"}
+                        {label: "Empty", icon: "pi pi-circle-off", to: "/Cms"}
                     ],
                 },
                 {

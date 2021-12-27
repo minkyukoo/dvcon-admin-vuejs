@@ -356,7 +356,44 @@ const routes = [
         path: '/access',
         name: 'access',
         component: () => import('./pages/Access.vue')
-    }
+    },
+    {
+        path: '/cms',
+        name: 'cms',
+        component: () => import('./pages/Cms.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Cms' }],
+        },
+        // children:[
+        //     {
+        //         path: 'edit',
+        //         name: 'Cmsedit',
+        //         component: () => import('./pages/Cmsedit.vue'), 
+        //         meta: {
+        //             breadcrumb: [{ parent: 'Pages', label: 'Cmsedit' }],
+        //         },  
+        //     }
+        // ]
+    },
+
+    {
+        path: '/faq',
+        name: 'Faq',
+        component: () => import('./pages/Faq.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Faq' }],
+        },
+    },
+
+    {
+        path: '/cms/edit',
+        name: 'Cmsedit',
+        component: () => import('./pages/Cmsedit.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Cmsedit' }],
+        },
+    },
+    
 ];
 
 const router = createRouter({
