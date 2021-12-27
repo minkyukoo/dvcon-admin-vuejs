@@ -60,7 +60,7 @@
                     :value="customer1"
                     :paginator="true"
                     class="p-datatable-gridlines"
-                    :rows="10"
+                    :rows="5"
                     dataKey="id"
                     :rowHover="true"
                     v-model:filters="filters1"

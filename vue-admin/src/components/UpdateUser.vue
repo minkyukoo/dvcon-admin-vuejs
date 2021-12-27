@@ -84,6 +84,29 @@ export default {
                 message: 'Are you sure you want to proceed?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
+                    axios({
+                        method: 'PUT',
+                        url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/user/edit',
+                        data: {
+                            id:this.$route.params.id,
+                            name: this.name,
+                            mobile: this.mobile,
+                            email: this.email,
+                            gender: this.gender,
+                        },
+                        headers: {
+                            source: 'dvcon',
+                            apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+                            token: localStorage.getItem('token'),
+                        },
+                    })
+                        .then(res => {
+                            console.log(res);
+                        })
+                        .catch(err => {
+                            alert(err);
+                        });
+
                     this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
                 },
                 reject: () => {
@@ -106,11 +129,11 @@ export default {
             },
         })
             .then(res => {
-                this.mydata.name=res.data.data[0].name;
-                this.mydata.Email=res.data.data[0].email;
-                this.mydata.phone=res.data.data[0].mobile;
-                this.mydata.gender=res.data.data[0].gender;
-               
+                this.mydata.name = res.data.data[0].name;
+                this.mydata.Email = res.data.data[0].email;
+                this.mydata.phone = res.data.data[0].mobile;
+                this.mydata.gender = res.data.data[0].gender;
+
                 // console.log(res.data.data[0].name);
             })
             .catch(err => {
