@@ -47,6 +47,14 @@ const routes = [
         },
     },
     {
+        path: '/notice',
+        name: 'NoticePage',
+        component: () => import('./pages/Notice.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'NoticePage' }],
+        },
+    },
+    {
         path: '/query',
         name: 'Query',
         exact: true,
