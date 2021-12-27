@@ -1,4 +1,8 @@
 <template>
+<router-link to="/banner-management">
+        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" 
+        class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
+    </router-link>
     <div class="card">
         <div class="p-grid p-fluid">
             <div class="p-col-12 p-md-9">
