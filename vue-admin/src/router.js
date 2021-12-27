@@ -29,7 +29,7 @@ const routes = [
         },
     },
     {
-        path: '/user/view-user',
+        path: '/user/view-user/:id',
         name: 'ViewUser',
         exact: true,
         component: () => import('./components/ViewUser.vue'),
@@ -38,7 +38,7 @@ const routes = [
         },
     },
     {
-        path: '/user/edit-user',
+        path: '/user/edit-user/:id',
         name: 'UpdateUser',
         exact: true,
         component: () => import('./components/UpdateUser.vue'),

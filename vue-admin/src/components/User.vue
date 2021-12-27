@@ -57,7 +57,6 @@
                 </div>
 
                 <DataTable
-                    
                     :value="customer1"
                     :paginator="true"
                     class="p-datatable-gridlines"
@@ -69,7 +68,7 @@
                     :loading="loading1"
                     :filters="filters1"
                     responsiveLayout="scroll"
-                    :globalFilterFields="['name', 'country.name', 'representative.name', 'balance', 'status']"
+                   
                 >
                     <!-- <template #header>
                         <div class="p-d-flex p-jc-between p-flex-column p-flex-sm-row">
@@ -101,34 +100,34 @@
                             <span class="p-column-title">Id</span>
                             {{ data.id }}
                         </template>
-                      </Column>  
+                    </Column>
                     <Column header="Email" style="min-width:12rem">
                         <template #body="{data}">
                             <span class="p-column-title">Email</span>
                             {{ data.email }}
                         </template>
-                      </Column>  
+                    </Column>
                     <Column header="Mobile" style="min-width:12rem">
                         <template #body="{data}">
                             <span class="p-column-title">Mobile</span>
                             {{ data.mobile }}
                         </template>
-                      </Column>  
+                    </Column>
                     <Column header="created-date" style="min-width:12rem">
                         <template #body="{data}">
                             <span class="p-column-title">Created-Date</span>
-                            {{data.createdDate}}
+                            {{ data.createdDate }}
                         </template>
-                      </Column>  
-                    <Column header="extra" >
+                    </Column>
+                    <Column header="extra">
                         <template #body="{data}">
                             <span class="p-column-title">Balance</span>
-                            <p style="display:none">{{data.mobile}}</p>
+                            <p style="display:none">{{ data.mobile }}</p>
                             <div style="display:flex">
-                                <router-link to="/user/view-user"
-                                    ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> view</Button>
+                                <router-link :to="'/user/view-user/'+data.id"
+                                    ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2" ><i class="pi pi-eye p-mr-2"></i> view</Button>
                                 </router-link>
-                                <router-link to="/user/edit-user"
+                                <router-link :to="'/user/edit-user/'+data.id"
                                     ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link
                                 >
                                 <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined" @click="del" />
@@ -145,6 +144,7 @@
     </div>
 </template>
 <script>
+import {useRoute} from 'vue-router'
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import CustomerService from '../service/CustomerService';
 // import ProductService from '../service/ProductService';
@@ -164,11 +164,11 @@ export default {
             calendarValue: null,
             calendarValue1: null,
             customer1: null,
-           
+
             filters1: null,
             filters2: {},
             loading1: true,
-            
+
             idFrozen: false,
             products: null,
             expandedRows: [],
@@ -200,11 +200,12 @@ export default {
     productService: null,
     created() {
         this.customerService = new CustomerService();
-       
-        this.initFilters1();
+
+        // this.initFilters1();
     },
     mounted() {
-        
+        const route=useRoute();
+        console.log(route.params)
         // this.customerService.getCustomersLarge().then(data => {
         //     this.customer1 = data;
         //     console.log(data)
@@ -213,11 +214,10 @@ export default {
         // });
         this.customerService.getUserList().then(data => {
             this.customer1 = data;
-            console.log(data)
+            console.log(data);
             this.loading1 = false;
             this.customer1.forEach(customer => (customer.date = new Date(customer.date)));
         });
-       
 
         // axios({
         //     method: 'post',
@@ -241,6 +241,9 @@ export default {
         //     });
     },
     methods: {
+        Showid() {
+            console.log( 'hello');
+        },
         open() {
             this.display = true;
         },

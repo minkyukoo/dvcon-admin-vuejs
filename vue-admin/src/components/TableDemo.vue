@@ -365,13 +365,15 @@
 				this.initFilters1();
 			},
 			onRowExpand(event) {
-				this.$toast.add({severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000});
+				this.$toast.add({severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000}
+				);
 			},
 			onRowCollapse(event) {
 				this.$toast.add({severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000});
 			},
 			expandAll() {
-				this.expandedRows = this.products.filter(p => p.id);
+				this.expandedRows = this.products.filter(p => {console.log(p.id)});
+				
 				this.$toast.add({severity: 'success', summary: 'All Rows Expanded', life: 3000});
 			},
 			collapseAll() {
