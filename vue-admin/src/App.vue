@@ -271,6 +271,7 @@ export default {
             return window.innerWidth <= 991;
         }
     },
+    
 };
 </script>
 

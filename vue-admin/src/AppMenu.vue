@@ -40,13 +40,14 @@ export default {
     data() {
         return {
             menu: [
-                { label: 'Dashboard', icon: 'pi pi-home', to: '/' },
-                { label: 'User management', icon: 'pi pi-users', to: '/' },
-                { label: 'Banner management', icon: 'pi pi-images', to: '/banner-management' },
-                { label: 'FAQ', icon: 'pi pi-question-circle', to: '/' },
-                { label: '1:1 Query', icon: 'pi pi-file-o', to: '/' },
-                { label: 'Notice', icon: 'pi pi-bell', to: '/notice' },
-                { label: 'CMS', icon: 'pi pi-book', to: '/empty' },
+                {label: "Dashboard", icon: "pi pi-home", to: "/"},
+                {label: "User management", icon: "pi pi-users", to: "/user"},
+                {label: "Banner management", icon: "pi pi-images", to: "/banner-management"},
+                {label: "FAQ", icon: "pi pi-question-circle", to: "/faq"},
+                {label: "1:1 Query", icon: "pi pi-file-o", to: "/query"},
+                {label: "Notice", icon: "pi pi-bell", to: "/notice"},
+                {label: "CMS", icon: "pi pi-book", to: "/cms"},
+                // onprogress ==> file not ready , when the file ll be ready change the path
                 {
                     label: 'UI Kit',
                     icon: 'pi pi-star-o',
@@ -88,17 +89,17 @@ export default {
                     label: 'Pages',
                     icon: 'pi pi-briefcase',
                     items: [
-                        { label: 'Crud', icon: 'pi pi-pencil', to: '/crud' },
-                        { label: 'Calendar', icon: 'pi pi-calendar-plus', to: '/calendar' },
-                        { label: 'Timeline', icon: 'pi pi-calendar', to: '/timeline' },
-                        { label: 'Landing', icon: 'pi pi-globe', url: 'assets/pages/landing.html', target: '_blank' },
-                        { label: 'Login', icon: 'pi pi-sign-in', to: '/login' },
-                        { label: 'Invoice', icon: 'pi pi-dollar', to: '/invoice' },
-                        { label: 'Help', icon: 'pi pi-question-circle', to: '/help' },
-                        { label: 'Error', icon: 'pi pi-times-circle', to: '/error' },
-                        { label: 'Not Found', icon: 'pi pi-exclamation-circle', to: '/notfound' },
-                        { label: 'Access Denied', icon: 'pi pi-lock', to: '/access' },
-                        { label: 'Empty', icon: 'pi pi-circle-off', to: '/empty' },
+                        {label: "Crud", icon: "pi pi-pencil", to: "/crud"},
+                        {label: "Calendar", icon: "pi pi-calendar-plus", to: "/calendar"},
+                        {label: 'Timeline', icon: 'pi pi-calendar', to: '/timeline'},
+                        {label: "Landing", icon: "pi pi-globe", url: "assets/pages/landing.html", target: "_blank"},
+                        {label: "Login", icon: "pi pi-sign-in", to: "/login"},
+                        {label: "Invoice", icon: "pi pi-dollar", to: "/invoice"},
+                        {label: "Help", icon: "pi pi-question-circle", to: "/help"},
+                        {label: "Error", icon: "pi pi-times-circle", to: "/error"},
+                        {label: "Not Found", icon: "pi pi-exclamation-circle", to: "/notfound"},
+                        {label: "Access Denied", icon: "pi pi-lock", to: "/access"},
+                        {label: "Empty", icon: "pi pi-circle-off", to: "/empty"}
                     ],
                 },
                 {

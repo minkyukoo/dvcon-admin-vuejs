@@ -26,6 +26,59 @@ const routes = [
         component: () => import('./pages/EditBanner.vue')
     },
     {
+        path: '/user',
+        name: 'User',
+        exact: true,
+        component: () => import('./components/User.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'User', label: 'User' }],
+        },
+    },
+    {
+        path: '/add-user',
+        name: 'Adduser',
+        exact: true,
+        component: () => import('./components/Adduser.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'User', label: 'Add User' }],
+        },
+    },
+    {
+        path: '/user/view-user/:id',
+        name: 'ViewUser',
+        exact: true,
+        component: () => import('./components/ViewUser.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'User', label: 'View User' }],
+        },
+    },
+    {
+        path: '/user/edit-user/:id',
+        name: 'UpdateUser',
+        exact: true,
+        component: () => import('./components/UpdateUser.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'User', label: 'Update User' }],
+        },
+    },
+    {
+        path: '/notice',
+        name: 'NoticePage',
+        component: () => import('./pages/Notice.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'NoticePage' }],
+        },
+    },
+    {
+        path: '/query',
+        name: 'Query',
+        exact: true,
+        component: () => import('./components/menu/Query.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'Query', label: '1.1 Query' }],
+        },
+    },
+    {
         path: '/formlayout',
         name: 'formlayout',
         component: () => import('./components/FormLayoutDemo.vue'),
@@ -326,7 +379,44 @@ const routes = [
         path: '/access',
         name: 'access',
         component: () => import('./pages/Access.vue')
-    }
+    },
+    {
+        path: '/cms',
+        name: 'cms',
+        component: () => import('./pages/Cms.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Cms' }],
+        },
+        // children:[
+        //     {
+        //         path: 'edit',
+        //         name: 'Cmsedit',
+        //         component: () => import('./pages/Cmsedit.vue'), 
+        //         meta: {
+        //             breadcrumb: [{ parent: 'Pages', label: 'Cmsedit' }],
+        //         },  
+        //     }
+        // ]
+    },
+
+    {
+        path: '/faq',
+        name: 'Faq',
+        component: () => import('./pages/Faq.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Faq' }],
+        },
+    },
+
+    {
+        path: '/cms/edit',
+        name: 'Cmsedit',
+        component: () => import('./pages/Cmsedit.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Cmsedit' }],
+        },
+    },
+    
 ];
 
 const router = createRouter({
