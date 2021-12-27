@@ -7,7 +7,7 @@
                     <div class="p-formgrid p-grid">
                         <div class="p-field p-col">
                             <label for="name2">Name</label>
-                            <InputText id="name2" type="text" placeholder="Search" />
+                            <InputText id="name2" type="text" placeholder="Search" v-model="Name" />
                         </div>
                         <div class="p-field p-col">
                             <label for="email2">state</label>
@@ -35,7 +35,8 @@
                     <Button label="last year" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
                 </div>
                 <div>
-                    <Button label="initialization" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
+                    <Button label="initialization" icon="pi pi-replay" iconPos="left" 
+                    class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reInitialize"></Button>
                     <Button label="search" icon="pi pi-search" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
                 </div>
             </div>
@@ -60,37 +61,37 @@
                                 </div>
                             </template> -->
                         <!-- <Column :expander="true" headerStyle="width: 3rem" /> -->
-                        <Column field="name" header="Number" >
+                        <Column field="name" header="Number">
                             <template #body="slotProps">
                                 <span class="p-column-title">Number</span>
                                 {{ slotProps.data.number }}
                             </template>
                         </Column>
-                        <Column field="name" header="Title" :sortable="true" >
+                        <Column field="name" header="Title" :sortable="true">
                             <template #body="slotProps">
                                 <span class="p-column-title">Title</span>
                                 {{ slotProps.data.name }}
                             </template>
                         </Column>
-                        <Column field="name" header="Subtitle" :sortable="true" >
+                        <Column field="name" header="Subtitle" :sortable="true">
                             <template #body="slotProps">
                                 <span class="p-column-title">Subtitle</span>
                                 {{ slotProps.data.name }}
                             </template>
                         </Column>
-                        <Column header="Image" >
+                        <Column header="Image">
                             <template #body="slotProps">
                                 <span class="p-column-title">Image</span>
                                 <img :src="'assets/demo/images/product/' + slotProps.data.image" :alt="slotProps.data.image" class="product-image" />
                             </template>
                         </Column>
-                        <Column field="price" header="Banner Position" :sortable="true" >
+                        <Column field="price" header="Banner Position" :sortable="true">
                             <template #body="slotProps">
                                 <span class="p-column-title">Banner Position</span>
                                 {{ formatCurrency(slotProps.data.bannerPosition) }}
                             </template>
                         </Column>
-                        <Column field="category" header="Creation Date" :sortable="true" >
+                        <Column field="category" header="Creation Date" :sortable="true">
                             <template #body="slotProps">
                                 <span class="p-column-title">Creation Date</span>
                                 {{ formatCurrency(slotProps.data.creationDate) }}
@@ -108,13 +109,12 @@
                                 <span :class="'product-badge status-' + (slotProps.data.inventoryStatus ? slotProps.data.inventoryStatus.toLowerCase() : '')">{{ slotProps.data.inventoryStatus }}</span>
                             </template>
                         </Column> -->
-                        <Column field="inventoryStatus" header="Status" >
+                        <Column field="inventoryStatus" header="Status">
                             <template #body>
                                 <router-link to="/edit-banner">
-                                    <Button label="correction" icon="pi pi-pencil" iconPos="left" 
-                                    class="p-button p-button-info p-button-sm p-mr-2 p-mb-2"></Button>
+                                    <Button label="correction" icon="pi pi-pencil" iconPos="left" class="p-button p-button-info p-button-sm p-mr-2 p-mb-2"></Button>
                                 </router-link>
-                                <Button label="Delete" icon="pi pi-trash" iconPos="left" class="p-button p-button-danger p-button-sm p-mr-2 p-mb-2"></Button>
+                                <Button label="Delete" icon="pi pi-trash" iconPos="left" class="p-button p-button-danger p-button-sm p-mr-2 p-mb-2" @click="showModal"></Button>
                             </template>
                         </Column>
                         <!-- <template #expansion="slotProps">
@@ -163,6 +163,26 @@
                 </div>
             </div>
         </div>
+        <Modal v-show="isModalVisible" @close="closeModal" v-bind:showCloseBtn="false">
+            <template v-slot:header>
+                <div class="p-text-center w-100">
+                    <i class="pi pi-question-circle" style="fontSize: 2.5rem;color: #1976D2"></i>
+                </div>
+            </template>
+            <template v-slot:body>
+                <div class="w-full p-text-center"><h4 class=" p-mb-1">Are you Sure ? </h4>You can't revert the changes</div>
+            </template>
+            <template v-slot:footer>
+                <div class="p-d-flex p-jc-center">
+                    <Button label="Cancel"
+                     class="p-button p-button-secondary p-button-sm p-mr-2 p-mb-2" @click="closeModal">
+                     </Button>
+                    <Button label="Confirm"
+                     class="p-button p-button-success p-button-sm p-mr-2 p-mb-2" @click="DeleteRow">
+                     </Button>
+                </div>
+            </template>
+        </Modal>
     </div>
 </template>
 
@@ -170,6 +190,7 @@
 import ProductService from '../service/ProductService';
 // import CustomerService from '../service/CustomerService';
 // import {FilterMatchMode,FilterOperator} from 'primevue/api';
+import Modal from '../components/CustomModal.vue';
 export default {
     data() {
         return {
@@ -183,13 +204,20 @@ export default {
             dropdownValue: null,
             calendarValue1: null,
             calendarValue2: null,
+            isModalVisible: false,
             // customer3: null,
             // customer2: null,
             products: null,
+            name: null,
         };
     },
     customerService: null,
     productService: null,
+
+    components: {
+        Modal,
+    },
+
     created() {
         this.productService = new ProductService();
         // this.customerService = new CustomerService();
@@ -214,6 +242,21 @@ export default {
                 year: 'numeric',
             });
         },
+        showModal() {
+            this.isModalVisible = true;
+        },
+        closeModal() {
+            this.isModalVisible = false;
+        },
+        DeleteRow() {
+            console.log('delete row');
+        },
+        reInitialize() {
+            this.dropdownValue = null;
+            this.calendarValue1 = null;
+            this.calendarValue2 = null;
+            this.Name = null;
+        }
     },
 };
 </script>
@@ -376,5 +419,9 @@ export default {
 
 .false-icon {
     color: #c63737;
+}
+
+.w-100{
+    width: 100%;
 }
 </style>

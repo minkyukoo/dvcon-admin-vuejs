@@ -1,4 +1,8 @@
 <template>
+    <router-link to="/banner-management">
+        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" 
+        class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
+    </router-link>
     <div class="card">
         <div class="p-grid p-fluid">
             <div class="p-col-12 p-md-9">
@@ -49,11 +53,8 @@
         </div>
         <div class="p-d-flex p-jc-end p-ai-center">
             <div>
-                <Button label="initialization" icon="pi pi-replay" iconPos="left"
-                 class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reinitialize">
-                 </Button>
-                <Button label="confirm" icon="pi pi-save" iconPos="left" 
-                class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
+                <Button label="initialization" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reinitialize"> </Button>
+                <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
             </div>
         </div>
     </div>
@@ -64,17 +65,8 @@ export default {
     name: 'CreateBanner',
     data() {
         return {
-            dropdownValues: [
-                { name: 'Select' }, 
-                { name: 'activation' }, 
-                { name: 'inactivation' }
-            ],
-            dropdownValueTypes: [
-                { name: 'state' }, 
-                { name: 'main r' }, 
-                { name: 'sub top' }, 
-                { name: 'sub bottom' }
-            ],
+            dropdownValues: [{ name: 'Select' }, { name: 'activation' }, { name: 'inactivation' }],
+            dropdownValueTypes: [{ name: 'state' }, { name: 'main r' }, { name: 'sub top' }, { name: 'sub bottom' }],
             dropdownValue: null,
             dropdownValueType: null,
             title: null,
@@ -84,18 +76,14 @@ export default {
     },
     methods: {
         reinitialize() {
-            this.dropdownValue = null,
-            this.dropdownValueType = null,
-            this.title = null,
-            this.subtitle = null,
-            this.link = null
-        }
-    }
+            (this.dropdownValue = null), (this.dropdownValueType = null), (this.title = null), (this.subtitle = null), (this.link = null);
+        },
+    },
 };
 </script>
 
 <style scoped>
-.img-info{
+.img-info {
     font-size: 11px;
     font-weight: 400;
     color: red;
