@@ -36,7 +36,7 @@ export default {
                 {label: "Banner management", icon: "pi pi-images", to: "/onprogress"},
                 {label: "FAQ", icon: "pi pi-question-circle", to: "/faq"},
                 {label: "1:1 Query", icon: "pi pi-file-o", to: "/query"},
-                {label: "Notice", icon: "pi pi-bell", to: "/onprogress"},
+                {label: "Notice", icon: "pi pi-bell", to: "/notice"},
                 {label: "CMS", icon: "pi pi-book", to: "/cms"},
                 // onprogress ==> file not ready , when the file ll be ready change the path
                 {
