@@ -7,7 +7,7 @@
                     <div class="p-formgrid p-grid">
                         <div class="p-field p-col">
                             <label for="name2">Name</label>
-                            <InputText id="name2" type="text" placeholder="Search" v-model="Name" />
+                            <InputText id="name2" type="text" placeholder="Search" :modelValue="title" v-model="title" />
                         </div>
                         <div class="p-field p-col">
                             <label for="email2">state</label>
@@ -25,6 +25,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="p-col-12 p-md-6">
+                    <h1>{{Name}}</h1>
+                    <h1>{{dropdownValue}}</h1>
+                    <h1>{{calendarValue1}}</h1>
+                    <h1>{{calendarValue2}}</h1>
+                </div>
             </div>
             <div class="p-d-flex p-jc-between p-ai-center">
                 <div class="">
@@ -35,9 +41,8 @@
                     <Button label="last year" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
                 </div>
                 <div>
-                    <Button label="initialization" icon="pi pi-replay" iconPos="left" 
-                    class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reInitialize"></Button>
-                    <Button label="search" icon="pi pi-search" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
+                    <Button label="initialization" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reInitialize"></Button>
+                    <Button label="search" icon="pi pi-search" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="getProductsWithOrdersSmall"></Button>
                 </div>
             </div>
         </div>
@@ -53,7 +58,7 @@
                             </router-link>
                         </div>
                     </div>
-                    <DataTable :value="products" dataKey="id" responsiveLayout="scroll" :paginator="true" :rows="4" :rowHover="true">
+                    <DataTable :value="products" dataKey="id" responsiveLayout="scroll" :paginator="true" :rows="4" :rowHover="true" v-if="products.length > 0">
                         <!-- <template #header>
                                 <div class="table-header-container">
                                     <Button icon="pi pi-plus" label="Expand All" @click="expandAll" class="p-mr-2 p-mb-2" />
@@ -64,37 +69,43 @@
                         <Column field="name" header="Number">
                             <template #body="slotProps">
                                 <span class="p-column-title">Number</span>
-                                {{ slotProps.data.number }}
+                                {{ slotProps.data.id }}
                             </template>
                         </Column>
                         <Column field="name" header="Title" :sortable="true">
                             <template #body="slotProps">
                                 <span class="p-column-title">Title</span>
-                                {{ slotProps.data.name }}
+                                {{ slotProps.data.title }}
                             </template>
                         </Column>
-                        <Column field="name" header="Subtitle" :sortable="true">
+                        <!-- <Column field="name" header="Subtitle" :sortable="true">
                             <template #body="slotProps">
                                 <span class="p-column-title">Subtitle</span>
-                                {{ slotProps.data.name }}
+                                {{ slotProps.data.subTitle }}
                             </template>
-                        </Column>
+                        </Column> -->
                         <Column header="Image">
                             <template #body="slotProps">
                                 <span class="p-column-title">Image</span>
-                                <img :src="'assets/demo/images/product/' + slotProps.data.image" :alt="slotProps.data.image" class="product-image" />
+                                <img :src="'http://dvcon-admin-nodejs.dvconsulting.org:4545' + slotProps.data.bannerImage" :alt="slotProps.data.image" class="product-image" />
                             </template>
                         </Column>
                         <Column field="price" header="Banner Position" :sortable="true">
                             <template #body="slotProps">
                                 <span class="p-column-title">Banner Position</span>
-                                {{ formatCurrency(slotProps.data.bannerPosition) }}
+                                {{ formatCurrency(slotProps.data.bannerPostion) }}
                             </template>
                         </Column>
-                        <Column field="category" header="Creation Date" :sortable="true">
+                        <Column field="Creation" header="Creation Date" :sortable="true">
                             <template #body="slotProps">
                                 <span class="p-column-title">Creation Date</span>
-                                {{ formatCurrency(slotProps.data.creationDate) }}
+                                {{ formatCurrency(slotProps.data.createdDate) }}
+                            </template></Column
+                        >
+                        <Column field="Status" header="Status" :sortable="true">
+                            <template #body="slotProps">
+                                <span class="p-column-title">Status</span>
+                                {{ formatCurrency(slotProps.data.status) }}
                             </template></Column
                         >
                         <!-- <Column field="rating" header="Reviews" :sortable="true">
@@ -109,7 +120,7 @@
                                 <span :class="'product-badge status-' + (slotProps.data.inventoryStatus ? slotProps.data.inventoryStatus.toLowerCase() : '')">{{ slotProps.data.inventoryStatus }}</span>
                             </template>
                         </Column> -->
-                        <Column field="inventoryStatus" header="Status">
+                        <Column field="inventoryStatus" header="management">
                             <template #body>
                                 <router-link to="/edit-banner">
                                     <Button label="correction" icon="pi pi-pencil" iconPos="left" class="p-button p-button-info p-button-sm p-mr-2 p-mb-2"></Button>
@@ -117,48 +128,6 @@
                                 <Button label="Delete" icon="pi pi-trash" iconPos="left" class="p-button p-button-danger p-button-sm p-mr-2 p-mb-2" @click="showModal"></Button>
                             </template>
                         </Column>
-                        <!-- <template #expansion="slotProps">
-                                <div class="orders-subtable">
-                                    <h5>Orders for {{ slotProps.data.name }}</h5>
-                                    <DataTable :value="slotProps.data.orders" responsiveLayout="scroll">
-                                        <Column field="id" header="Id" :sortable="true">
-                                            <template #body="slotProps">
-                                                <span class="p-column-title">Id</span>
-                                                {{ slotProps.data.id }}
-                                            </template>
-                                        </Column>
-                                        <Column field="customer" header="Customer" :sortable="true">
-                                            <template #body="slotProps">
-                                                <span class="p-column-title">Customer</span>
-                                                {{ slotProps.data.customer }}
-                                            </template>
-                                        </Column>
-                                        <Column field="date" header="Date" :sortable="true">
-                                            <template #body="slotProps">
-                                                <span class="p-column-title">Date</span>
-                                                {{ slotProps.data.date }}
-                                            </template>
-                                        </Column>
-                                        <Column field="amount" header="Amount" :sortable="true">
-                                            <template #body="slotProps" :sortable="true">
-                                                <span class="p-column-title">Amount</span>
-                                                {{ formatCurrency(slotProps.data.amount) }}
-                                            </template>
-                                        </Column>
-                                        <Column field="status" header="Status" :sortable="true">
-                                            <template #body="slotProps">
-                                                <span class="p-column-title">Status</span>
-                                                <span :class="'order-badge order-' + (slotProps.data.status ? slotProps.data.status.toLowerCase() : '')">{{ slotProps.data.status }}</span>
-                                            </template>
-                                        </Column>
-                                        <Column headerStyle="width:4rem">
-                                            <template #body>
-                                                <Button icon="pi pi-search" />
-                                            </template>
-                                        </Column>
-                                    </DataTable>
-                                </div>
-                            </template> -->
                     </DataTable>
                 </div>
             </div>
@@ -170,16 +139,15 @@
                 </div>
             </template>
             <template v-slot:body>
-                <div class="w-full p-text-center"><h4 class=" p-mb-1">Are you Sure ? </h4>You can't revert the changes</div>
+                <div class="w-full p-text-center">
+                    <h4 class=" p-mb-1">Are you Sure ?</h4>
+                    You can't revert the changes
+                </div>
             </template>
             <template v-slot:footer>
                 <div class="p-d-flex p-jc-center">
-                    <Button label="Cancel"
-                     class="p-button p-button-secondary p-button-sm p-mr-2 p-mb-2" @click="closeModal">
-                     </Button>
-                    <Button label="Confirm"
-                     class="p-button p-button-success p-button-sm p-mr-2 p-mb-2" @click="DeleteRow">
-                     </Button>
+                    <Button label="Cancel" class="p-button p-button-secondary p-button-sm p-mr-2 p-mb-2" @click="closeModal"> </Button>
+                    <Button label="Confirm" class="p-button p-button-success p-button-sm p-mr-2 p-mb-2" @click="DeleteRow"> </Button>
                 </div>
             </template>
         </Modal>
@@ -187,7 +155,8 @@
 </template>
 
 <script>
-import ProductService from '../service/ProductService';
+// import ProductService from '../service/ProductService';
+import axios from 'axios';
 // import CustomerService from '../service/CustomerService';
 // import {FilterMatchMode,FilterOperator} from 'primevue/api';
 import Modal from '../components/CustomModal.vue';
@@ -195,11 +164,8 @@ export default {
     data() {
         return {
             dropdownValues: [
-                { name: 'New York', code: 'NY' },
-                { name: 'Rome', code: 'RM' },
-                { name: 'London', code: 'LDN' },
-                { name: 'Istanbul', code: 'IST' },
-                { name: 'Paris', code: 'PRS' },
+                { name: 'active'},
+                { name: 'inactive'},
             ],
             dropdownValue: null,
             calendarValue1: null,
@@ -207,25 +173,51 @@ export default {
             isModalVisible: false,
             // customer3: null,
             // customer2: null,
-            products: null,
-            name: null,
+            products: {},
+            title: null,
         };
     },
-    customerService: null,
-    productService: null,
+    // customerService: null,
+    // productService: null,
 
     components: {
         Modal,
     },
 
     created() {
-        this.productService = new ProductService();
+        // this.productService = new ProductService();
         // this.customerService = new CustomerService();
     },
     mounted() {
-        this.productService.getProductsWithOrdersSmall().then((data) => (this.products = data));
+        this.getProductsWithOrdersSmall();
     },
     methods: {
+        getProductsWithOrdersSmall() {
+            console.log("search banner by Name" , this.title)
+            axios
+                .post(
+                    'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner',
+                    {
+                        searchData: this.title,
+                        status: this.dropdownValue,
+                        startDate: this.calendarValue1,
+                        endDate: this.calendarValue2,
+                    },
+                    {
+                        headers: {
+                            source: 'dvcon',
+                            apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+                            token: localStorage.getItem('token'),
+                        },
+                    }
+                )
+                .then(data => {
+                    console.log(data);
+                    this.products = data.data.data.banners;
+                    console.log(JSON.stringify(this.products));
+                })
+                .catch(err => console.log(err));
+        },
         onRowExpand(event) {
             this.$toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
         },
@@ -255,8 +247,8 @@ export default {
             this.dropdownValue = null;
             this.calendarValue1 = null;
             this.calendarValue2 = null;
-            this.Name = null;
-        }
+            this.title = null;
+        },
     },
 };
 </script>
@@ -421,7 +413,7 @@ export default {
     color: #c63737;
 }
 
-.w-100{
+.w-100 {
     width: 100%;
 }
 </style>
