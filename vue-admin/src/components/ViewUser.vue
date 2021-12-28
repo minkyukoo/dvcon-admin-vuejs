@@ -1,4 +1,5 @@
 <template>
+    <ConfirmDialog group="dialog" />
     <div class="p-grid">
         <div class="p-col-12">
             <div class="card p-fluid">
@@ -37,10 +38,10 @@
                     <router-link to="/view-user"
                         ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i>point</Button>
                     </router-link>
-                    <router-link to="/edit-user"
+                    <router-link :to="'/user/edit-user/' + $route.params.id"
                         ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link
                     >
-                    <Button label="delete" class="p-button-outlined p-button-danger p-mr-2 p-mb-2"><i class="pi pi-trash p-mr-2"></i> delete</Button>
+                    <Button @click="del($route.params.id)" label="delete" class="p-button-outlined p-button-danger p-mr-2 p-mb-2"><i class="pi pi-trash p-mr-2"></i> delete</Button>
                 </div>
             </div>
         </div>
@@ -48,6 +49,7 @@
 </template>
 <script>
 import axios from 'axios';
+
 // import {useRouter} from 'vue-router'
 export default {
     data() {
@@ -66,6 +68,45 @@ export default {
             },
         };
     },
+    methods: {
+        
+       del(id) {
+            // console.log(id);
+            
+           
+               
+                        // -----------------------
+                        this.$confirm.require({
+                group: 'dialog',
+                header: 'Confirmation',
+                message: 'Are you sure you want to delete?',
+                icon: 'pi pi-exclamation-triangle',
+                accept: () => {
+                    axios({
+                        method: 'delete',
+                        url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/user/delete',
+                        data: {
+                            deleteIdArray: id,
+                        },
+                        headers: {
+                            source: 'dvcon',
+                            apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+                            token: localStorage.getItem('token'),
+                        },
+                    }).then(res => {
+                            console.warn(res);
+                            //  alert('Deleted successfully');
+                             this.$router.push({ name: 'User' });
+                        })
+                        
+                    this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Deleted successfully', life: 3000 });
+                },
+                reject: () => {
+                    this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+                },
+            });
+        },
+    },
     mounted() {
         axios({
             method: 'post',
@@ -83,7 +124,7 @@ export default {
                 this.mydata.name = res.data.data[0].name;
                 this.mydata.Email = res.data.data[0].email;
                 this.mydata.phone = res.data.data[0].mobile;
-                this.mydata.gender = res.data.data[0].gender ==="m"?"male" :"female";
+                this.mydata.gender = res.data.data[0].gender === 'm' ? 'male' : 'female';
 
                 console.log(res.data.data);
             })
@@ -93,7 +134,6 @@ export default {
 
         // console.log(this.$route.params.id)
     },
-    
 };
 </script>
 

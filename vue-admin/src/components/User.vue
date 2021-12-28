@@ -118,7 +118,7 @@
                                 <router-link :to="'/user/edit-user/' + data.id"
                                     ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link
                                 >
-                                <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined" @click="del(data.id)" />
+                                <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined p-mr-2 p-mb-2" @click="del(data.id)" />
                             </div>
                         </template>
                         <!-- <template #filter="{filterModel}">
@@ -132,7 +132,7 @@
 </template>
 <script>
 import { useRoute } from 'vue-router';
-import { FilterMatchMode, FilterOperator } from 'primevue/api';
+// import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import CustomerService from '../service/CustomerService';
 import axios from 'axios'
 // import ProductService from '../service/ProductService';
@@ -274,7 +274,15 @@ export default {
         },
         del(id) {
             // console.log(id);
-            axios({
+           
+
+            this.$confirm.require({
+                group: 'dialog',
+                header: 'Confirmation',
+                message: 'Are you sure you want to delete?',
+                icon: 'pi pi-exclamation-triangle',
+                accept: () => {
+                     axios({
                         method: 'delete',
                         url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/user/delete',
                         data: {
@@ -287,27 +295,18 @@ export default {
                         },
                     })
                         .then(function(response) {
-                            // let data = response.data.data.users;
-                            console.log(data);
-                            // this.customer1 = data;
+                            // alert('Deleted successfully');
+                            location.reload();
                         })
                         .catch(function(response) {
                             console.log(response);
                         });
-
-            // this.$confirm.require({
-            //     group: 'dialog',
-            //     header: 'Confirmation',
-            //     message: 'Are you sure you want to delete?',
-            //     icon: 'pi pi-exclamation-triangle',
-            //     accept: () => {
-                    
-            //         this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
-            //     },
-            //     reject: () => {
-            //         this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-            //     },
-            // });
+                    this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Deleted successfully', life: 3000 });
+                },
+                reject: () => {
+                    this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+                },
+            });
         },
     },
 };
