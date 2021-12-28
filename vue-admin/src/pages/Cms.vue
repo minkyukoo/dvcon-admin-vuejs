@@ -26,7 +26,7 @@
 			<div class="card">
                 <div class="heading_wrap">
                     <h5>Content Management</h5>
-                    <Button label="New" icon="pi pi-plus" class="p-mr-2 p-mb-2"></Button>
+                    <!-- <Button label="New" icon="pi pi-plus" class="p-mr-2 p-mb-2"></Button> -->
                 </div>
 				<DataTable :value="content1" :paginator="true" class="p-datatable-gridlines" :rows="10" dataKey="id" :rowHover="true" 
 							v-model:filters="filters1" filterDisplay="menu" :loading="loading1" :filters="filters1" responsiveLayout="scroll"
