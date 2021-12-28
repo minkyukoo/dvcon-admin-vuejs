@@ -134,7 +134,7 @@
 import { useRoute } from 'vue-router';
 // import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import CustomerService from '../service/CustomerService';
-import axios from 'axios'
+import axios from 'axios';
 // import ProductService from '../service/ProductService';
 // import axios from 'axios';
 export default {
@@ -233,9 +233,9 @@ export default {
         //         verified: { value: null, matchMode: FilterMatchMode.EQUALS },
         //     };
         // },
-        clearFilter1() {
-            this.initFilters1();
-        },
+        // clearFilter1() {
+        //     this.initFilters1();
+        // },
         onRowExpand(event) {
             this.$toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
         },
@@ -274,7 +274,6 @@ export default {
         },
         del(id) {
             // console.log(id);
-           
 
             this.$confirm.require({
                 group: 'dialog',
@@ -282,7 +281,7 @@ export default {
                 message: 'Are you sure you want to delete?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                     axios({
+                    axios({
                         method: 'delete',
                         url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/user/delete',
                         data: {
@@ -295,6 +294,7 @@ export default {
                         },
                     })
                         .then(function(response) {
+                            console.log(response);
                             // alert('Deleted successfully');
                             location.reload();
                         })
