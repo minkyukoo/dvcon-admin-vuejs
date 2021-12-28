@@ -12,7 +12,7 @@
                 <div class="button_wrap">
                     <div class="p-grid p-formgrid">
                         <div class="p-col-12 p-mb-12 p-lg-12 p-mb-lg-12">
-                            <Button label="initialization" class="p-button-outlined p-mr-2 p-mb-2" />
+                            <Button label="initialization" icon="pi pi-refresh"  class="p-button-outlined p-mr-2 p-mb-2" />
                             <Button type="button" class="p-mr-2 p-mb-2" label="Search" icon="pi pi-search"></Button>
                         </div>
                     </div>

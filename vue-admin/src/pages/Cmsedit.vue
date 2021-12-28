@@ -11,12 +11,8 @@
                 <div class="p-field p-col-12">
                     <Textarea class="descrition_edit" id="address" rows="4"/>
                 </div>
-                 <div class="button_wrap">
-                    <div class="p-grid p-formgrid">
-                        <div class="p-col-12 p-mb-12 p-lg-12 p-mb-lg-12">
-                            <Button label="Submit" class="p-mr-2 p-mb-2"></Button>
-                        </div>
-                    </div>
+                 <div class="button_wrap align-right">
+                    <Button type="button" class="p-mr-2 p-mb-2" label="Submit"></Button>
                 </div>
             </div>
         </div>
@@ -41,4 +37,8 @@ export default {
     text-align: right;
     margin-top: 30px;
 }
+    .align-right{
+        text-align: right;
+        width: 100%;
+    }
 </style>
