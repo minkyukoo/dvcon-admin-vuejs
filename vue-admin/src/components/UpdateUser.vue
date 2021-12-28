@@ -7,15 +7,15 @@
                 <div class="p-formgrid p-grid">
                     <div class="p-field p-col">
                         <label for="nameuser">Name</label>
-                        <InputText id="nameuser" type="text" placeholder="Search" :modelValue="mydata.name" v-model="mydata.name" />
+                        <InputText id="nameuser" type="text" placeholder="Name" :modelValue="mydata.name" v-model="mydata.name" />
                     </div>
                     <div class="p-field p-col">
                         <label for="emailuser">Email Id</label>
-                        <InputText id="emailuser" type="email" placeholder="Search" :modelValue="mydata.Email" v-model="mydata.Email" />
+                        <InputText id="emailuser" type="email" placeholder="Email_Id" :modelValue="mydata.Email" v-model="mydata.Email" />
                     </div>
                     <div class="p-field p-col">
                         <label for="mobileuser">Phone Number</label>
-                        <InputText id="mobileuser" type="text" placeholder="Search" :modelValue="mydata.phone" v-model="mydata.phone" />
+                        <InputText id="mobileuser" type="text" placeholder="Phone_No" :modelValue="mydata.phone" v-model="mydata.phone" />
                     </div>
 
                     <div class="p-field p-col">
