@@ -11,6 +11,9 @@
                 <div class="p-field p-col-12">
                     <Textarea class="descrition_edit" id="address" rows="4"/>
                 </div>
+                 <div class="button_wrap align-right">
+                    <Button type="button" class="p-mr-2 p-mb-2" label="Submit"></Button>
+                </div>
             </div>
         </div>
     </div>
@@ -26,5 +29,9 @@ export default {
     }
     .p-field{
         padding:0 1rem 1rem 0;
+    }
+    .align-right{
+        text-align: right;
+        width: 100%;
     }
 </style>

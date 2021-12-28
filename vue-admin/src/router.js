@@ -386,6 +386,24 @@ const routes = [
     },
 
     {
+        path: '/faq/edit',
+        name: 'Faqedit',
+        component: () => import('./pages/Faqedit.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Faqedit' }],
+        },
+    },
+
+    {
+        path: '/faq/add',
+        name: 'Faqadd',
+        component: () => import('./pages/Faqadd.vue'),
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Faqadd' }],
+        },
+    },
+
+    {
         path: '/cms/edit',
         name: 'Cmsedit',
         component: () => import('./pages/Cmsedit.vue'),

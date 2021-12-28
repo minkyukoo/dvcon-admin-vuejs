@@ -38,7 +38,7 @@
 								<Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label="last year" icon="pi pi-calendar" />
 							</div>
 							<div class="p-field p-col-6 p-d-flex p-jc-end">
-								<Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label="last year" icon="pi pi-refresh" />
+								<Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label=" initialization" icon="pi pi-refresh" />
 								<Button type="button" class="p-mr-2 p-mb-2" label="Search" icon="pi pi-search" />
 							</div>
 						</div>
@@ -48,7 +48,11 @@
 		</div>
 		<div class="p-col-12">
 			<div class="card">
-				<h5>Management | Frequently Asked Questions</h5>
+				<div class="heading_wrap">
+					<h5>Management | Frequently Asked Questions</h5>
+					<router-link to="/Faq/add"><Button label="New" icon="pi pi-plus" class="p-mr-2 p-mb-2"></Button></router-link>
+				</div>
+				
 			<DataTable :value="customer1" :paginator="true" class="p-datatable-gridlines" :rows="10" dataKey="id" :rowHover="true" 
 							v-model:filters="filters1" filterDisplay="menu" :loading="loading1" :filters="filters1" responsiveLayout="scroll"
 							:globalFilterFields="['name','country.name','representative.name','balance','status']" >
@@ -96,11 +100,12 @@
                         <template #body="{data}">
                             <span class="p-column-title">Management</span>
                             <p style="display: none;">{{formatCurrency(data.balance)}}</p>
-							<Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label="Correction" icon="pi pi-user-edit" />
+							<router-link to="/Faq/edit"><Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label="Correction" icon="pi pi-user-edit" /></router-link>
 							<Button type="button" class="p-button-outlined p-button-danger p-mr-2 p-mb-2" label="Delete" icon="pi pi-trash" />
 						</template>
                     </Column>
 				</DataTable>
+				<router-view></router-view>
 			</div>
 		</div>
 	</div>
@@ -129,8 +134,8 @@
 				],
 			
 				dropdownItems: [
-					{name: 'male', code: 'activete'},
-					{name: 'female', code: 'inactivete'}
+					{name: 'Activation', code: 'activete'},
+					{name: 'Inactivation', code: 'inactivete'}
 				],
 				dropdownItem: null,
 			
@@ -224,4 +229,10 @@
 </script>
 
 <style scoped>
+.heading_wrap{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 </style>
