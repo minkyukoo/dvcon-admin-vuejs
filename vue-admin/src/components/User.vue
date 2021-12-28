@@ -49,7 +49,7 @@
                 <div class="p-d-flex p-jc-between p-mb-2">
                     <div><h5>User List</h5></div>
                     <div>
-                        <Button label="Primary" class="p-mr-2 p-mb-2"><i class="pi pi-download p-mr-2"></i> Download Excel</Button>
+                        <Button label="Primary" class="p-mr-2 p-mb-2" @click="exceldownload"><i class="pi pi-download p-mr-2"></i> Download Excel</Button>
                         <router-link to="/add-user">
                             <Button label="Primary" class="p-mr-2 p-mb-2"><i class="pi pi-plus p-mr-2"></i> New</Button>
                         </router-link>
@@ -208,6 +208,20 @@ export default {
         });
     },
     methods: {
+        exceldownload() {
+            axios({
+                url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/user//generate-excel/?status=active',
+                method: 'GET',
+                responseType: 'blob', // important
+            }).then(response => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'Userlist.xlsx'); //or any other extension
+                document.body.appendChild(link);
+                link.click();
+            });
+        },
         Showid() {
             console.log('hello');
         },
@@ -220,22 +234,7 @@ export default {
         toggle(event) {
             this.$refs.op.toggle(event);
         },
-        // initFilters1() {
-        //     this.filters1 = {
-        //         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        //         name: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-        //         'country.name': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-        //         representative: { value: null, matchMode: FilterMatchMode.IN },
-        //         date: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
-        //         balance: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
-        //         status: { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
-        //         activity: { value: null, matchMode: FilterMatchMode.BETWEEN },
-        //         verified: { value: null, matchMode: FilterMatchMode.EQUALS },
-        //     };
-        // },
-        // clearFilter1() {
-        //     this.initFilters1();
-        // },
+
         onRowExpand(event) {
             this.$toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
         },
@@ -272,6 +271,7 @@ export default {
 
             return total;
         },
+
         del(id) {
             // console.log(id);
 
