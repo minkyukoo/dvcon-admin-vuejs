@@ -1,6 +1,7 @@
 {
 	"data": [
 		{
+            "number": "1",
 			"id": "1000",
 			"code": "f230fh0g3",
 			"name": "Bamboo Watch",
@@ -11,6 +12,8 @@
 			"quantity": 24,
 			"inventoryStatus": "INSTOCK",
             "rating": 5,
+            "bannerPosition": "banner bottom",
+            "creationDate": "2021-09-20 05:09:23",
             "orders": [
                 {
                     "id": "1000",
@@ -51,6 +54,7 @@
             ]
 		},
 		{
+            "number": "2",
 			"id": "1001",
 			"code": "nvklal433",
 			"name": "Black Watch",
@@ -61,6 +65,8 @@
 			"quantity": 61,
 			"inventoryStatus": "INSTOCK",
             "rating": 4,
+            "bannerPosition": "banner bottom",
+            "creationDate": "2021-09-20 05:09:23",
             "orders": [
                 {
                     "id": "2000",
@@ -83,6 +89,7 @@
             ]
 		},
 		{
+            "number": "3",
 			"id": "1002",
 			"code": "zz21cz3c1",
 			"name": "Blue Band",
@@ -93,6 +100,8 @@
 			"quantity": 2,
 			"inventoryStatus": "LOWSTOCK",
             "rating": 3,
+            "bannerPosition": "banner bottom",
+            "creationDate": "2021-09-20 05:09:23",
             "orders": [
                 {
                     "id": "3000",
@@ -115,6 +124,7 @@
             ]
 		},
 		{
+            "number": "4",
 			"id": "1003",
 			"code": "244wgerg2",
 			"name": "Blue T-Shirt",
@@ -125,9 +135,12 @@
 			"quantity": 25,
 			"inventoryStatus": "INSTOCK",
             "rating": 5,
+            "bannerPosition": "banner bottom",
+            "creationDate": "2021-09-20 05:09:23",
             "orders": []
 		},
 		{
+            "number": "5",
 			"id": "1004",
 			"code": "h456wer53",
 			"name": "Bracelet",
@@ -138,6 +151,8 @@
 			"quantity": 73,
 			"inventoryStatus": "INSTOCK",
             "rating": 4,
+            "bannerPosition": "banner bottom",
+            "creationDate": "2021-09-20 05:09:23",
             "orders": [
                 {
                     "id": "5000",
@@ -170,6 +185,8 @@
 			"quantity": 0,
 			"inventoryStatus": "OUTOFSTOCK",
             "rating": 4,
+            "bannerPosition": "banner bottom",
+            "creationDate": "2021-09-20 05:09:23",
             "orders": [
                 {
                     "id": "6000",
@@ -211,6 +228,8 @@
 			"quantity": 5,
 			"inventoryStatus": "LOWSTOCK",
             "rating": 3,
+            "bannerPosition": "banner bottom",
+            "creationDate": "2021-09-20 05:09:23",
             "orders": [
                 {
                     "id": "7000",
@@ -243,6 +262,8 @@
 			"quantity": 23,
 			"inventoryStatus": "INSTOCK",
             "rating": 5,
+            "bannerPosition": "banner bottom",
+            "creationDate": "2021-09-20 05:09:23",
             "orders": [
                 {
                     "id": "8000",
@@ -266,6 +287,8 @@
 			"quantity": 2,
 			"inventoryStatus": "LOWSTOCK",
             "rating": 4,
+            "bannerPosition": "banner bottom",
+            "creationDate": "2021-09-20 05:09:23",
             "orders": [
                 {
                     "id": "9000",
@@ -298,6 +321,8 @@
 			"quantity": 63,
 			"inventoryStatus": "INSTOCK",
             "rating": 3,
+            "bannerPosition": "banner bottom",
+            "creationDate": "2021-09-20 05:09:23",
             "orders": [
                 {
                     "id": "10000",

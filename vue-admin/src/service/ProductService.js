@@ -14,6 +14,6 @@ export default class ProductService {
     }
 
     getProductsWithOrdersSmall() {
-        return axios.get('assets/demo/data/products-orders-small.json').then((res) => res.data.data);
+        return axios.get('http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner').then((res) => res.data.data);
     }
 }

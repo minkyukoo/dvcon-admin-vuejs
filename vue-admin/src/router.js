@@ -11,6 +11,21 @@ const routes = [
         },
     },
     {
+        path: '/banner-management',
+        name: 'BannerManagement',
+        component: () => import('./pages/BannerManagement.vue')
+    },
+    {
+        path: '/create-banner',
+        name: 'CreateBanner',
+        component: () => import('./pages/CreateBanner.vue')
+    },
+    {
+        path: '/edit-banner',
+        name: 'EditBanner',
+        component: () => import('./pages/EditBanner.vue')
+    },
+    {
         path: '/user',
         name: 'User',
         exact: true,
