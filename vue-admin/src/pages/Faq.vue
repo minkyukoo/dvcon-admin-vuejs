@@ -70,8 +70,8 @@
                     </Column>
                     <Column header="Questions" filterField="country.name" style="min-width:12rem">
                         <template #body="{data}">
-                            <span class="p-column-title">Questions</span>
-                            <span style="margin-left: .5em; vertical-align: middle" class="image-text">{{data.country.name}}</span>
+                           <router-link to="/Faq/edit"><span class="p-column-title">Questions</span>
+                            <span style="margin-left: .5em; vertical-align: middle" class="image-text">{{data.country.name}}</span></router-link>
                         </template>
                         <template #filterclear="{filterCallback}">
                             <Button type="button" icon="pi pi-times" @click="filterCallback()" class="p-button-secondary"></Button>

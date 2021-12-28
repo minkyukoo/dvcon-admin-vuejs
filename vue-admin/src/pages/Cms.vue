@@ -45,8 +45,8 @@
                     </Column>
                     <Column field="name" header="Title" style="min-width:12rem">
                         <template #body="{data}">
-                            <span class="p-column-title">Name</span>
-                            {{data.name}}
+                             <router-link to="/cms/edit"><span class="p-column-title">Name</span>
+                            {{data.name}}</router-link>
                         </template>
                         
                     </Column>
