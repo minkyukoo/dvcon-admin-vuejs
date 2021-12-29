@@ -23,7 +23,7 @@
                         <Dropdown id="state" v-model="dropdownItem" :options="dropdownItems" optionLabel="name" placeholder="Select One" :optionValue="mydata.gender" ></Dropdown>
                     </div>
                 </div>
-                <div class="p-formgrid p-grid">
+                <!-- <div class="p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-3">
                         <label for="pass">Password</label>
                         <InputText id="pass" type="password" placeholder="password" />
@@ -32,7 +32,7 @@
                         <label for="pass">Confirm Password</label>
                         <InputText id="pass" type="password" placeholder="password" />
                     </div>
-                </div>
+                </div> -->
 
                 <div class="p-d-flex p-jc-end">
                     <ConfirmPopup group="popup"></ConfirmPopup>

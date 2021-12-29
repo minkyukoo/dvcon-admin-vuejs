@@ -7,16 +7,16 @@
                 <div class="p-formgrid p-grid">
                     <div class="p-field p-col">
                         <label for="nameuser">Name</label>
-                        <InputText id="nameuser" type="text" placeholder="Search" />
+                        <InputText id="nameuser" type="text" placeholder="Search" v-model="name"/>
                     </div>
 
                     <div class="p-field p-col">
                         <label for="mobileuser">Phone Number</label>
-                        <InputText id="mobileuser" type="text" placeholder="Search" />
+                        <InputText id="mobileuser" type="text" placeholder="Search" v-model="mobile"/>
                     </div>
                     <div class="p-field p-col">
                         <label for="emailuser">E-mail</label>
-                        <InputText id="emailuser" type="email" placeholder="Search" />
+                        <InputText id="emailuser" type="email" placeholder="Search" v-model="email"/>
                     </div>
                     <!-- <div class="p-field p-col">
                         <label for="state">gender</label>
@@ -46,8 +46,8 @@
                         <Button label="last year" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
                     </div>
                     <div>
-                        <Button label="initialization" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reInitialize"></Button>
-                        <Button label="search" icon="pi pi-search" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
+                        <Button label="reset" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"  @click="resetUser"></Button>
+                        <Button label="search" icon="pi pi-search" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="searchuser"></Button>
                     </div>
                 </div>
             </div>
@@ -152,6 +152,9 @@ import axios from 'axios';
 export default {
     data() {
         return {
+            name:"",
+            email:"",
+            mobile:"",
             display: false,
             position: 'center',
             visibleLeft: false,
@@ -212,7 +215,7 @@ export default {
         //     this.loading1 = false;
         //     this.customer1.forEach(customer => (customer.date = new Date(customer.date)));
         // });
-        this.customerService.getUserList().then(data => {
+        this.customerService.getUserList(this.name,this.email,this.mobile).then(data => {
             this.customer1 = data;
             console.log(data);
             this.loading1 = false;
@@ -220,6 +223,20 @@ export default {
         });
     },
     methods: {
+        resetUser(){
+            this.name="";
+            this.email="";
+            this.mobile="";
+        },
+        searchuser(){
+        //   alert(this.name);
+          this.customerService.getUserList(this.name,this.email,this.mobile).then(data => {
+            this.customer1 = data;
+            console.log(data);
+            this.loading1 = false;
+            this.customer1.forEach(customer => (customer.date = new Date(customer.date)));
+        });
+        },
         exceldownload() {
             console.log(this.customerService);
             axios({

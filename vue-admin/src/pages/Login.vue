@@ -48,6 +48,7 @@ export default {
                     console.log(response);
                     if (response.data.status === 200) {
                         console.log(response.data.status);
+                        // localStorage.removeItem("expirytoken");
                         localStorage.setItem('token', response.data.data.token);
                         window.location = '/#/';
                     }
