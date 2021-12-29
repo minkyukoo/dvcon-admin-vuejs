@@ -3,20 +3,22 @@
         <Toast />
         <div class="p-col-12">
             <div class="card p-fluid">
-                <h4><strong>Search</strong></h4>
+                <h4>
+                    <strong>{{ $t('search.title') }}</strong>
+                </h4>
                 <div class="p-formgrid p-grid">
                     <div class="p-field p-col">
-                        <label for="nameuser">Name</label>
-                        <InputText id="nameuser" type="text" placeholder="Search" v-model="name"/>
+                        <label for="nameuser">{{ $t('search.label.name') }}</label>
+                        <InputText id="nameuser" type="text" :placeholder="$t('search.placeholder.search')" v-model="name" />
                     </div>
 
                     <div class="p-field p-col">
-                        <label for="mobileuser">Phone Number</label>
-                        <InputText id="mobileuser" type="text" placeholder="Search" v-model="mobile"/>
+                        <label for="mobileuser">{{ $t('search.label.phoneNumber') }}</label>
+                        <InputText id="mobileuser" type="text" :placeholder="$t('search.placeholder.search')" v-model="mobile" />
                     </div>
                     <div class="p-field p-col">
-                        <label for="emailuser">E-mail</label>
-                        <InputText id="emailuser" type="email" placeholder="Search" v-model="email"/>
+                        <label for="emailuser">{{ $t('search.label.email') }}</label>
+                        <InputText id="emailuser" type="email" :placeholder="$t('search.placeholder.search')" v-model="email" />
                     </div>
                     <!-- <div class="p-field p-col">
                         <label for="state">gender</label>
@@ -29,12 +31,12 @@
                         <InputText id="pass" type="password" placeholder="password" />
                     </div> -->
                     <div class="p-field p-col-12 p-md-3">
-                        <label for="pass">Start Date:</label>
-                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue" placeholder="YYYY.MM.DD"></Calendar>
+                        <label for="pass">{{ $t('search.label.startDate') }}</label>
+                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue" :placeholder="$t('search.placeholder.date')"></Calendar>
                     </div>
                     <div class="p-field p-col-12 p-md-3">
-                        <label for="verify-pass">Last Date:</label>
-                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue1" placeholder="YYYY.MM.DD"></Calendar>
+                        <label for="verify-pass">{{ $t('search.label.lastDate') }}</label>
+                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue1" :placeholder="$t('search.placeholder.date')"></Calendar>
                     </div>
                 </div>
                 <div class="p-d-flex p-jc-between p-ai-center p-mt-6">
@@ -46,8 +48,8 @@
                         <Button label="last year" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
                     </div>
                     <div>
-                        <Button label="reset" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"  @click="resetUser"></Button>
-                        <Button label="search" icon="pi pi-search" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="searchuser"></Button>
+                        <Button :label="$t('button.reset')" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="resetUser"></Button>
+                        <Button :label="$t('button.search')" icon="pi pi-search" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="searchuser"></Button>
                     </div>
                 </div>
             </div>
@@ -152,9 +154,9 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            name:"",
-            email:"",
-            mobile:"",
+            name: '',
+            email: '',
+            mobile: '',
             display: false,
             position: 'center',
             visibleLeft: false,
@@ -215,7 +217,7 @@ export default {
         //     this.loading1 = false;
         //     this.customer1.forEach(customer => (customer.date = new Date(customer.date)));
         // });
-        this.customerService.getUserList(this.name,this.email,this.mobile).then(data => {
+        this.customerService.getUserList(this.name, this.email, this.mobile).then(data => {
             this.customer1 = data;
             console.log(data);
             this.loading1 = false;
@@ -223,19 +225,19 @@ export default {
         });
     },
     methods: {
-        resetUser(){
-            this.name="";
-            this.email="";
-            this.mobile="";
+        resetUser() {
+            this.name = '';
+            this.email = '';
+            this.mobile = '';
         },
-        searchuser(){
-        //   alert(this.name);
-          this.customerService.getUserList(this.name,this.email,this.mobile).then(data => {
-            this.customer1 = data;
-            console.log(data);
-            this.loading1 = false;
-            this.customer1.forEach(customer => (customer.date = new Date(customer.date)));
-        });
+        searchuser() {
+            //   alert(this.name);
+            this.customerService.getUserList(this.name, this.email, this.mobile).then(data => {
+                this.customer1 = data;
+                console.log(data);
+                this.loading1 = false;
+                this.customer1.forEach(customer => (customer.date = new Date(customer.date)));
+            });
         },
         exceldownload() {
             console.log(this.customerService);
