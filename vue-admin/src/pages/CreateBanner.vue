@@ -53,13 +53,14 @@
         <div class="p-d-flex p-jc-end p-ai-center">
             <div>
                 <Button label="initialization" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reinitialize"> </Button>
-                <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
+                <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="addBanner"></Button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: 'CreateBanner',
     data() {
@@ -79,10 +80,39 @@ export default {
         },
         onFileChange(e) {
             var files = e?.target.files || e?.dataTransfer.files;
-            if (!files.length){
+            if (!files.length) {
                 return files;
-            } 
+            }
             this.createImage(files[0]);
+        },
+        addBanner() {
+            console.log(this.dropdownValue?.name)
+            return axios
+                .post(
+                    'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/add',
+                    {
+                        title: this.title,
+                        subtitle: this.subtitle,
+                        link: this.link,
+                        status: this.dropdownValue?.name,
+                        type: this.dropdownValueType?.name,
+                    },
+                    {
+                        headers: {
+                            source: 'dvcon',
+                            apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+                            token: localStorage.getItem('token'),
+                        },
+                    }
+                )
+                .then(res => {
+                    alert(res.data.data[0]);
+                    this.$router.push({ name: 'User' });
+                    console.log(res);
+                })
+                .catch(err => {
+                    alert(err);
+                });
         },
     },
 };
