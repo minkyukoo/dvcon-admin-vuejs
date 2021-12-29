@@ -12,7 +12,7 @@
                 <div class="button_wrap">
                     <div class="p-grid p-formgrid">
                         <div class="p-col-12 p-mb-12 p-lg-12 p-mb-lg-12">
-                            <Button label="initialization" icon="pi pi-refresh"  class="p-button-outlined p-mr-2 p-mb-2" />
+                            <!-- <Button label="initialization" icon="pi pi-refresh"  class="p-button-outlined p-mr-2 p-mb-2" /> -->
                             <Button type="button" class="p-mr-2 p-mb-2" label="Search" icon="pi pi-search"></Button>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                             <p style="display:none">{{ formatCurrency(data.balance) }}</p>
                             <div style="display:flex">
                              <router-link to="/cms/edit"><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link>
-                            <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined" @click="del" />
+                            <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined p-mr-2 p-mb-2" @click="del" />
                             <ConfirmDialog group="dialog" />
                             </div>
                         </template>
