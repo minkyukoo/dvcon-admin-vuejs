@@ -1,4 +1,19 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
+
+function guest(to, from, next) {
+    if (localStorage.token) {
+        next({ name: 'dashboard' });
+       
+    } else next();
+}
+
+function guard(to, from, next) {
+    if (localStorage.token) {
+        next();
+    } else {
+        next({ name: 'login' });
+    }
+}
 
 const routes = [
     {
@@ -6,8 +21,86 @@ const routes = [
         name: 'dashboard',
         exact: true,
         component: () => import('./components/Dashboard.vue'),
+        beforeEnter: guard,
         meta: {
             breadcrumb: [{ parent: 'Dashboard', label: 'Dashboard' }],
+        },
+    },
+    {
+        path: '/banner-management',
+        name: 'BannerManagement',
+        component: () => import('./pages/BannerManagement.vue'),
+        beforeEnter: guard,
+    },
+    {
+        path: '/create-banner',
+        name: 'CreateBanner',
+        component: () => import('./pages/CreateBanner.vue'),
+        beforeEnter: guard,
+    },
+    {
+        path: '/edit-banner',
+        name: 'EditBanner',
+        component: () => import('./pages/EditBanner.vue'),
+        beforeEnter: guard,
+    },
+    {
+        path: '/user',
+        name: 'User',
+        exact: true,
+        component: () => import('./components/User.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'User', label: 'User' }],
+        },
+    },
+    {
+        path: '/add-user',
+        name: 'Adduser',
+        exact: true,
+        component: () => import('./components/Adduser.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'User', label: 'Add User' }],
+        },
+    },
+    {
+        path: '/user/view-user/:id',
+        name: 'ViewUser',
+        exact: true,
+        component: () => import('./components/ViewUser.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'User', label: 'View User' }],
+        },
+    },
+    {
+        path: '/user/edit-user/:id',
+        name: 'UpdateUser',
+        exact: true,
+        component: () => import('./components/UpdateUser.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'User', label: 'Update User' }],
+        },
+    },
+    {
+        path: '/notice',
+        name: 'NoticePage',
+        component: () => import('./pages/Notice.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'NoticePage' }],
+        },
+    },
+    {
+        path: '/query',
+        name: 'Query',
+        exact: true,
+        component: () => import('./components/menu/Query.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'Query', label: '1.1 Query' }],
         },
     },
     {
@@ -295,7 +388,8 @@ const routes = [
     {
         path: '/login',
         name: 'login',
-        component: () => import('./pages/Login.vue')
+        component: () => import('./pages/Login.vue'),
+        beforeEnter: guest,
     },
     {
         path: '/error',
@@ -311,11 +405,62 @@ const routes = [
         path: '/access',
         name: 'access',
         component: () => import('./pages/Access.vue')
-    }
+    },
+    {
+        path: '/cms',
+        name: 'cms',
+        component: () => import('./pages/Cms.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Cms' }],
+        },
+    },
+
+    {
+        path: '/faq',
+        name: 'Faq',
+        component: () => import('./pages/Faq.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Faq' }],
+        },
+    },
+
+    {
+        path: '/faq/edit',
+        name: 'Faqedit',
+        component: () => import('./pages/Faqedit.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Faqedit' }],
+        },
+    },
+
+    {
+        path: '/faq/add',
+        name: 'Faqadd',
+        component: () => import('./pages/Faqadd.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Faqadd' }],
+        },
+    },
+
+    {
+        path: '/cms/edit',
+        name: 'Cmsedit',
+        component: () => import('./pages/Cmsedit.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Cmsedit' }],
+        },
+    },
+    
 ];
 
 const router = createRouter({
-    history: createWebHashHistory(),
+    // history: createWebHashHistory(),
+    history: createWebHistory(),
     routes,
     scrollBehavior() {
         return { left: 0, top: 0 };
