@@ -3,20 +3,20 @@
         <Toast />
         <div class="p-col-12">
             <div class="card p-fluid">
-                <h4><strong>Search</strong></h4>
+                <h4><strong>{{$t("search.title")}}</strong></h4>
                 <div class="p-formgrid p-grid">
                     <div class="p-field p-col">
-                        <label for="nameuser">Name</label>
-                        <InputText id="nameuser" type="text" placeholder="Search" />
+                        <label for="nameuser">{{$t('search.label.name')}}</label>
+                        <InputText id="nameuser" type="text" :placeholder="$t('search.placeholder.search')" />
                     </div>
 
                     <div class="p-field p-col">
-                        <label for="mobileuser">Phone Number</label>
-                        <InputText id="mobileuser" type="text" placeholder="Search" />
+                        <label for="mobileuser">{{$t('search.label.phoneNumber')}}</label>
+                        <InputText id="mobileuser" type="text" :placeholder="$t('search.placeholder.search')" />
                     </div>
                     <div class="p-field p-col">
-                        <label for="emailuser">E-mail</label>
-                        <InputText id="emailuser" type="email" placeholder="Search" />
+                        <label for="emailuser">{{$t('search.label.email')}}</label>
+                        <InputText id="emailuser" type="email" :placeholder="$t('search.placeholder.search')" />
                     </div>
                     <!-- <div class="p-field p-col">
                         <label for="state">gender</label>
@@ -29,18 +29,18 @@
                         <InputText id="pass" type="password" placeholder="password" />
                     </div> -->
                     <div class="p-field p-col-12 p-md-3">
-                        <label for="pass">Start Date:</label>
-                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue" placeholder="YYYY.MM.DD"></Calendar>
+                        <label for="pass">{{$t('search.label.startDate')}}</label>
+                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue" :placeholder="$t('search.placeholder.date')"></Calendar>
                     </div>
                     <div class="p-field p-col-12 p-md-3">
-                        <label for="verify-pass">Last Date:</label>
-                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue1" placeholder="YYYY.MM.DD"></Calendar>
+                        <label for="verify-pass">{{$t('search.label.lastDate')}}</label>
+                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue1" :placeholder="$t('search.placeholder.date')"></Calendar>
                     </div>
                 </div>
 
                 <div class="p-d-flex p-jc-end">
-                    <Button label="Help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-refresh p-mr-2"></i> initialization</Button>
-                    <Button label="Primary" class="p-mr-2 p-mb-2"><i class="pi pi-search p-mr-2"></i> search</Button>
+                    <Button label="Help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-refresh p-mr-2"></i> {{$t('button.reset')}}</Button>
+                    <Button label="Primary" class="p-mr-2 p-mb-2"><i class="pi pi-search p-mr-2"></i> {{$t('button.search')}}</Button>
                 </div>
             </div>
         </div>
