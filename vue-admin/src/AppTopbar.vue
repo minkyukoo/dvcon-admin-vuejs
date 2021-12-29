@@ -53,7 +53,7 @@
                             <img src="assets/layout/images/avatar-profilemenu.png" alt="freya-layout" />
                         </a>
                         <ul class="fadeInDown">
-                            <li>
+                            <!-- <li>
                                 <a href="#">
                                     <span>Profile</span>
                                 </a>
@@ -72,7 +72,7 @@
                                 <a href="#">
                                     <span>Notifications</span>
                                 </a>
-                            </li>
+                            </li> -->
                             <li>
                                 <div><span @click="logout">Logout</span></div>
                             </li>
@@ -80,9 +80,9 @@
                     </li>
                 </ul>
 
-                <a href="#" tabindex="0" class="layout-rightpanel-button" @click="onRightMenuButtonClick($event)">
+                <!-- <a href="#" tabindex="0" class="layout-rightpanel-button" @click="onRightMenuButtonClick($event)">
                     <i class="pi pi-arrow-left"></i>
-                </a>
+                </a> -->
             </div>
         </div>
     </div>

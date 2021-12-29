@@ -56,20 +56,8 @@
                     </div>
                 </div>
 
-                <DataTable
-                    :value="customer1"
-                    :paginator="true"
-                    class="p-datatable-gridlines"
-                    :rows="10"
-                    dataKey="id"
-                    :rowHover="true"
-                    v-model:filters="filters1"
-                    filterDisplay="menu"
-                    :loading="loading1"
-                    :filters="filters1"
-                    responsiveLayout="scroll"
-                    :globalFilterFields="['name', 'country.name', 'representative.name', 'balance', 'status']"
-                >
+                <DataTable :value="customer1" :paginator="true" class="p-datatable-gridlines" :rows="5" dataKey="id" :rowHover="true" v-model:filters="filters1" filterDisplay="menu" :loading="loading1" :filters="filters1" responsiveLayout="scroll">
+                    <ConfirmDialog group="dialog" />
                     <!-- <template #header>
                         <div class="p-d-flex p-jc-between p-flex-column p-flex-sm-row">
                             <Button type="button" icon="pi pi-filter-slash" label="Clear" class="p-button-outlined p-mb-2" @click="clearFilter1()"/>
@@ -95,113 +83,42 @@
                             <InputText type="text" v-model="filterModel.value" class="p-column-filter" placeholder="Search by name"/>
                         </template> -->
                     </Column>
-                    <Column header="Country" filterField="country.name" style="min-width:12rem">
+                    <Column header="Id" style="min-width:12rem">
                         <template #body="{data}">
-                            <span class="p-column-title">Country</span>
-                            <img src="assets/demo/flags/flag_placeholder.png" :alt="data.country.name" :class="'flag flag-' + data.country.code" width="30" />
-                            <span style="margin-left: .5em; vertical-align: middle" class="image-text">{{ data.country.name }}</span>
-                        </template>
-                        <!-- <template #filter="{filterModel}">
-                            <InputText type="text" v-model="filterModel.value" class="p-column-filter" placeholder="Search by country"/>
-                        </template> -->
-                        <template #filterclear="{filterCallback}">
-                            <Button type="button" icon="pi pi-times" @click="filterCallback()" class="p-button-secondary"></Button>
-                        </template>
-                        <template #filterapply="{filterCallback}">
-                            <Button type="button" icon="pi pi-check" @click="filterCallback()" class="p-button-success"></Button>
-                        </template>
-                        <template #filterfooter>
-                            <div class="p-px-3 p-pt-0 p-pb-3 p-text-center p-text-bold">Customized Buttons</div>
+                            <span class="p-column-title">Id</span>
+                            {{ data.id }}
                         </template>
                     </Column>
-                    <Column header="Agent" filterField="representative" :showFilterMatchModes="false" :filterMenuStyle="{ width: '14rem' }" style="min-width:14rem">
+                    <Column header="Email" style="min-width:12rem">
                         <template #body="{data}">
-                            <span class="p-column-title">Agent</span>
-                            <img :alt="data.representative.name" :src="'assets/demo/images/avatar/' + data.representative.image" width="32" style="vertical-align: middle" />
-                            <span style="margin-left: .5em; vertical-align: middle" class="image-text">{{ data.representative.name }}</span>
+                            <span class="p-column-title">Email</span>
+                            {{ data.email }}
                         </template>
-                        <!-- <template #filter="{filterModel}">
-                            <div class="p-mb-3 p-text-bold">Agent Picker</div>
-                            <MultiSelect v-model="filterModel.value" :options="representatives" optionLabel="name" placeholder="Any" class="p-column-filter" style="width: 12rem">
-                                <template #option="slotProps">
-                                    <div class="p-multiselect-representative-option">
-                                        <img :alt="slotProps.option.name" :src="'assets/demo/images/avatar/' + slotProps.option.image" width="32" style="vertical-align: middle" />
-                                        <span style="margin-left: .5em; vertical-align: middle" class="image-text">{{slotProps.option.name}}</span>
-                                    </div>
-                                </template>
-                            </MultiSelect> -->
-                        <!-- </template> -->
                     </Column>
-                    <Column header="Date" filterField="date" dataType="date" style="min-width:10rem">
+                    <Column header="Mobile" style="min-width:12rem">
                         <template #body="{data}">
-                            <span class="p-column-title">Date</span>
-                            {{ formatDate(data.date) }}
+                            <span class="p-column-title">Mobile</span>
+                            {{ data.mobile }}
                         </template>
-                        <!-- <template #filter="{filterModel}">
-                            <Calendar v-model="filterModel.value" dateFormat="mm/dd/yy" placeholder="mm/dd/yyyy" />
-                        </template> -->
                     </Column>
-                    <Column header="Balance" filterField="balance" dataType="numeric" style="min-width:10rem">
+                    <Column header="created-date" style="min-width:12rem">
+                        <template #body="{data}">
+                            <span class="p-column-title">Created-Date</span>
+                            {{ data.createdDate }}
+                        </template>
+                    </Column>
+                    <Column header="extra">
                         <template #body="{data}">
                             <span class="p-column-title">Balance</span>
-                            {{ formatCurrency(data.balance) }}
-                        </template>
-                        <!-- <template #filter="{filterModel}">
-                            <InputNumber v-model="filterModel.value" mode="currency" currency="USD" locale="en-US" />
-                        </template> -->
-                    </Column>
-                    <Column field="status" header="Status" :filterMenuStyle="{ width: '14rem' }" style="min-width:12rem">
-                        <template #body="{data}">
-                            <span class="p-column-title">Status</span>
-                            <span :class="'customer-badge status-' + data.status">{{ data.status }}</span>
-                        </template>
-                        <!-- <template #filter="{filterModel}">
-                            <Dropdown v-model="filterModel.value" :options="statuses" placeholder="Any" class="p-column-filter" :showClear="true">
-                                <template #value="slotProps">
-                                    <span :class="'customer-badge status-' + slotProps.value" v-if="slotProps.value">{{slotProps.value}}</span>
-                                    <span v-else>{{slotProps.placeholder}}</span>
-                                </template>
-                                <template #option="slotProps">
-                                    <span :class="'customer-badge status-' + slotProps.option">{{slotProps.option}}</span>
-                                </template>
-                            </Dropdown>
-                        </template> -->
-                    </Column>
-                    <!-- <Column field="activity" header="Activity" :showFilterMatchModes="false" style="min-width:12rem">
-                        <template #body="{data}">
-                            <span class="p-column-title">Activity</span>
-                            <ProgressBar :value="data.activity" :showValue="false"></ProgressBar>
-                        </template>
-                        <template #filter={filterModel}>
-                            <Slider v-model="filterModel.value" range class="p-m-3"></Slider>
-                            <div class="p-d-flex p-ai-center p-jc-between p-px-2">
-                                <span>{{filterModel.value ? filterModel.value[0] : 0}}</span>
-                                <span>{{filterModel.value ? filterModel.value[1] : 100}}</span>
-                            </div>
-                        </template>
-                    </Column> -->
-                    <Column field="verified" header="Verified" dataType="boolean" bodyClass="p-text-center" style="min-width:8rem">
-                        <template #body="{data}">
-                            <span class="p-column-title">Verified</span>
-                            <i class="pi" :class="{ 'true-icon pi-check-circle': data.verified, 'false-icon pi-times-circle': !data.verified }"></i>
-                        </template>
-                        <!-- <template #filter={filterModel}>
-                            <TriStateCheckbox v-model="filterModel.value" />
-                        </template> -->
-                    </Column>
-                    <Column header="extra" filterField="exra" dataType="numeric">
-                        <template #body="{data}">
-                            <span class="p-column-title">Balance</span>
-                            <p style="display:none">{{ formatCurrency(data.balance) }}</p>
+                            <p style="display:none">{{ data.mobile }}</p>
                             <div style="display:flex">
-                                <router-link to="/user/view-user"
+                                <router-link :to="'/user/view-user/' + data.id"
                                     ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> view</Button>
                                 </router-link>
-                                <router-link to="/user/edit-user"
+                                <router-link :to="'/user/edit-user/' + data.id"
                                     ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link
                                 >
-                                <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined" @click="del" />
-                                <ConfirmDialog group="dialog" />
+                                <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined p-mr-2 p-mb-2" @click="del(data.id)" />
                             </div>
                         </template>
                         <!-- <template #filter="{filterModel}">
@@ -214,9 +131,12 @@
     </div>
 </template>
 <script>
-import { FilterMatchMode, FilterOperator } from 'primevue/api';
+import { useRoute } from 'vue-router';
+// import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import CustomerService from '../service/CustomerService';
-import ProductService from '../service/ProductService';
+import axios from 'axios';
+// import ProductService from '../service/ProductService';
+// import axios from 'axios';
 export default {
     data() {
         return {
@@ -232,15 +152,15 @@ export default {
             calendarValue: null,
             calendarValue1: null,
             customer1: null,
-            customer2: null,
-            customer3: null,
+
             filters1: null,
             filters2: {},
             loading1: true,
-            loading2: true,
+
             idFrozen: false,
             products: null,
             expandedRows: [],
+            user: null,
             statuses: ['unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal'],
 
             dropdownItems: [
@@ -268,25 +188,29 @@ export default {
     productService: null,
     created() {
         this.customerService = new CustomerService();
-        this.productService = new ProductService();
-        this.initFilters1();
-        
+
+        // this.initFilters1();
     },
     mounted() {
-        this.productService.getProductsWithOrdersSmall().then(data => (this.products = data));
-        this.customerService.getCustomersLarge().then(data => {
+        const route = useRoute();
+        console.log(route.params);
+        // this.customerService.getCustomersLarge().then(data => {
+        //     this.customer1 = data;
+        //     console.log(data)
+        //     this.loading1 = false;
+        //     this.customer1.forEach(customer => (customer.date = new Date(customer.date)));
+        // });
+        this.customerService.getUserList().then(data => {
             this.customer1 = data;
+            console.log(data);
             this.loading1 = false;
             this.customer1.forEach(customer => (customer.date = new Date(customer.date)));
         });
-        this.customerService.getCustomersLarge().then(data => (this.customer2 = data));
-        this.customerService.getCustomersMedium().then(data => (this.customer3 = data));
-        this.loading2 = false;
-
-        
-        
     },
     methods: {
+        Showid() {
+            console.log('hello');
+        },
         open() {
             this.display = true;
         },
@@ -296,22 +220,22 @@ export default {
         toggle(event) {
             this.$refs.op.toggle(event);
         },
-        initFilters1() {
-            this.filters1 = {
-                global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-                name: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-                'country.name': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-                representative: { value: null, matchMode: FilterMatchMode.IN },
-                date: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
-                balance: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
-                status: { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
-                activity: { value: null, matchMode: FilterMatchMode.BETWEEN },
-                verified: { value: null, matchMode: FilterMatchMode.EQUALS },
-            };
-        },
-        clearFilter1() {
-            this.initFilters1();
-        },
+        // initFilters1() {
+        //     this.filters1 = {
+        //         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        //         name: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
+        //         'country.name': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
+        //         representative: { value: null, matchMode: FilterMatchMode.IN },
+        //         date: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
+        //         balance: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
+        //         status: { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
+        //         activity: { value: null, matchMode: FilterMatchMode.BETWEEN },
+        //         verified: { value: null, matchMode: FilterMatchMode.EQUALS },
+        //     };
+        // },
+        // clearFilter1() {
+        //     this.initFilters1();
+        // },
         onRowExpand(event) {
             this.$toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
         },
@@ -348,14 +272,36 @@ export default {
 
             return total;
         },
-        del() {
+        del(id) {
+            // console.log(id);
+
             this.$confirm.require({
                 group: 'dialog',
                 header: 'Confirmation',
                 message: 'Are you sure you want to delete?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+                    axios({
+                        method: 'delete',
+                        url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/user/delete',
+                        data: {
+                            deleteIdArray: id,
+                        },
+                        headers: {
+                            source: 'dvcon',
+                            apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+                            token: localStorage.getItem('token'),
+                        },
+                    })
+                        .then(function(response) {
+                            console.log(response);
+                            // alert('Deleted successfully');
+                            location.reload();
+                        })
+                        .catch(function(response) {
+                            console.log(response);
+                        });
+                    this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Deleted successfully', life: 3000 });
                 },
                 reject: () => {
                     this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });

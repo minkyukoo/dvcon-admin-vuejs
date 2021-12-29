@@ -26,10 +26,17 @@ export default {
 <style scoped>
     .descrition_edit{
         width: 100%;
+        height: 150px;
+        resize: none;
     }
     .p-field{
         padding:0 1rem 1rem 0;
     }
+    .button_wrap{
+    width: 100%;
+    text-align: right;
+    margin-top: 30px;
+}
     .align-right{
         text-align: right;
         width: 100%;

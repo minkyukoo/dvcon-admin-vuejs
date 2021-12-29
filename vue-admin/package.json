@@ -23,6 +23,7 @@
 		"eslint-plugin-vue": "^7.0.0-0"
 	},
 	"dependencies": {
+		"@babel/core": "^7.16.5",
 		"@fullcalendar/core": "^5.7.2",
 		"@fullcalendar/daygrid": "^5.7.2",
 		"@fullcalendar/interaction": "^5.7.2",
