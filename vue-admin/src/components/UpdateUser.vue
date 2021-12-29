@@ -7,20 +7,20 @@
                 <div class="p-formgrid p-grid">
                     <div class="p-field p-col">
                         <label for="nameuser">Name</label>
-                        <InputText id="nameuser" type="text" placeholder="Search" :modelValue="mydata.name" />
+                        <InputText id="nameuser" type="text" placeholder="Name" :modelValue="mydata.name" v-model="mydata.name" />
                     </div>
                     <div class="p-field p-col">
                         <label for="emailuser">Email Id</label>
-                        <InputText id="emailuser" type="email" placeholder="Search" :modelValue="mydata.Email" />
+                        <InputText id="emailuser" type="email" placeholder="Email_Id" :modelValue="mydata.Email" v-model="mydata.Email" />
                     </div>
                     <div class="p-field p-col">
                         <label for="mobileuser">Phone Number</label>
-                        <InputText id="mobileuser" type="text" placeholder="Search" :modelValue="mydata.phone" />
+                        <InputText id="mobileuser" type="text" placeholder="Phone_No" :modelValue="mydata.phone" v-model="mydata.phone" />
                     </div>
 
                     <div class="p-field p-col">
                         <label for="state">gender</label>
-                        <Dropdown id="state" v-model="dropdownItem" :options="dropdownItems" optionLabel="name" placeholder="Select One" :optionValue="mydata.gender"></Dropdown>
+                        <Dropdown id="state" v-model="dropdownItem" :options="dropdownItems" optionLabel="name" placeholder="Select One" :optionValue="mydata.gender" ></Dropdown>
                     </div>
                 </div>
                 <div class="p-formgrid p-grid">
@@ -84,15 +84,16 @@ export default {
                 message: 'Are you sure you want to proceed?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
+                    console.log(this.mydata)
                     axios({
                         method: 'PUT',
                         url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/user/edit',
                         data: {
-                            id:this.$route.params.id,
-                            name: this.name,
-                            mobile: this.mobile,
-                            email: this.email,
-                            gender: this.gender,
+                            name: this.mydata.name,
+                            mobile: this.mydata.phone,
+                            email: this.mydata.Email,
+                            gender: this.mydata.gender,
+                            id: this.$route.params.id
                         },
                         headers: {
                             source: 'dvcon',
@@ -101,11 +102,12 @@ export default {
                         },
                     })
                         .then(res => {
-                            console.log(res);
+                            console.warn(res);
+                             this.$router.push({ name: 'User' });
                         })
-                        .catch(err => {
-                            alert(err);
-                        });
+                        // .catch(err => {
+                        //     alert(err);
+                        // });
 
                     this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
                 },

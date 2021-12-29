@@ -9,12 +9,12 @@
                 <Password id="password" placeholder="Password" :feedback="false" v-model="password" />
                 <Button label="LOGIN" type="button" @click="Login"></Button>
                 <a href="#">forget password?</a>
-                <p>Don’t you have an account, <a href="#">sign up</a></p>
+                <!-- <p>Don’t you have an account, <a href="#">sign up</a></p> -->
             </div>
         </div>
         <div class="login-footer">
-            <h4>freya</h4>
-            <h6>Copyright Ⓒ PrimeTek Informatics</h6>
+            <h4>Vue Admin</h4>
+            <h6>Copyright Ⓒ Hanriver Technology</h6>
         </div>
     </div>
 </template>
@@ -31,7 +31,7 @@ export default {
     methods: {
         async Login() {
             // localStorage.setItem('token',{username: this.username,password:this.password});
-            // window.location = "/#/"
+            // window.location = "/"
             await axios({
                 method: 'post',
                 url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/auth/login',
@@ -49,7 +49,7 @@ export default {
                     if (response.data.status === 200) {
                         console.log(response.data.status);
                         localStorage.setItem('token', response.data.data.token);
-                        window.location = '/#/';
+                        window.location = '/';
                     }
                 })
                 .catch(function(response) {
@@ -58,7 +58,7 @@ export default {
                 });
         },
         goDashboard() {
-            window.location = '/#/';
+            window.location = '/';
         },
     },
 };
