@@ -1,4 +1,8 @@
 <template>
+ <router-link to="/faq">
+        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" 
+        class="p-button back-button p-button-sm p-mr-2 p-mb-2"></Button>
+    </router-link>
 <div class="p-grid cms_wrap">
         <div class="p-col-12">
             <div class="card">
@@ -72,5 +76,16 @@ export default {
     }
     .m-0{
         margin: 0;
+    }
+    .back-button{
+        background-color: transparent;
+        border:0;
+        color:#000;
+        outline: none;
+    }
+    .back-button:hover{
+         background-color: transparent;
+        border:0;
+        color:#000;
     }
 </style>

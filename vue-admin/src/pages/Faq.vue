@@ -1,45 +1,58 @@
 <template>
 	<div class="p-grid">
 		<div class="p-col-12">
-			<div class="card">
+			<div class="card p-fluid">
 				<h5>Search</h5>
-				<div class="p-col-6">
-					<div class="p-fluid">
-						<div class="p-grid">
-							<div class="p-formgrid p-grid">
-								<div class="p-field p-col-6">
-									<label for="name2">question</label>
-									<InputText id="name2" type="text" />
-								</div>
-								<div class="p-field p-col-6">
-									<label for="state">state</label>
-									<Dropdown id="state" v-model="dropdownItem" :options="dropdownItems" optionLabel="name" placeholder="Select One"></Dropdown>
-								</div>
-								<div class="p-field p-col-6">
-									<label for="state">Start Date:</label>
-									<Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue"></Calendar>
-								</div>
-								<div class="p-field p-col-6">
-									<label for="state">Last Date:</label>
-									<Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue"></Calendar>
-								</div>
-							</div>
-						</div>
+				<div class="p-formgrid p-grid">
+					<div class="p-field p-col">
+						<label for="name2">question</label>
+						<InputText id="name2" type="text" />
+					</div>
+					<div class="p-field p-col">
+						<label for="state">state</label>
+						<Dropdown id="state" v-model="dropdownItem" :options="dropdownItems" optionLabel="name" placeholder="Select One"></Dropdown>
+					</div>
+					<div class="p-field p-col">
+						<label for="state">Start Date:</label>
+						<Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue"></Calendar>
+					</div>
+					
+				</div>
+				<div class="p-formgrid p-grid">
+					<div class="p-field p-col-4">
+						<label for="state">Last Date:</label>
+						<Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue"></Calendar>
 					</div>
 				</div>
+				
 				<div class="p-grid">
 					<div class="p-col-12">
 						<div class="p-formgrid p-grid">
 							<div class="p-field p-col-6">
-								<Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label="today" icon="pi pi-calendar" />
-								<Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label="last week" icon="pi pi-calendar" />
-								<Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label="last month" icon="pi pi-calendar" />
-								<Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label="last 6 months" icon="pi pi-calendar" />
-								<Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label="last year" icon="pi pi-calendar" />
+								<div class="p-formgrid p-grid">
+									<div class="p-field p-col-3">
+										<Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label="today" icon="pi pi-calendar" />
+									</div>
+									<div class="p-field p-col-3">
+										<Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label="last week" icon="pi pi-calendar" />
+									</div>
+									<div class="p-field p-col-3">
+										<Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label="last month" icon="pi pi-calendar" />
+									</div>
+									
+									</div>
+									<div class="p-formgrid p-grid">
+										<div class="p-field p-col-4">
+										<Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label="last 6 months" icon="pi pi-calendar" />
+									</div>
+										<div class="p-field p-col-4">
+											<Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label="last year" icon="pi pi-calendar" />
+										</div>
+									</div>
 							</div>
 							<div class="p-field p-col-6 p-d-flex p-jc-end">
-								<Button type="button" class="p-button-outlined p-mr-2 p-mb-2" label=" initialization" icon="pi pi-refresh" />
-								<Button type="button" class="p-mr-2 p-mb-2" label="Search" icon="pi pi-search" />
+								<Button type="button" class="p-button refresh-button p-button-outlined p-mr-2 p-mb-2" label=" initialization" icon="pi pi-refresh" />
+								<Button type="button" class="p-button refresh-button p-mr-2 p-mb-2" label="Search" icon="pi pi-search" />
 							</div>
 						</div>
 					</div>
@@ -234,5 +247,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.p-field .refresh-button{
+	width:auto;
+}
+.p-jc-end{
+	align-items:flex-end;
 }
 </style>
