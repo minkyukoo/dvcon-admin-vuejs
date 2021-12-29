@@ -1,7 +1,6 @@
 <template>
     <router-link to="/banner-management">
-        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" 
-        class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
+        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
     </router-link>
     <div class="card">
         <div class="p-grid p-fluid">
@@ -30,7 +29,7 @@
                         <label for="subtitle2">Image <span class="img-info">(File size must be at least 500*900px) </span> </label>
                         <div class="custom-select">
                             <span>Select File</span>
-                            <input type="file" class="select-file" />
+                            <input type="file" class="select-file" v-on:change="onFileChange(event)" />
                             <Button label="Select File" class="SelectBtn" />
                         </div>
                     </div>
@@ -54,18 +53,19 @@
         <div class="p-d-flex p-jc-end p-ai-center">
             <div>
                 <Button label="initialization" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reinitialize"> </Button>
-                <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
+                <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="addBanner"></Button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: 'CreateBanner',
     data() {
         return {
-            dropdownValues: [{ name: 'Select' }, { name: 'activation' }, { name: 'inactivation' }],
+            dropdownValues: [{ name: 'Select' }, { name: 'active' }, { name: 'inactive' }],
             dropdownValueTypes: [{ name: 'state' }, { name: 'main r' }, { name: 'sub top' }, { name: 'sub bottom' }],
             dropdownValue: null,
             dropdownValueType: null,
@@ -77,6 +77,42 @@ export default {
     methods: {
         reinitialize() {
             (this.dropdownValue = null), (this.dropdownValueType = null), (this.title = null), (this.subtitle = null), (this.link = null);
+        },
+        onFileChange(e) {
+            var files = e?.target.files || e?.dataTransfer.files;
+            if (!files.length) {
+                return files;
+            }
+            this.createImage(files[0]);
+        },
+        addBanner() {
+            console.log(this.dropdownValue?.name)
+            return axios
+                .post(
+                    'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/add',
+                    {
+                        title: this.title,
+                        subtitle: this.subtitle,
+                        link: this.link,
+                        status: this.dropdownValue?.name,
+                        type: this.dropdownValueType?.name,
+                    },
+                    {
+                        headers: {
+                            source: 'dvcon',
+                            apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+                            token: localStorage.getItem('token'),
+                        },
+                    }
+                )
+                .then(res => {
+                    alert(res.data.data[0]);
+                    this.$router.push({ name: 'User' });
+                    console.log(res);
+                })
+                .catch(err => {
+                    alert(err);
+                });
         },
     },
 };
