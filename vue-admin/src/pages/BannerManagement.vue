@@ -11,7 +11,8 @@
                         </div>
                         <div class="p-field p-col">
                             <label for="email2">state</label>
-                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
+                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name"
+                             placeholder="Select" />
                         </div>
                     </div>
                     <div class="p-formgrid p-grid">
@@ -26,7 +27,7 @@
                     </div>
                 </div>
                 <div class="p-col-12 p-md-6">
-                    <h1>{{Name}}</h1>
+                    <h1>{{title}}</h1>
                     <h1>{{dropdownValue}}</h1>
                     <h1>{{calendarValue1}}</h1>
                     <h1>{{calendarValue2}}</h1>
@@ -41,7 +42,7 @@
                     <Button label="last year" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
                 </div>
                 <div>
-                    <Button label="initialization" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reInitialize"></Button>
+                    <Button label="reset" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reInitialize"></Button>
                     <Button label="search" icon="pi pi-search" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="getProductsWithOrdersSmall"></Button>
                 </div>
             </div>
@@ -58,7 +59,7 @@
                             </router-link>
                         </div>
                     </div>
-                    <DataTable :value="products" dataKey="id" responsiveLayout="scroll" :paginator="true" :rows="4" :rowHover="true" v-if="products.length > 0">
+                    <DataTable :value="products" dataKey="id" responsiveLayout="scroll" :paginator="true" :rows="4" :rowHover="true" v-if="products.length > 0" :loading="loading1">
                         <!-- <template #header>
                                 <div class="table-header-container">
                                     <Button icon="pi pi-plus" label="Expand All" @click="expandAll" class="p-mr-2 p-mb-2" />
@@ -66,19 +67,25 @@
                                 </div>
                             </template> -->
                         <!-- <Column :expander="true" headerStyle="width: 3rem" /> -->
+                        <template #empty>
+                        No customers found.
+                    </template>
+                    <template #loading>
+                        Loading customers data. Please wait.
+                    </template>
                         <Column field="name" header="Number">
                             <template #body="slotProps">
                                 <span class="p-column-title">Number</span>
                                 {{ slotProps.data.id }}
                             </template>
                         </Column>
-                        <Column field="name" header="Title" :sortable="true">
+                        <Column field="name" header="Title" >
                             <template #body="slotProps">
                                 <span class="p-column-title">Title</span>
                                 {{ slotProps.data.title }}
                             </template>
                         </Column>
-                        <!-- <Column field="name" header="Subtitle" :sortable="true">
+                        <!-- <Column field="name" header="Subtitle" >
                             <template #body="slotProps">
                                 <span class="p-column-title">Subtitle</span>
                                 {{ slotProps.data.subTitle }}
@@ -90,31 +97,31 @@
                                 <img :src="'http://dvcon-admin-nodejs.dvconsulting.org:4545' + slotProps.data.bannerImage" :alt="slotProps.data.image" class="product-image" />
                             </template>
                         </Column>
-                        <Column field="price" header="Banner Position" :sortable="true">
+                        <Column field="price" header="Banner Position" >
                             <template #body="slotProps">
                                 <span class="p-column-title">Banner Position</span>
                                 {{ formatCurrency(slotProps.data.bannerPostion) }}
                             </template>
                         </Column>
-                        <Column field="Creation" header="Creation Date" :sortable="true">
+                        <Column field="Creation" header="Creation Date" >
                             <template #body="slotProps">
                                 <span class="p-column-title">Creation Date</span>
                                 {{ formatCurrency(slotProps.data.createdDate) }}
                             </template></Column
                         >
-                        <Column field="Status" header="Status" :sortable="true">
+                        <Column field="Status" header="Status" >
                             <template #body="slotProps">
                                 <span class="p-column-title">Status</span>
                                 {{ formatCurrency(slotProps.data.status) }}
                             </template></Column
                         >
-                        <!-- <Column field="rating" header="Reviews" :sortable="true">
+                        <!-- <Column field="rating" header="Reviews" >
                             <template #body="slotProps">
                                 <span class="p-column-title">Reviews</span>
                                 <Rating :modelValue="slotProps.data.rating" :readonly="true" :cancel="false" />
                             </template>
                         </Column>
-                        <Column field="inventoryStatus" header="Status" :sortable="true">
+                        <Column field="inventoryStatus" header="Status" >
                             <template #body="slotProps">
                                 <span class="p-column-title">Status</span>
                                 <span :class="'product-badge status-' + (slotProps.data.inventoryStatus ? slotProps.data.inventoryStatus.toLowerCase() : '')">{{ slotProps.data.inventoryStatus }}</span>
@@ -166,6 +173,7 @@ export default {
             dropdownValues: [
                 { name: 'active'},
                 { name: 'inactive'},
+                { name: 'deleted'},
             ],
             dropdownValue: null,
             calendarValue1: null,
@@ -175,6 +183,7 @@ export default {
             // customer2: null,
             products: {},
             title: null,
+            loading1: true,
         };
     },
     // customerService: null,
@@ -192,14 +201,14 @@ export default {
         this.getProductsWithOrdersSmall();
     },
     methods: {
-        getProductsWithOrdersSmall() {
-            console.log("search banner by Name" , this.title)
-            axios
+        async getProductsWithOrdersSmall() {
+            console.log("search banner by Name" , this.dropdownValue?.name)
+            await axios
                 .post(
                     'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner',
                     {
                         searchData: this.title,
-                        status: this.dropdownValue,
+                        status: this.dropdownValue?.name,
                         startDate: this.calendarValue1,
                         endDate: this.calendarValue2,
                     },
@@ -214,7 +223,8 @@ export default {
                 .then(data => {
                     console.log(data);
                     this.products = data.data.data.banners;
-                    console.log(JSON.stringify(this.products));
+                    this.loading1 = false;
+                    // console.log(JSON.stringify(this.products));
                 })
                 .catch(err => console.log(err));
         },

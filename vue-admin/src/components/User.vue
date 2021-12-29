@@ -56,20 +56,18 @@
                     </div>
                 </div>
 
-                <DataTable
-                    :value="customer1"
-                    :paginator="true"
-                    class="p-datatable-gridlines"
-                    :rows="5"
-                    dataKey="id"
-                    :rowHover="true"
-                    v-model:filters="filters1"
-                    filterDisplay="menu"
-                    :loading="loading1"
-                    :filters="filters1"
-                    responsiveLayout="scroll"
-                   
-                >
+                <DataTable 
+                :value="customer1" 
+                :paginator="true" 
+                class="p-datatable-gridlines" 
+                :rows="5" 
+                dataKey="id" 
+                :rowHover="true" 
+                v-model:filters="filters1" 
+                filterDisplay="menu" 
+                :loading="loading1" 
+                :filters="filters1" 
+                responsiveLayout="scroll">
                     <!-- <template #header>
                         <div class="p-d-flex p-jc-between p-flex-column p-flex-sm-row">
                             <Button type="button" icon="pi pi-filter-slash" label="Clear" class="p-button-outlined p-mb-2" @click="clearFilter1()"/>
@@ -124,10 +122,10 @@
                             <span class="p-column-title">Balance</span>
                             <p style="display:none">{{ data.mobile }}</p>
                             <div style="display:flex">
-                                <router-link :to="'/user/view-user/'+data.id"
-                                    ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2" ><i class="pi pi-eye p-mr-2"></i> view</Button>
+                                <router-link :to="'/user/view-user/' + data.id"
+                                    ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> view</Button>
                                 </router-link>
-                                <router-link :to="'/user/edit-user/'+data.id"
+                                <router-link :to="'/user/edit-user/' + data.id"
                                     ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link
                                 >
                                 <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined" @click="del" />
@@ -144,7 +142,7 @@
     </div>
 </template>
 <script>
-import {useRoute} from 'vue-router'
+import { useRoute } from 'vue-router';
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import CustomerService from '../service/CustomerService';
 // import ProductService from '../service/ProductService';
@@ -204,8 +202,8 @@ export default {
         // this.initFilters1();
     },
     mounted() {
-        const route=useRoute();
-        console.log(route.params)
+        const route = useRoute();
+        console.log(route.params);
         // this.customerService.getCustomersLarge().then(data => {
         //     this.customer1 = data;
         //     console.log(data)
@@ -242,7 +240,7 @@ export default {
     },
     methods: {
         Showid() {
-            console.log( 'hello');
+            console.log('hello');
         },
         open() {
             this.display = true;

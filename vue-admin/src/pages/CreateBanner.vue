@@ -1,7 +1,6 @@
 <template>
     <router-link to="/banner-management">
-        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" 
-        class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
+        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
     </router-link>
     <div class="card">
         <div class="p-grid p-fluid">
@@ -30,7 +29,7 @@
                         <label for="subtitle2">Image <span class="img-info">(File size must be at least 500*900px) </span> </label>
                         <div class="custom-select">
                             <span>Select File</span>
-                            <input type="file" class="select-file" />
+                            <input type="file" class="select-file" v-on:change="onFileChange(event)" />
                             <Button label="Select File" class="SelectBtn" />
                         </div>
                     </div>
@@ -65,7 +64,7 @@ export default {
     name: 'CreateBanner',
     data() {
         return {
-            dropdownValues: [{ name: 'Select' }, { name: 'activation' }, { name: 'inactivation' }],
+            dropdownValues: [{ name: 'Select' }, { name: 'active' }, { name: 'inactive' }],
             dropdownValueTypes: [{ name: 'state' }, { name: 'main r' }, { name: 'sub top' }, { name: 'sub bottom' }],
             dropdownValue: null,
             dropdownValueType: null,
@@ -77,6 +76,13 @@ export default {
     methods: {
         reinitialize() {
             (this.dropdownValue = null), (this.dropdownValueType = null), (this.title = null), (this.subtitle = null), (this.link = null);
+        },
+        onFileChange(e) {
+            var files = e?.target.files || e?.dataTransfer.files;
+            if (!files.length){
+                return files;
+            } 
+            this.createImage(files[0]);
         },
     },
 };
