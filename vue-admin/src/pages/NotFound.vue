@@ -29,7 +29,7 @@ export default {
     },
     methods: {
         goDashboard() {
-            window.location = "/#/"
+            window.location = "/"
         }
     }
 };
