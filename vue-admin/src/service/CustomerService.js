@@ -1,6 +1,11 @@
 import axios from "axios";
 
+const url="http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1";
+const apikey="coN21di1202VII01Ed0OnNiMDa2P3p0M";
+const token= localStorage.getItem('token');
+
 export default class CustomerService {
+    
     getCustomersSmall() {
         return axios
             .get("assets/demo/data/customers-small.json")
@@ -27,14 +32,14 @@ export default class CustomerService {
     getUserList() {
          return axios({
             method: 'post',
-            url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/user',
+            url: `${url}/admin/user`,
             data: {
                 status: 'active'
             },
             headers: {
                 source: 'dvcon',
-                apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
-                token: localStorage.getItem('token'),
+                apiKey: apikey,
+                token: token,
             },
         })
              .then(res => res.data.data.users);

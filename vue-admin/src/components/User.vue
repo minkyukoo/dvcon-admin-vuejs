@@ -37,10 +37,18 @@
                         <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue1" placeholder="YYYY.MM.DD"></Calendar>
                     </div>
                 </div>
-
-                <div class="p-d-flex p-jc-end">
-                    <Button label="Help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-refresh p-mr-2"></i> initialization</Button>
-                    <Button label="Primary" class="p-mr-2 p-mb-2"><i class="pi pi-search p-mr-2"></i> search</Button>
+                <div class="p-d-flex p-jc-between p-ai-center p-mt-6">
+                    <div class="">
+                        <Button label="today" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
+                        <Button label="last week" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
+                        <Button label="last month" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
+                        <Button label="last 6 months" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
+                        <Button label="last year" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
+                    </div>
+                    <div>
+                        <Button label="initialization" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reInitialize"></Button>
+                        <Button label="search" icon="pi pi-search" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,14 +82,18 @@
                         Loading customers data. Please wait.
                     </template>
 
+                    <Column field="" header="">
+                        <template #body="{data}">
+                            <span class="p-column-title"> <Checkbox id="data.id" name="option" value="data.id" v-model="checkboxValue"/></span>
+                            <span style="display:none">{{ data.name }}</span>
+                            <Checkbox id="checkOption1" name="option" value="Chicago" v-model="checkboxValue" />
+                        </template>
+                    </Column>
                     <Column field="name" header="Name" style="min-width:12rem">
                         <template #body="{data}">
                             <span class="p-column-title">Name</span>
                             {{ data.name }}
                         </template>
-                        <!-- <template #filter="{filterModel}">
-                            <InputText type="text" v-model="filterModel.value" class="p-column-filter" placeholder="Search by name"/>
-                        </template> -->
                     </Column>
                     <Column header="Id" style="min-width:12rem">
                         <template #body="{data}">
@@ -147,7 +159,7 @@ export default {
             visibleTop: false,
             visibleBottom: false,
             visibleFull: false,
-
+            checkboxValue: [],
             selectedProduct: null,
             calendarValue: null,
             calendarValue1: null,
@@ -209,8 +221,10 @@ export default {
     },
     methods: {
         exceldownload() {
+            console.log(this.customerService);
             axios({
                 url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/user//generate-excel/?status=active',
+                // url: `${this.customerService.url}/admin/user//generate-excel/?status=active`,
                 method: 'GET',
                 responseType: 'blob', // important
             }).then(response => {
