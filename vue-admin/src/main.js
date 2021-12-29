@@ -90,6 +90,8 @@ import TriStateCheckbox from 'primevue/tristatecheckbox';
 
 import CodeHighlight from './AppCodeHighlight';
 
+import VueI18n from "vue3-i18n";
+
 import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
 import 'prismjs/themes/prism-coy.css';
@@ -105,6 +107,7 @@ app.use(PrimeVue, { ripple: true });
 app.use(ConfirmationService);
 app.use(ToastService);
 app.use(router);
+app.use(VueI18n);
 
 app.directive('tooltip', Tooltip);
 app.directive('ripple', Ripple);
