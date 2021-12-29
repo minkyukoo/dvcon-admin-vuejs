@@ -56,20 +56,8 @@
                     </div>
                 </div>
 
-                <DataTable
-                    :value="customer1"
-                    :paginator="true"
-                    class="p-datatable-gridlines"
-                    :rows="5"
-                    dataKey="id"
-                    :rowHover="true"
-                    v-model:filters="filters1"
-                    filterDisplay="menu"
-                    :loading="loading1"
-                    :filters="filters1"
-                    responsiveLayout="scroll"
-                   
-                >
+                <DataTable :value="customer1" :paginator="true" class="p-datatable-gridlines" :rows="5" dataKey="id" :rowHover="true" v-model:filters="filters1" filterDisplay="menu" :loading="loading1" :filters="filters1" responsiveLayout="scroll">
+                    <ConfirmDialog group="dialog" />
                     <!-- <template #header>
                         <div class="p-d-flex p-jc-between p-flex-column p-flex-sm-row">
                             <Button type="button" icon="pi pi-filter-slash" label="Clear" class="p-button-outlined p-mb-2" @click="clearFilter1()"/>
@@ -124,14 +112,13 @@
                             <span class="p-column-title">Balance</span>
                             <p style="display:none">{{ data.mobile }}</p>
                             <div style="display:flex">
-                                <router-link :to="'/user/view-user/'+data.id"
-                                    ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2" ><i class="pi pi-eye p-mr-2"></i> view</Button>
+                                <router-link :to="'/user/view-user/' + data.id"
+                                    ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> view</Button>
                                 </router-link>
-                                <router-link :to="'/user/edit-user/'+data.id"
+                                <router-link :to="'/user/edit-user/' + data.id"
                                     ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link
                                 >
-                                <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined" @click="del" />
-                                <ConfirmDialog group="dialog" />
+                                <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined p-mr-2 p-mb-2" @click="del(data.id)" />
                             </div>
                         </template>
                         <!-- <template #filter="{filterModel}">
@@ -144,9 +131,10 @@
     </div>
 </template>
 <script>
-import {useRoute} from 'vue-router'
-import { FilterMatchMode, FilterOperator } from 'primevue/api';
+import { useRoute } from 'vue-router';
+// import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import CustomerService from '../service/CustomerService';
+import axios from 'axios';
 // import ProductService from '../service/ProductService';
 // import axios from 'axios';
 export default {
@@ -204,8 +192,8 @@ export default {
         // this.initFilters1();
     },
     mounted() {
-        const route=useRoute();
-        console.log(route.params)
+        const route = useRoute();
+        console.log(route.params);
         // this.customerService.getCustomersLarge().then(data => {
         //     this.customer1 = data;
         //     console.log(data)
@@ -218,31 +206,10 @@ export default {
             this.loading1 = false;
             this.customer1.forEach(customer => (customer.date = new Date(customer.date)));
         });
-
-        // axios({
-        //     method: 'post',
-        //     url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/user',
-        //     data: {
-        //         status: 'active'
-        //     },
-        //     headers: {
-        //         source: 'dvcon',
-        //         apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
-        //         token: localStorage.getItem('token'),
-        //     },
-        // })
-        //     .then(function(response) {
-        //         let data=response.data.data.users;
-        //         console.log(data);
-        //         this.customer1 = data;
-        //     })
-        //     .catch(function(response) {
-        //         console.log(response);
-        //     });
     },
     methods: {
         Showid() {
-            console.log( 'hello');
+            console.log('hello');
         },
         open() {
             this.display = true;
@@ -253,22 +220,22 @@ export default {
         toggle(event) {
             this.$refs.op.toggle(event);
         },
-        initFilters1() {
-            this.filters1 = {
-                global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-                name: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-                'country.name': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-                representative: { value: null, matchMode: FilterMatchMode.IN },
-                date: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
-                balance: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
-                status: { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
-                activity: { value: null, matchMode: FilterMatchMode.BETWEEN },
-                verified: { value: null, matchMode: FilterMatchMode.EQUALS },
-            };
-        },
-        clearFilter1() {
-            this.initFilters1();
-        },
+        // initFilters1() {
+        //     this.filters1 = {
+        //         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        //         name: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
+        //         'country.name': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
+        //         representative: { value: null, matchMode: FilterMatchMode.IN },
+        //         date: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
+        //         balance: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
+        //         status: { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
+        //         activity: { value: null, matchMode: FilterMatchMode.BETWEEN },
+        //         verified: { value: null, matchMode: FilterMatchMode.EQUALS },
+        //     };
+        // },
+        // clearFilter1() {
+        //     this.initFilters1();
+        // },
         onRowExpand(event) {
             this.$toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
         },
@@ -305,14 +272,36 @@ export default {
 
             return total;
         },
-        del() {
+        del(id) {
+            // console.log(id);
+
             this.$confirm.require({
                 group: 'dialog',
                 header: 'Confirmation',
                 message: 'Are you sure you want to delete?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+                    axios({
+                        method: 'delete',
+                        url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/user/delete',
+                        data: {
+                            deleteIdArray: id,
+                        },
+                        headers: {
+                            source: 'dvcon',
+                            apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+                            token: localStorage.getItem('token'),
+                        },
+                    })
+                        .then(function(response) {
+                            console.log(response);
+                            // alert('Deleted successfully');
+                            location.reload();
+                        })
+                        .catch(function(response) {
+                            console.log(response);
+                        });
+                    this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Deleted successfully', life: 3000 });
                 },
                 reject: () => {
                     this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });

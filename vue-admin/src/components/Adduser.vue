@@ -6,15 +6,15 @@
                 <div class="p-formgrid p-grid">
                     <div class="p-field p-col">
                         <label for="nameuser">Name</label>
-                        <InputText id="nameuser" type="text" placeholder="Search" v-model="name" />
+                        <InputText id="nameuser" type="text" placeholder="Enter_Name" v-model="name" />
                     </div>
                     <div class="p-field p-col">
                         <label for="emailuser">Email Id</label>
-                        <InputText id="emailuser" type="email" placeholder="Search" v-model="email" />
+                        <InputText id="emailuser" type="email" placeholder="Enter_Email" v-model="email" />
                     </div>
                     <div class="p-field p-col">
                         <label for="mobileuser">Phone Number</label>
-                        <InputText id="mobileuser" type="text" placeholder="Search" v-model="mobile"/>
+                        <InputText id="mobileuser" type="text" placeholder="Enter_Mobile" v-model="mobile"/>
                     </div>
 
                     <div class="p-field p-col">
@@ -29,7 +29,7 @@
                     </div>
                     <div class="p-field p-col-12 p-md-3">
                         <label for="pass">Confirm Password</label>
-                        <InputText id="pass" type="password" placeholder="password" v-model="confirm_pass"/>
+                        <InputText id="pass" type="password" placeholder="Confirm_password" v-model="confirm_pass"/>
                     </div>
                 </div>
 

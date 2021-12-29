@@ -147,13 +147,13 @@ export default {
                         },
                     ],
                 },
-                // {
-                //     label: "Start", icon: "pi pi-download",
-                //     items: [
-                //         {label: "Buy Now", icon: "pi pi-shopping-cart", command: () => window.open("https://www.primefaces.org/store", "_blank")},
-                //         {label: "Documentation", icon: "pi pi-info-circle", to: "/documentation"},
-                //     ],
-                // },
+                {
+                    label: "Start", icon: "pi pi-download",
+                    items: [
+                        {label: "Buy Now", icon: "pi pi-shopping-cart", command: () => window.open("https://www.primefaces.org/store", "_blank")},
+                        {label: "Documentation", icon: "pi pi-info-circle", to: "/documentation"},
+                    ],
+                },
             ],
         };
     },

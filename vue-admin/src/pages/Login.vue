@@ -9,12 +9,12 @@
                 <Password id="password" placeholder="Password" :feedback="false" v-model="password" />
                 <Button label="LOGIN" type="button" @click="Login"></Button>
                 <a href="#">forget password?</a>
-                <p>Don’t you have an account, <a href="#">sign up</a></p>
+                <!-- <p>Don’t you have an account, <a href="#">sign up</a></p> -->
             </div>
         </div>
         <div class="login-footer">
-            <h4>freya</h4>
-            <h6>Copyright Ⓒ PrimeTek Informatics</h6>
+            <h4>Vue Admin</h4>
+            <h6>Copyright Ⓒ Hanriver Technology</h6>
         </div>
     </div>
 </template>
