@@ -23,7 +23,7 @@
                         <p>{{ mydata.gender }}</p>
                     </div>
                 </div>
-                <div class="p-formgrid p-grid">
+                <!-- <div class="p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-3">
                         <strong><label for="pass">Total Points:</label></strong>
                         <p>0</p>
@@ -32,12 +32,12 @@
                         <strong><label for="pass">Number Of Visits:</label></strong>
                         <p>0</p>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="p-d-flex p-jc-end">
-                    <router-link to="/view-user"
-                        ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i>point</Button>
-                    </router-link>
+                    <!-- <router-link to="/view-user"
+                        ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2" disabled><i class="pi pi-eye p-mr-2"></i>point</Button>
+                    </router-link> -->
                     <router-link :to="'/user/edit-user/' + $route.params.id"
                         ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link
                     >
@@ -69,14 +69,11 @@ export default {
         };
     },
     methods: {
-        
-       del(id) {
+        del(id) {
             // console.log(id);
-            
-           
-               
-                        // -----------------------
-                        this.$confirm.require({
+
+            // -----------------------
+            this.$confirm.require({
                 group: 'dialog',
                 header: 'Confirmation',
                 message: 'Are you sure you want to delete?',
@@ -94,11 +91,11 @@ export default {
                             token: localStorage.getItem('token'),
                         },
                     }).then(res => {
-                            console.warn(res);
-                            //  alert('Deleted successfully');
-                             this.$router.push({ name: 'User' });
-                        })
-                        
+                        console.warn(res);
+                        //  alert('Deleted successfully');
+                        this.$router.push({ name: 'User' });
+                    });
+
                     this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Deleted successfully', life: 3000 });
                 },
                 reject: () => {

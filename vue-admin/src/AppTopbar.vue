@@ -80,6 +80,8 @@
                     </li>
                 </ul>
 
+                <LanguageInput/>
+
                 <!-- <a href="#" tabindex="0" class="layout-rightpanel-button" @click="onRightMenuButtonClick($event)">
                     <i class="pi pi-arrow-left"></i>
                 </a> -->
@@ -90,6 +92,7 @@
 
 <script>
 import AppMenu from './AppMenu';
+import LanguageInput from './components/LanguageInput.vue';
 export default {
     name: 'AppTopbar',
     emits: [
@@ -170,6 +173,7 @@ export default {
             this.$emit('sidebar-mouse-leave');
         },
         logout() {
+            console.log("logout method clicked")
             localStorage.clear();
             this.$router.push({ name: 'login' });
         },
@@ -185,6 +189,7 @@ export default {
     },
     components: {
         AppMenu,
+        LanguageInput
     },
 };
 </script>

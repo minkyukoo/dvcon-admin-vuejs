@@ -3,20 +3,22 @@
         <Toast />
         <div class="p-col-12">
             <div class="card p-fluid">
-                <h4><strong>Search</strong></h4>
+                <h4>
+                    <strong>{{ $t('search.title') }}</strong>
+                </h4>
                 <div class="p-formgrid p-grid">
                     <div class="p-field p-col">
-                        <label for="nameuser">Name</label>
-                        <InputText id="nameuser" type="text" placeholder="Search" />
+                        <label for="nameuser">{{ $t('search.label.name') }}</label>
+                        <InputText id="nameuser" type="text" :placeholder="$t('search.placeholder.search')" v-model="name" />
                     </div>
 
                     <div class="p-field p-col">
-                        <label for="mobileuser">Phone Number</label>
-                        <InputText id="mobileuser" type="text" placeholder="Search" />
+                        <label for="mobileuser">{{ $t('search.label.phoneNumber') }}</label>
+                        <InputText id="mobileuser" type="text" :placeholder="$t('search.placeholder.search')" v-model="mobile" />
                     </div>
                     <div class="p-field p-col">
-                        <label for="emailuser">E-mail</label>
-                        <InputText id="emailuser" type="email" placeholder="Search" />
+                        <label for="emailuser">{{ $t('search.label.email') }}</label>
+                        <InputText id="emailuser" type="email" :placeholder="$t('search.placeholder.search')" v-model="email" />
                     </div>
                     <!-- <div class="p-field p-col">
                         <label for="state">gender</label>
@@ -29,18 +31,26 @@
                         <InputText id="pass" type="password" placeholder="password" />
                     </div> -->
                     <div class="p-field p-col-12 p-md-3">
-                        <label for="pass">Start Date:</label>
-                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue" placeholder="YYYY.MM.DD"></Calendar>
+                        <label for="pass">{{ $t('search.label.startDate') }}</label>
+                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue" :placeholder="$t('search.placeholder.date')"></Calendar>
                     </div>
                     <div class="p-field p-col-12 p-md-3">
-                        <label for="verify-pass">Last Date:</label>
-                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue1" placeholder="YYYY.MM.DD"></Calendar>
+                        <label for="verify-pass">{{ $t('search.label.lastDate') }}</label>
+                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue1" :placeholder="$t('search.placeholder.date')"></Calendar>
                     </div>
                 </div>
-
-                <div class="p-d-flex p-jc-end">
-                    <Button label="Help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-refresh p-mr-2"></i> initialization</Button>
-                    <Button label="Primary" class="p-mr-2 p-mb-2"><i class="pi pi-search p-mr-2"></i> search</Button>
+                <div class="p-d-flex p-jc-between p-ai-center p-mt-6">
+                    <div class="">
+                        <Button label="today" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
+                        <Button label="last week" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
+                        <Button label="last month" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
+                        <Button label="last 6 months" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
+                        <Button label="last year" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
+                    </div>
+                    <div>
+                        <Button :label="$t('button.reset')" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="resetUser"></Button>
+                        <Button :label="$t('button.search')" icon="pi pi-search" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="searchuser"></Button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -49,7 +59,7 @@
                 <div class="p-d-flex p-jc-between p-mb-2">
                     <div><h5>User List</h5></div>
                     <div>
-                        <Button label="Primary" class="p-mr-2 p-mb-2"><i class="pi pi-download p-mr-2"></i> Download Excel</Button>
+                        <Button label="Primary" class="p-mr-2 p-mb-2" @click="exceldownload"><i class="pi pi-download p-mr-2"></i> Download Excel</Button>
                         <router-link to="/add-user">
                             <Button label="Primary" class="p-mr-2 p-mb-2"><i class="pi pi-plus p-mr-2"></i> New</Button>
                         </router-link>
@@ -74,14 +84,18 @@
                         Loading customers data. Please wait.
                     </template>
 
+                    <Column field="" header="">
+                        <template #body="{data}">
+                            <span class="p-column-title"> <Checkbox id="data.id" name="option" value="data.id" v-model="checkboxValue"/></span>
+                            <span style="display:none">{{ data.name }}</span>
+                            <Checkbox id="checkOption1" name="option" value="Chicago" v-model="checkboxValue" />
+                        </template>
+                    </Column>
                     <Column field="name" header="Name" style="min-width:12rem">
                         <template #body="{data}">
                             <span class="p-column-title">Name</span>
                             {{ data.name }}
                         </template>
-                        <!-- <template #filter="{filterModel}">
-                            <InputText type="text" v-model="filterModel.value" class="p-column-filter" placeholder="Search by name"/>
-                        </template> -->
                     </Column>
                     <Column header="Id" style="min-width:12rem">
                         <template #body="{data}">
@@ -140,6 +154,9 @@ import axios from 'axios';
 export default {
     data() {
         return {
+            name: '',
+            email: '',
+            mobile: '',
             display: false,
             position: 'center',
             visibleLeft: false,
@@ -147,7 +164,7 @@ export default {
             visibleTop: false,
             visibleBottom: false,
             visibleFull: false,
-
+            checkboxValue: [],
             selectedProduct: null,
             calendarValue: null,
             calendarValue1: null,
@@ -200,7 +217,7 @@ export default {
         //     this.loading1 = false;
         //     this.customer1.forEach(customer => (customer.date = new Date(customer.date)));
         // });
-        this.customerService.getUserList().then(data => {
+        this.customerService.getUserList(this.name, this.email, this.mobile).then(data => {
             this.customer1 = data;
             console.log(data);
             this.loading1 = false;
@@ -208,6 +225,36 @@ export default {
         });
     },
     methods: {
+        resetUser() {
+            this.name = '';
+            this.email = '';
+            this.mobile = '';
+        },
+        searchuser() {
+            //   alert(this.name);
+            this.customerService.getUserList(this.name, this.email, this.mobile).then(data => {
+                this.customer1 = data;
+                console.log(data);
+                this.loading1 = false;
+                this.customer1.forEach(customer => (customer.date = new Date(customer.date)));
+            });
+        },
+        exceldownload() {
+            console.log(this.customerService);
+            axios({
+                url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/user//generate-excel/?status=active',
+                // url: `${this.customerService.url}/admin/user//generate-excel/?status=active`,
+                method: 'GET',
+                responseType: 'blob', // important
+            }).then(response => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'Userlist.xlsx'); //or any other extension
+                document.body.appendChild(link);
+                link.click();
+            });
+        },
         Showid() {
             console.log('hello');
         },
@@ -220,22 +267,7 @@ export default {
         toggle(event) {
             this.$refs.op.toggle(event);
         },
-        // initFilters1() {
-        //     this.filters1 = {
-        //         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        //         name: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-        //         'country.name': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-        //         representative: { value: null, matchMode: FilterMatchMode.IN },
-        //         date: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
-        //         balance: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
-        //         status: { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
-        //         activity: { value: null, matchMode: FilterMatchMode.BETWEEN },
-        //         verified: { value: null, matchMode: FilterMatchMode.EQUALS },
-        //     };
-        // },
-        // clearFilter1() {
-        //     this.initFilters1();
-        // },
+
         onRowExpand(event) {
             this.$toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
         },
@@ -272,6 +304,7 @@ export default {
 
             return total;
         },
+
         del(id) {
             // console.log(id);
 

@@ -3,7 +3,6 @@ import { createRouter, createWebHistory } from 'vue-router';
 function guest(to, from, next) {
     if (localStorage.token) {
         next({ name: 'dashboard' });
-       
     } else next();
 }
 
@@ -394,17 +393,17 @@ const routes = [
     {
         path: '/error',
         name: 'error',
-        component: () => import('./pages/Error.vue')
+        component: () => import('./pages/Error.vue'),
     },
     {
         path: '/notfound',
         name: 'notfound',
-        component: () => import('./pages/NotFound.vue')
+        component: () => import('./pages/NotFound.vue'),
     },
     {
         path: '/access',
         name: 'access',
-        component: () => import('./pages/Access.vue')
+        component: () => import('./pages/Access.vue'),
     },
     {
         path: '/cms',
@@ -455,7 +454,6 @@ const routes = [
             breadcrumb: [{ parent: 'Pages', label: 'Cmsedit' }],
         },
     },
-    
 ];
 
 const router = createRouter({
@@ -464,7 +462,7 @@ const router = createRouter({
     routes,
     scrollBehavior() {
         return { left: 0, top: 0 };
-    }
+    },
 });
 
 export default router;
