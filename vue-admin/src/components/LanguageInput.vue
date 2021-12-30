@@ -1,25 +1,17 @@
 <template>
   <div class="lang-dropdown">
-    <select v-model="$i18n.locale" @change="setLocale($i18n.locale)" >
-      <option v-for="(lang, i) in langs" :key="`lang-${i}`" :value="lang.code">{{ lang.name }}</option>
+    <select v-model="$i18n.locale">
+      <option v-for="lang in langs" :key="lang.code" :value="lang.code">{{ lang.name }}</option>
     </select>
+    <!-- <select v-model="$i18n.locale">
+      <option v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`" :value="locale">{{ locale }}</option>
+    </select> -->
+
   </div>
 </template>
 <script>
-import { useI18n } from "vue3-i18n";
 export default {
   name: "LanguageInput",
-  setup() {
-    const i18n = useI18n();
-    const setLocale = (lang) => {
-      i18n.setLocale(lang);
-      console.log(lang);
-    };
-
-    return {
-      setLocale,
-    };
-  },
   data() {
     return {
       langs: [
