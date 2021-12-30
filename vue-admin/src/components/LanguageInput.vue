@@ -1,7 +1,10 @@
 <template>
+
+  
   <div class="lang-dropdown">
-    <select v-model="$i18n.locale" @change="setLocale($i18n.locale)" >
-      <option v-for="(lang, i) in langs" :key="`lang-${i}`" :value="lang.code">{{ lang.name }}</option>
+   
+    <select v-model="$i18n.locale" @change="setLocale($i18n.locale)" placeholder="English" >
+      <option v-for="(lang, i) in langs" :key="`lang-${i}`" :value="lang.code" >{{ lang.name }}</option>
     </select>
   </div>
 </template>
@@ -34,5 +37,11 @@ export default {
       ],
     }
   },
+  mounted(){
+    
+  }
 }
 </script>
+<style scoped>
+
+</style>

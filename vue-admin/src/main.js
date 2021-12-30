@@ -97,7 +97,13 @@ import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
 import 'prismjs/themes/prism-coy.css';
 import './App.scss';
-
+import axios from 'axios'
+axios.defaults.baseURL='http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin'
+axios.defaults.headers={
+    source: 'dvcon',
+    apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+    token: localStorage.getItem('token')
+}
 const app = createApp({
     render () { return h(AppWrapper) }
 });

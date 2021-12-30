@@ -81,7 +81,7 @@ export default {
                 accept: () => {
                     axios({
                         method: 'delete',
-                        url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/user/delete',
+                        url: `/user/delete`,
                         data: {
                             deleteIdArray: id,
                         },

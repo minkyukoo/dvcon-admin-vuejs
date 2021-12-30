@@ -147,7 +147,7 @@
 <script>
 import { useRoute } from 'vue-router';
 // import { FilterMatchMode, FilterOperator } from 'primevue/api';
-import CustomerService from '../service/CustomerService';
+import UserService from '../service/API/UserService';
 import axios from 'axios';
 // import ProductService from '../service/ProductService';
 // import axios from 'axios';
@@ -204,24 +204,15 @@ export default {
     customerService: null,
     productService: null,
     created() {
-        this.customerService = new CustomerService();
-
-        // this.initFilters1();
+        this.userService = new UserService();
     },
     mounted() {
         const route = useRoute();
         console.log(route.params);
-        // this.customerService.getCustomersLarge().then(data => {
-        //     this.customer1 = data;
-        //     console.log(data)
-        //     this.loading1 = false;
-        //     this.customer1.forEach(customer => (customer.date = new Date(customer.date)));
-        // });
-        this.customerService.getUserList(this.name, this.email, this.mobile).then(data => {
+        this.userService.getUserList(this.name, this.email, this.mobile).then(data => {
             this.customer1 = data;
-            console.log(data);
+            // console.log(data);
             this.loading1 = false;
-            this.customer1.forEach(customer => (customer.date = new Date(customer.date)));
         });
     },
     methods: {
@@ -229,10 +220,12 @@ export default {
             this.name = '';
             this.email = '';
             this.mobile = '';
+            this.userService.getUserList(this.name, this.email, this.mobile).then(data => {
+                this.customer1 = data;
+            });
         },
         searchuser() {
-            //   alert(this.name);
-            this.customerService.getUserList(this.name, this.email, this.mobile).then(data => {
+            this.userService.getUserList(this.name, this.email, this.mobile).then(data => {
                 this.customer1 = data;
                 console.log(data);
                 this.loading1 = false;
@@ -242,7 +235,7 @@ export default {
         exceldownload() {
             console.log(this.customerService);
             axios({
-                url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/user//generate-excel/?status=active',
+                url: '/user//generate-excel/?status=active',
                 // url: `${this.customerService.url}/admin/user//generate-excel/?status=active`,
                 method: 'GET',
                 responseType: 'blob', // important
@@ -316,7 +309,7 @@ export default {
                 accept: () => {
                     axios({
                         method: 'delete',
-                        url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/user/delete',
+                        url: '/user/delete',
                         data: {
                             deleteIdArray: id,
                         },
