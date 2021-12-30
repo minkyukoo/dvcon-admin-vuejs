@@ -5,28 +5,28 @@
     </router-link>
     <div class="card">
         <div class="p-grid p-fluid">
-            <div class="p-col-12 p-md-9">
+            <div class="p-col-12">
                 <h5>Correction</h5>
                 <div class="p-grid p-formgrid p-mb-3">
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
+                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="title2">Title</label>
                         <InputText type="text" placeholder="Title" id="title2" v-model="title"></InputText>
                     </div>
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
+                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="subtitle2">Subtitle</label>
                         <InputText type="text" placeholder="Subtitle" id="subtitle2" v-model="subtitle"></InputText>
                     </div>
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
+                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="state2">state</label>
                         <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
                     </div>
-                </div>
-                <div class="p-grid p-formgrid">
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
+                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="title2">Link</label>
                         <InputText type="text" placeholder="link" id="title2" v-model="link"></InputText>
                     </div>
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
+                </div>
+                <div class="p-grid p-formgrid">
+                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="subtitle2">Image <span class="img-info">(File size must be at least 500*900px) </span> </label>
                         <div class="custom-select">
                             <span>Select File</span>
@@ -34,7 +34,7 @@
                             <Button label="Select File" class="SelectBtn" />
                         </div>
                     </div>
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
+                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="state2">Type</label>
                         <Dropdown v-model="dropdownValueType" :options="dropdownValueTypes" optionLabel="name" placeholder="Select" />
                     </div>

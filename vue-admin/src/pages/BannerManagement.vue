@@ -2,35 +2,26 @@
     <div>
         <div class="card">
             <div class="p-grid p-fluid">
-                <div class="p-col-12 p-md-6">
+                <div class="p-col-12">
                     <h5>Search</h5>
                     <div class="p-formgrid p-grid">
-                        <div class="p-field p-col">
+                        <div class="p-field p-col-12 p-md-4">
                             <label for="name2">Name</label>
                             <InputText id="name2" type="text" placeholder="Search" :modelValue="title" v-model="title" />
                         </div>
-                        <div class="p-field p-col">
+                        <div class="p-field p-col-12 p-md-4">
                             <label for="email2">state</label>
-                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name"
-                             placeholder="Select" />
+                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
                         </div>
-                    </div>
-                    <div class="p-formgrid p-grid">
-                        <div class="p-field p-col">
+                        <div class="p-field p-col-12 p-md-4">
                             <label for="name2">Start Date</label>
                             <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue1"></Calendar>
                         </div>
-                        <div class="p-field p-col">
+                        <div class="p-field p-col-12 p-md-4">
                             <label for="email2">End Date</label>
                             <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue2"></Calendar>
                         </div>
                     </div>
-                </div>
-                <div class="p-col-12 p-md-6">
-                    <h1>{{title}}</h1>
-                    <h1>{{dropdownValue}}</h1>
-                    <h1>{{calendarValue1}}</h1>
-                    <h1>{{calendarValue2}}</h1>
                 </div>
             </div>
             <div class="p-d-flex p-jc-between p-ai-center">
@@ -59,7 +50,7 @@
                             </router-link>
                         </div>
                     </div>
-                    <DataTable :value="products" dataKey="id" responsiveLayout="scroll" :paginator="true" :rows="4" :rowHover="true" v-if="products.length > 0" :loading="loading1">
+                    <DataTable :value="products" class="p-datatable-gridlines" dataKey="id" responsiveLayout="scroll" :paginator="true" :rows="4" :rowHover="true" v-if="products.length > 0" :loading="loading1">
                         <!-- <template #header>
                                 <div class="table-header-container">
                                     <Button icon="pi pi-plus" label="Expand All" @click="expandAll" class="p-mr-2 p-mb-2" />
@@ -67,19 +58,22 @@
                                 </div>
                             </template> -->
                         <!-- <Column :expander="true" headerStyle="width: 3rem" /> -->
-                        <template #empty>
-                        No customers found.
-                    </template>
-                    <template #loading>
-                        Loading customers data. Please wait.
-                    </template>
-                        <Column field="name" header="Number">
+                        <template #empty> No customers found. </template>
+                        <template #loading> Loading customers data. Please wait. </template>
+                        <!-- <Column field="name" header="Number">
                             <template #body="slotProps">
                                 <span class="p-column-title">Number</span>
                                 {{ slotProps.data.id }}
                             </template>
+                        </Column> -->
+                        <Column field="" header="">
+                            <template #body="{ data }">
+                                <span class="p-column-title"> <Checkbox id="data.id" name="option" value="data.id" v-model="checkboxValue" /></span>
+                                <span style="display: none">{{ data.name }}</span>
+                                <Checkbox id="checkOption1" name="option" value="Chicago" v-model="checkboxValue" />
+                            </template>
                         </Column>
-                        <Column field="name" header="Title" >
+                        <Column field="name" header="Title" style="min-width: 12rem">
                             <template #body="slotProps">
                                 <span class="p-column-title">Title</span>
                                 {{ slotProps.data.title }}
@@ -91,25 +85,25 @@
                                 {{ slotProps.data.subTitle }}
                             </template>
                         </Column> -->
-                        <Column header="Image">
+                        <Column header="Image" style="min-width: 12rem">
                             <template #body="slotProps">
                                 <span class="p-column-title">Image</span>
                                 <img :src="'http://dvcon-admin-nodejs.dvconsulting.org:4545' + slotProps.data.bannerImage" :alt="slotProps.data.image" class="product-image" />
                             </template>
                         </Column>
-                        <Column field="price" header="Banner Position" >
+                        <Column field="price" header="Banner Position" style="min-width: 12rem">
                             <template #body="slotProps">
                                 <span class="p-column-title">Banner Position</span>
                                 {{ formatCurrency(slotProps.data.bannerPostion) }}
                             </template>
                         </Column>
-                        <Column field="Creation" header="Creation Date" >
+                        <Column field="Creation" header="Creation Date" style="min-width: 12rem">
                             <template #body="slotProps">
                                 <span class="p-column-title">Creation Date</span>
                                 {{ formatCurrency(slotProps.data.createdDate) }}
                             </template></Column
                         >
-                        <Column field="Status" header="Status" >
+                        <Column field="Status" header="Status" style="min-width: 12rem">
                             <template #body="slotProps">
                                 <span class="p-column-title">Status</span>
                                 {{ formatCurrency(slotProps.data.status) }}
@@ -129,10 +123,12 @@
                         </Column> -->
                         <Column field="inventoryStatus" header="management">
                             <template #body>
-                                <router-link to="/edit-banner">
-                                    <Button label="correction" icon="pi pi-pencil" iconPos="left" class="p-button p-button-info p-button-sm p-mr-2 p-mb-2"></Button>
-                                </router-link>
-                                <Button label="Delete" icon="pi pi-trash" iconPos="left" class="p-button p-button-danger p-button-sm p-mr-2 p-mb-2" @click="showModal"></Button>
+                                <div class="p-d-flex">
+                                    <router-link to="/edit-banner">
+                                        <Button label="correction" icon="pi pi-pencil" iconPos="left" class="p-button p-button-outlined p-button-help p-button-sm p-mr-2 p-mb-2"></Button>
+                                    </router-link>
+                                    <Button label="Delete" icon="pi pi-trash" iconPos="left" class="p-button p-button-outlined p-button-danger p-button-sm p-mr-2 p-mb-2" @click="showModal"></Button>
+                                </div>
                             </template>
                         </Column>
                     </DataTable>
@@ -142,21 +138,19 @@
         <Modal v-show="isModalVisible" @close="closeModal" v-bind:showCloseBtn="false">
             <template v-slot:header>
                 <div class="p-text-center w-100">
-                    <i class="pi pi-question-circle" style="fontSize: 2.5rem;color: #1976D2"></i>
+                    <i class="pi pi-question-circle" style="fontsize: 2.5rem; color: #1976d2"></i>
                 </div>
             </template>
             <template v-slot:body>
                 <div class="w-full p-text-center">
-                    <h4 class=" p-mb-1">Are you Sure ?</h4>
+                    <h4 class="p-mb-1">Are you Sure ?</h4>
                     You can't revert the changes
                 </div>
             </template>
             <template v-slot:footer>
                 <div class="p-d-flex p-jc-center">
-                    <Button label="Cancel" class="p-button p-button-secondary p-button-sm p-mr-2 p-mb-2"
-                     @click="closeModal"> </Button>
-                    <Button label="Confirm" class="p-button p-button-success p-button-sm p-mr-2 p-mb-2"
-                     @click="DeleteRow(data.id)"> </Button>
+                    <Button label="Cancel" class="p-button p-button-secondary p-button-sm p-mr-2 p-mb-2" @click="closeModal"> </Button>
+                    <Button label="Confirm" class="p-button p-button-success p-button-sm p-mr-2 p-mb-2" @click="DeleteRow"> </Button>
                 </div>
             </template>
         </Modal>
@@ -172,11 +166,7 @@ import Modal from '../components/CustomModal.vue';
 export default {
     data() {
         return {
-            dropdownValues: [
-                { name: 'active'},
-                { name: 'inactive'},
-                { name: 'deleted'},
-            ],
+            dropdownValues: [{ name: 'active' }, { name: 'inactive' }, { name: 'deleted' }],
             dropdownValue: null,
             calendarValue1: null,
             calendarValue2: null,
@@ -204,7 +194,7 @@ export default {
     },
     methods: {
         async getProductsWithOrdersSmall() {
-            console.log("search banner by Name" , this.dropdownValue?.name)
+            console.log('search banner by Name', this.dropdownValue?.name);
             await axios
                 .post(
                     'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner',
@@ -222,13 +212,13 @@ export default {
                         },
                     }
                 )
-                .then(data => {
+                .then((data) => {
                     console.log(data);
                     this.products = data.data.data.banners;
                     this.loading1 = false;
                     // console.log(JSON.stringify(this.products));
                 })
-                .catch(err => console.log(err));
+                .catch((err) => console.log(err));
         },
         onRowExpand(event) {
             this.$toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });

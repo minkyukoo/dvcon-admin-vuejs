@@ -77,55 +77,51 @@
                             </span>
                         </div>
                     </template> -->
-                    <template #empty>
-                        No customers found.
-                    </template>
-                    <template #loading>
-                        Loading customers data. Please wait.
-                    </template>
+                    <template #empty> No customers found. </template>
+                    <template #loading> Loading customers data. Please wait. </template>
 
                     <Column field="" header="">
-                        <template #body="{data}">
-                            <span class="p-column-title"> <Checkbox id="data.id" name="option" value="data.id" v-model="checkboxValue"/></span>
-                            <span style="display:none">{{ data.name }}</span>
+                        <template #body="{ data }">
+                            <span class="p-column-title"> <Checkbox id="data.id" name="option" value="data.id" v-model="checkboxValue" /></span>
+                            <span style="display: none">{{ data.name }}</span>
                             <Checkbox id="checkOption1" name="option" value="Chicago" v-model="checkboxValue" />
                         </template>
                     </Column>
-                    <Column field="name" header="Name" style="min-width:12rem">
-                        <template #body="{data}">
+                    <Column field="name" header="Name" style="min-width: 12rem">
+                        <template #body="{ data }">
                             <span class="p-column-title">Name</span>
                             {{ data.name }}
                         </template>
                     </Column>
-                    <Column header="Id" style="min-width:12rem">
-                        <template #body="{data}">
+                    <Column header="Id" style="min-width: 12rem">
+                        <template #body="{ data }">
                             <span class="p-column-title">Id</span>
                             {{ data.id }}
                         </template>
                     </Column>
-                    <Column header="Email" style="min-width:12rem">
-                        <template #body="{data}">
+                    <Column header="Email" style="min-width: 12rem">
+                        <template #body="{ data }">
                             <span class="p-column-title">Email</span>
                             {{ data.email }}
                         </template>
                     </Column>
-                    <Column header="Mobile" style="min-width:12rem">
-                        <template #body="{data}">
+                    <Column header="Mobile" style="min-width: 12rem">
+                        <template #body="{ data }">
                             <span class="p-column-title">Mobile</span>
                             {{ data.mobile }}
                         </template>
                     </Column>
-                    <Column header="created-date" style="min-width:12rem">
-                        <template #body="{data}">
+                    <Column header="created-date" style="min-width: 12rem">
+                        <template #body="{ data }">
                             <span class="p-column-title">Created-Date</span>
                             {{ data.createdDate }}
                         </template>
                     </Column>
                     <Column header="extra">
-                        <template #body="{data}">
+                        <template #body="{ data }">
                             <span class="p-column-title">Balance</span>
-                            <p style="display:none">{{ data.mobile }}</p>
-                            <div style="display:flex">
+                            <p style="display: none">{{ data.mobile }}</p>
+                            <div style="display: flex">
                                 <router-link :to="'/user/view-user/' + data.id"
                                     ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> view</Button>
                                 </router-link>
@@ -217,11 +213,11 @@ export default {
         //     this.loading1 = false;
         //     this.customer1.forEach(customer => (customer.date = new Date(customer.date)));
         // });
-        this.customerService.getUserList(this.name, this.email, this.mobile).then(data => {
+        this.customerService.getUserList(this.name, this.email, this.mobile).then((data) => {
             this.customer1 = data;
             console.log(data);
             this.loading1 = false;
-            this.customer1.forEach(customer => (customer.date = new Date(customer.date)));
+            this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
         });
     },
     methods: {
@@ -232,11 +228,11 @@ export default {
         },
         searchuser() {
             //   alert(this.name);
-            this.customerService.getUserList(this.name, this.email, this.mobile).then(data => {
+            this.customerService.getUserList(this.name, this.email, this.mobile).then((data) => {
                 this.customer1 = data;
                 console.log(data);
                 this.loading1 = false;
-                this.customer1.forEach(customer => (customer.date = new Date(customer.date)));
+                this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
             });
         },
         exceldownload() {
@@ -246,7 +242,7 @@ export default {
                 // url: `${this.customerService.url}/admin/user//generate-excel/?status=active`,
                 method: 'GET',
                 responseType: 'blob', // important
-            }).then(response => {
+            }).then((response) => {
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
@@ -275,7 +271,7 @@ export default {
             this.$toast.add({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
         },
         expandAll() {
-            this.expandedRows = this.products.filter(p => p.id);
+            this.expandedRows = this.products.filter((p) => p.id);
             this.$toast.add({ severity: 'success', summary: 'All Rows Expanded', life: 3000 });
         },
         collapseAll() {
@@ -326,12 +322,12 @@ export default {
                             token: localStorage.getItem('token'),
                         },
                     })
-                        .then(function(response) {
+                        .then(function (response) {
                             console.log(response);
                             // alert('Deleted successfully');
                             location.reload();
                         })
-                        .catch(function(response) {
+                        .catch(function (response) {
                             console.log(response);
                         });
                     this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Deleted successfully', life: 3000 });
