@@ -169,17 +169,14 @@ export default {
             calendarValue: null,
             calendarValue1: null,
             customer1: null,
-
             filters1: null,
             filters2: {},
             loading1: true,
-            
             idFrozen: false,
             products: null,
             expandedRows: [],
             user: null,
             statuses: ['unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal'],
-
             dropdownItems: [
                 { name: 'male', code: 'male' },
                 { name: 'female', code: 'female' },
@@ -198,7 +195,6 @@ export default {
         console.log(route.params);
         this.userService.getUserList(this.name, this.email, this.mobile).then(data => {
             this.customer1 = data;
-            // console.log(data);
             this.loading1 = false;
         });
     },
@@ -221,12 +217,7 @@ export default {
         },
         exceldownload() {
             console.log(this.customerService);
-            axios({
-                url: '/user//generate-excel/?status=active',
-                // url: `${this.customerService.url}/admin/user//generate-excel/?status=active`,
-                method: 'GET',
-                responseType: 'blob', // important
-            }).then(response => {
+            this.userService.downloadExcel().then(response => {
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
@@ -293,11 +284,10 @@ export default {
                 message: 'Are you sure you want to delete?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    
-                    axios({method: 'delete',url: '/user/delete',data: {deleteIdArray: id}
-                    }).
-                    then(function(response) {console.log(response);location.reload();})
-                        
+                    axios({ method: 'delete', url: '/user/delete', data: { deleteIdArray: id } }).then(function(response) {
+                        console.log(response);
+                        location.reload();
+                    });
 
                     this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Deleted successfully', life: 3000 });
                 },
