@@ -153,8 +153,10 @@
             </template>
             <template v-slot:footer>
                 <div class="p-d-flex p-jc-center">
-                    <Button label="Cancel" class="p-button p-button-secondary p-button-sm p-mr-2 p-mb-2" @click="closeModal"> </Button>
-                    <Button label="Confirm" class="p-button p-button-success p-button-sm p-mr-2 p-mb-2" @click="DeleteRow"> </Button>
+                    <Button label="Cancel" class="p-button p-button-secondary p-button-sm p-mr-2 p-mb-2"
+                     @click="closeModal"> </Button>
+                    <Button label="Confirm" class="p-button p-button-success p-button-sm p-mr-2 p-mb-2"
+                     @click="DeleteRow(data.id)"> </Button>
                 </div>
             </template>
         </Modal>

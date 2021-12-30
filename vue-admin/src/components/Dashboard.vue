@@ -10,8 +10,8 @@
                             <i class="pi pi-arrow-up"></i>
                         </a>
                     </h6>
-                    <p>{{ $t("message") }}</p>
-                    <p>{{ $t("address.city") }}</p>
+                    <!-- <p>{{ $t("message") }}</p>
+                    <p>{{ $t("address.city") }}</p> -->
                 </div>
             </div>
 
