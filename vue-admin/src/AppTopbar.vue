@@ -80,6 +80,8 @@
                     </li>
                 </ul>
 
+                <LanguageInput/>
+
                 <!-- <a href="#" tabindex="0" class="layout-rightpanel-button" @click="onRightMenuButtonClick($event)">
                     <i class="pi pi-arrow-left"></i>
                 </a> -->
@@ -90,6 +92,7 @@
 
 <script>
 import AppMenu from './AppMenu';
+import LanguageInput from './components/LanguageInput.vue';
 export default {
     name: 'AppTopbar',
     emits: [
@@ -186,6 +189,7 @@ export default {
     },
     components: {
         AppMenu,
+        LanguageInput
     },
 };
 </script>

@@ -1,3 +1,42 @@
 {
-  "message": "Hello!"
+  "message": "Hello!",
+  "address": {
+    "city" : "Kolkata"
+  },
+  "search": {
+    "title": "Search",
+    "label": {
+      "name": "Name",
+      "phoneNumber": "Phone Number",
+      "email": "Email",
+      "startDate": "Start Date",
+      "lastDate": "Last Date"
+    },
+    "placeholder": {
+      "search": "Search",
+      "date": "YYYY.MM.DD"
+    }
+  },
+  "table": {
+    "userlist": {
+      "heading": "User List",
+      "thead": {
+        "id": "Id",
+        "name": "Name",
+        "email":"Email",
+        "mobile": "Mobile",
+        "createdDate": "Created Date",
+        "actions": "Actions"
+      }
+    }
+  },
+  "button": {
+    "reset": "Reset",
+    "search": "Search",
+    "new": "New",
+    "downloadExcel": "Download Excel",
+    "view": "View",
+    "edit": "Edit",
+    "delete": "Delete"
+  }
 }
