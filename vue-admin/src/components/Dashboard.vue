@@ -3,7 +3,15 @@
         <div class="p-grid">
             <div class="p-col-12">
                 <div class="notification">
-                    <h6>👋  Hello! Welcome to Hit! Before start please complete your profile to know you better. <a href="#">Profile settings <i class="pi pi-arrow-up"></i></a></h6>
+                    <h6>
+                        👋 Hello! Welcome to Hit! Before start please complete your profile to know you better.
+                        <a href="#">
+                            Profile settings
+                            <i class="pi pi-arrow-up"></i>
+                        </a>
+                    </h6>
+                    <p>{{ $t("message") }}</p>
+                    <p>{{ $t("address.city") }}</p>
                 </div>
             </div>
 
@@ -86,8 +94,7 @@
                             <i class="pi pi-circle-on"></i>
                             <div class="event-content">
                                 <span class="event-title">Capacity</span>
-                                <span>Reached 80% CPU capacity in Ireland. Automatic
-                                            capacity increase initiated.</span>
+                                <span>Reached 80% CPU capacity in Ireland. Automatic capacity increase initiated.</span>
                                 <span class="time">1:30PM</span>
                             </div>
                         </li>
@@ -120,7 +127,6 @@
                 </div>
             </div>
 
-
             <div class="p-col-12 p-md-6">
                 <div class="p-grid">
                     <div class="p-col-12">
@@ -133,7 +139,9 @@
                                             <p class="subtitle">Line graph</p>
                                         </div>
                                     </div>
-                                    <p class="content">Labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ercitation ullamco laboris nisi..</p>
+                                    <p
+                                        class="content"
+                                    >Labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ercitation ullamco laboris nisi..</p>
                                     <div class="progress active">
                                         <span>Today</span>
                                         <ProgressBar :value="100" :showValue="false"></ProgressBar>
@@ -166,25 +174,33 @@
                                     <div class="p-grid p-nogutter">
                                         <div class="p-col-3 p-xl-12">
                                             <div class="device">
-                                                <span><span>1</span> iPhone</span>
+                                                <span>
+                                                    <span>1</span> iPhone
+                                                </span>
                                                 <span class="status">22%</span>
                                             </div>
                                         </div>
                                         <div class="p-col-3 p-xl-12">
                                             <div class="device">
-                                                <span><span>2</span> Galaxy S20</span>
+                                                <span>
+                                                    <span>2</span> Galaxy S20
+                                                </span>
                                                 <span class="status">18%</span>
                                             </div>
                                         </div>
                                         <div class="p-col-3 p-xl-12">
                                             <div class="device">
-                                                <span><span>3</span> Macbook</span>
+                                                <span>
+                                                    <span>3</span> Macbook
+                                                </span>
                                                 <span class="status">13%</span>
                                             </div>
                                         </div>
                                         <div class="p-col-3 p-xl-12">
                                             <div class="device">
-                                                <span><span>4</span> Macbook Air</span>
+                                                <span>
+                                                    <span>4</span> Macbook Air
+                                                </span>
                                                 <span class="status">11%</span>
                                             </div>
                                         </div>
@@ -194,7 +210,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="p-col-12  desktop-teams">
+                    <div class="p-col-12 desktop-teams">
                         <div class="card team">
                             <div class="card-header">
                                 <div class="card-title">
@@ -203,16 +219,44 @@
                                 </div>
                             </div>
                             <div class="peoples">
-                                <img src="assets/demo/images/dashboard/avatar/avatar-1.png" alt="freya-layout" />
-                                <img src="assets/demo/images/dashboard/avatar/avatar-2.png" alt="freya-layout" />
-                                <img src="assets/demo/images/dashboard/avatar/avatar-3.png" alt="freya-layout" />
-                                <img src="assets/demo/images/dashboard/avatar/avatar-4.png" alt="freya-layout" />
-                                <img src="assets/demo/images/dashboard/avatar/avatar-5.png" alt="freya-layout" />
-                                <img src="assets/demo/images/dashboard/avatar/avatar-6.png" alt="freya-layout" />
-                                <div class="no-picture" style="background: #BAE6FF;"><span>AT</span></div>
-                                <img src="assets/demo/images/dashboard/avatar/avatar-7.png" alt="freya-layout" />
-                                <img src="assets/demo/images/dashboard/avatar/avatar-7.png" alt="freya-layout" />
-                                <div class="no-picture "><span>+18</span></div>
+                                <img
+                                    src="assets/demo/images/dashboard/avatar/avatar-1.png"
+                                    alt="freya-layout"
+                                />
+                                <img
+                                    src="assets/demo/images/dashboard/avatar/avatar-2.png"
+                                    alt="freya-layout"
+                                />
+                                <img
+                                    src="assets/demo/images/dashboard/avatar/avatar-3.png"
+                                    alt="freya-layout"
+                                />
+                                <img
+                                    src="assets/demo/images/dashboard/avatar/avatar-4.png"
+                                    alt="freya-layout"
+                                />
+                                <img
+                                    src="assets/demo/images/dashboard/avatar/avatar-5.png"
+                                    alt="freya-layout"
+                                />
+                                <img
+                                    src="assets/demo/images/dashboard/avatar/avatar-6.png"
+                                    alt="freya-layout"
+                                />
+                                <div class="no-picture" style="background: #BAE6FF;">
+                                    <span>AT</span>
+                                </div>
+                                <img
+                                    src="assets/demo/images/dashboard/avatar/avatar-7.png"
+                                    alt="freya-layout"
+                                />
+                                <img
+                                    src="assets/demo/images/dashboard/avatar/avatar-7.png"
+                                    alt="freya-layout"
+                                />
+                                <div class="no-picture">
+                                    <span>+18</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -228,7 +272,12 @@
                         </div>
                         <p class="subtitle">8 May</p>
                     </div>
-                    <Chart type="line" :data="chart1" :options="chartOptions1" style="max-height: 160px;"></Chart>
+                    <Chart
+                        type="line"
+                        :data="chart1"
+                        :options="chartOptions1"
+                        style="max-height: 160px;"
+                    ></Chart>
                     <div class="insights">
                         <div class="insight-header">
                             <img src="assets/demo/images/dashboard/subtract.svg" alt="freya-layout" />
@@ -236,16 +285,19 @@
                         </div>
                         <ul>
                             <li>
-                                <span><span>1</span> Increase CPU load levels</span>
+                                <span>
+                                    <span>1</span> Increase CPU load levels
+                                </span>
                                 <span class="p-tag p-tag-warning">12%</span>
                             </li>
                             <li>
-                                <span><span>2</span> 28% increase on thanks mes./w..</span>
+                                <span>
+                                    <span>2</span> 28% increase on thanks mes./w..
+                                </span>
                                 <span class="p-tag p-tag-success">UP!</span>
                             </li>
                             <a href="#">See all(4)</a>
                         </ul>
-
                     </div>
                     <Button type="button" label="Go to full stock page" class="p-button-outlined"></Button>
                 </div>
@@ -260,35 +312,117 @@
                         </div>
                     </div>
                     <div class="peoples">
-                        <img src="assets/demo/images/dashboard/avatar/avatar-1.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-2.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-3.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-4.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-5.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-6.png" alt="freya-layout" />
-                        <div class="no-picture" style="background: #FFC3A2;"><span>TA</span></div>
-                        <img src="assets/demo/images/dashboard/avatar/avatar-7.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-7.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-1.png" alt="freya-layout" />
-                        <div class="no-picture" style="background: #FFDB7D;"><span>JH</span></div>
-                        <img src="assets/demo/images/dashboard/avatar/avatar-2.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-3.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-4.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-5.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-6.png" alt="freya-layout" />
-                        <div class="no-picture" style="background: #BAE6FF;"><span>SE</span></div>
-                        <img src="assets/demo/images/dashboard/avatar/avatar-7.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-7.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-1.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-2.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-3.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-4.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-5.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-6.png" alt="freya-layout" />
-                        <div class="no-picture" style="background: #91CC9D;"><span>TH</span></div>
-                        <img src="assets/demo/images/dashboard/avatar/avatar-7.png" alt="freya-layout" />
-                        <img src="assets/demo/images/dashboard/avatar/avatar-7.png" alt="freya-layout" />
-                        <div class="no-picture"><span>+18</span></div>
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-1.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-2.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-3.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-4.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-5.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-6.png"
+                            alt="freya-layout"
+                        />
+                        <div class="no-picture" style="background: #FFC3A2;">
+                            <span>TA</span>
+                        </div>
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-7.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-7.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-1.png"
+                            alt="freya-layout"
+                        />
+                        <div class="no-picture" style="background: #FFDB7D;">
+                            <span>JH</span>
+                        </div>
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-2.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-3.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-4.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-5.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-6.png"
+                            alt="freya-layout"
+                        />
+                        <div class="no-picture" style="background: #BAE6FF;">
+                            <span>SE</span>
+                        </div>
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-7.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-7.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-1.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-2.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-3.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-4.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-5.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-6.png"
+                            alt="freya-layout"
+                        />
+                        <div class="no-picture" style="background: #91CC9D;">
+                            <span>TH</span>
+                        </div>
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-7.png"
+                            alt="freya-layout"
+                        />
+                        <img
+                            src="assets/demo/images/dashboard/avatar/avatar-7.png"
+                            alt="freya-layout"
+                        />
+                        <div class="no-picture">
+                            <span>+18</span>
+                        </div>
                     </div>
                     <a href="#">See all teams</a>
                 </div>
@@ -304,20 +438,32 @@
                                     <p class="subtitle">Line graph</p>
                                 </div>
                             </div>
-                            <Chart type="line" :data="chart2" :options="chartOptions2" style="max-height: 330px;"></Chart>
+                            <Chart
+                                type="line"
+                                :data="chart2"
+                                :options="chartOptions2"
+                                style="max-height: 330px;"
+                            ></Chart>
                         </div>
                     </div>
-                    <div class="p-col-12  p-md-5">
+                    <div class="p-col-12 p-md-5">
                         <div class="card map">
-                            <img src="assets/demo/images/dashboard/asset-map.png" alt="freya-layout" />
+                            <img
+                                src="assets/demo/images/dashboard/asset-map.png"
+                                alt="freya-layout"
+                            />
                             <div class="map-content">
                                 <h6>Last active region (data traffic)</h6>
                                 <div class="city">
-                                    <span><span>1</span> Tokyo</span>
+                                    <span>
+                                        <span>1</span> Tokyo
+                                    </span>
                                     <span class="status">22%</span>
                                 </div>
                                 <div class="city">
-                                    <span><span>2</span> London</span>
+                                    <span>
+                                        <span>2</span> London
+                                    </span>
                                     <span class="status">22%</span>
                                 </div>
                                 <a href="#">See all</a>
@@ -397,7 +543,7 @@
                                 <div class="p-col-12 p-md-6">
                                     <div class="statistic-item">
                                         <div class="item-title">
-                                            <span>🖥 </span>
+                                            <span>🖥</span>
                                             <h5>2K</h5>
                                         </div>
                                         <h6>Connected devices</h6>
@@ -406,7 +552,7 @@
                                 <div class="p-col-12 p-md-6">
                                     <div class="statistic-item">
                                         <div class="item-title">
-                                            <span>🎁 </span>
+                                            <span>🎁</span>
                                             <h5>244</h5>
                                         </div>
                                         <h6>Thanks messages received</h6>
@@ -415,7 +561,7 @@
                                 <div class="p-col-12 p-md-6">
                                     <div class="statistic-item">
                                         <div class="item-title">
-                                            <span>💵 </span>
+                                            <span>💵</span>
                                             <h5>4812$</h5>
                                         </div>
                                         <h6>Earnings/month</h6>
@@ -431,14 +577,21 @@
                                     <h6>👓 Stock watchlist (12)</h6>
                                     <p class="subtitle">Today</p>
                                 </div>
-                                <Button type="button" icon="pi pi-plus" class="p-button-secondary p-button-text p-button-rounded"></Button>
+                                <Button
+                                    type="button"
+                                    icon="pi pi-plus"
+                                    class="p-button-secondary p-button-text p-button-rounded"
+                                ></Button>
                             </div>
                             <ul>
                                 <li class="down">
                                     <div class="stock-name">
                                         <h6>AMD</h6>
                                     </div>
-                                    <img src="assets/demo/images/dashboard/mini-graph-1.svg" alt="freya-layout" />
+                                    <img
+                                        src="assets/demo/images/dashboard/mini-graph-1.svg"
+                                        alt="freya-layout"
+                                    />
                                     <div class="stock-price">
                                         <i class="pi pi-arrow-down"></i>
                                         <h6>54.20</h6>
@@ -452,7 +605,10 @@
                                     <div class="stock-name">
                                         <h6>MSFT</h6>
                                     </div>
-                                    <img src="assets/demo/images/dashboard/mini-graph-2.svg" alt="freya-layout" />
+                                    <img
+                                        src="assets/demo/images/dashboard/mini-graph-2.svg"
+                                        alt="freya-layout"
+                                    />
                                     <div class="stock-price">
                                         <i class="pi pi-arrow-down"></i>
                                         <h6>183.16</h6>
@@ -466,7 +622,10 @@
                                     <div class="stock-name">
                                         <h6>AAPL</h6>
                                     </div>
-                                    <img src="assets/demo/images/dashboard/mini-graph-3.svg" alt="freya-layout" />
+                                    <img
+                                        src="assets/demo/images/dashboard/mini-graph-3.svg"
+                                        alt="freya-layout"
+                                    />
                                     <div class="stock-price">
                                         <i class="pi pi-arrow-down"></i>
                                         <h6>307.20</h6>
@@ -480,7 +639,10 @@
                                     <div class="stock-name">
                                         <h6>TSLA</h6>
                                     </div>
-                                    <img src="assets/demo/images/dashboard/mini-graph-4.svg" alt="freya-layout" />
+                                    <img
+                                        src="assets/demo/images/dashboard/mini-graph-4.svg"
+                                        alt="freya-layout"
+                                    />
                                     <div class="stock-price">
                                         <i class="pi pi-arrow-down"></i>
                                         <h6>799.17</h6>
@@ -494,7 +656,10 @@
                                     <div class="stock-name">
                                         <h6>AMZN</h6>
                                     </div>
-                                    <img src="assets/demo/images/dashboard/mini-graph-5.svg" alt="freya-layout" />
+                                    <img
+                                        src="assets/demo/images/dashboard/mini-graph-5.svg"
+                                        alt="freya-layout"
+                                    />
                                     <div class="stock-price">
                                         <i class="pi pi-minus"></i>
                                         <h6>799.17</h6>
@@ -510,14 +675,24 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 </template>
 
 <script>
+// import { useI18n } from "vue3-i18n";
 export default {
+    // setup() {
+    //     const i18n = useI18n();
+    //     const setLocale = (lang) => {
+    //         i18n.setLocale(lang);
+    //     };
+
+    //     return {
+    //         setLocale,
+    //     };
+    // },
     data() {
         return {
             chart1: {
@@ -526,17 +701,13 @@ export default {
                     {
                         label: 'Revenue',
                         data: [12, 19, 3, 5, 2, 3, 9],
-                        borderColor: [
-                            '#FFA928',
-                        ],
+                        borderColor: ['#FFA928'],
                         borderWidth: 4,
                         fill: true,
-                        backgroundColor: [
-                            'rgba(255, 169, 40, .2)'
-                        ],
-                        tension: .4
-                    }
-                ]
+                        backgroundColor: ['rgba(255, 169, 40, .2)'],
+                        tension: 0.4,
+                    },
+                ],
             },
             chartOptions1: {
                 legend: {
@@ -544,7 +715,7 @@ export default {
                 },
                 maintainAspectRatio: false,
                 hover: {
-                    mode: 'index'
+                    mode: 'index',
                 },
                 scales: {
                     x: {
@@ -552,8 +723,8 @@ export default {
                     },
                     y: {
                         display: false,
-                    }
-                }
+                    },
+                },
             },
             chart2: null,
             chartOptions2: {
@@ -562,7 +733,7 @@ export default {
                 },
                 maintainAspectRatio: false,
                 hover: {
-                    mode: 'index'
+                    mode: 'index',
                 },
                 scales: {
                     x: {
@@ -571,34 +742,38 @@ export default {
                             color: 'transparent',
                         },
                         ticks: {
-                            color: '#BFC2C6'
-                        }
+                            color: '#BFC2C6',
+                        },
                     },
                     y: {
                         display: true,
                         grid: {
-                            color:  'rgba(191, 194, 198, .45)',
-                            borderDash:[5, 10],
+                            color: 'rgba(191, 194, 198, .45)',
+                            borderDash: [5, 10],
                         },
                         ticks: {
-                            color:  '#BFC2C6',
+                            color: '#BFC2C6',
                             min: 0,
                             stepSize: 5,
-                        }
-                    }
-                }
-            }
-        }
+                        },
+                    },
+                },
+            },
+        };
     },
     watch: {
-		'$appState.isNewThemeLoaded'(isLoaded) {
-			if (isLoaded) {
-				this.refreshChart();
-				this.$appState.isNewThemeLoaded = false;
-			}
-		}
-	},
+        '$appState.isNewThemeLoaded'(isLoaded) {
+            if (isLoaded) {
+                this.refreshChart();
+                this.$appState.isNewThemeLoaded = false;
+            }
+        },
+    },
     mounted() {
+        let user = localStorage.getItem('token');
+        if (!user) {
+            this.$router.push({ name: 'login' });
+        }
         this.refreshChart();
     },
     methods: {
@@ -618,15 +793,14 @@ export default {
                         borderWidth: 4,
                         fill: true,
                         backgroundColor: [backgroundColor],
-                        tension: .4
-                    }
-                ]
-            }
-        }
-    }
+                        tension: 0.4,
+                    },
+                ],
+            };
+        },
+    },
 };
 </script>
-
 
 <style lang="scss" scoped>
 .layout-dashboard {

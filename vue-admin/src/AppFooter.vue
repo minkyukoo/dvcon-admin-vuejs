@@ -17,8 +17,8 @@
                         <ul>
                             <li><router-link to="/calendar">Calendar</router-link></li>
                             <li><router-link to="/widgets">Widgets</router-link></li>
-                            <li><router-link to="/documentation">Documentation</router-link></li>
-                            <li><a href="https://www.primefaces.org/store">Buy Now</a></li>
+                            <!-- <li><router-link to="/documentation">Documentation</router-link></li> -->
+                            <!-- <li><a href="https://www.primefaces.org/store">Buy Now</a></li> -->
                         </ul>
                     </div>
                 </div>
@@ -42,8 +42,8 @@
             </div>
             <div class="p-col-12">
                 <div class="footer-bottom">
-                    <h4>freya</h4>
-                    <h6>Copyright Ⓒ PrimeTek Informatics</h6>
+                    <h4>Vue Admin</h4>
+                    <h6>Copyright Ⓒ Hanriver Technology</h6>
                 </div>
 
             </div>
