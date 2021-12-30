@@ -81,12 +81,12 @@ export default {
         onFileChange(e) {
             var files = e?.target.files || e?.dataTransfer.files;
             if (!files.length) {
-                return files;
+                return;
             }
             this.createImage(files[0]);
         },
         addBanner() {
-            console.log(this.dropdownValue?.name)
+            console.log(this.dropdownValue?.name);
             return axios
                 .post(
                     'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/add',
