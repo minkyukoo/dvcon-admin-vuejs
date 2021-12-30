@@ -173,7 +173,7 @@ export default {
             filters1: null,
             filters2: {},
             loading1: true,
-
+            
             idFrozen: false,
             products: null,
             expandedRows: [],
@@ -186,19 +186,6 @@ export default {
                 { name: 'others', code: 'others' },
             ],
             dropdownItem: null,
-
-            // representatives: [
-            //     { name: 'Amy Elsner', image: 'amyelsner.png' },
-            //     { name: 'Anna Fali', image: 'annafali.png' },
-            //     { name: 'Asiya Javayant', image: 'asiyajavayant.png' },
-            //     { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
-            //     { name: 'Elwin Sharvill', image: 'elwinsharvill.png' },
-            //     { name: 'Ioni Bowcher', image: 'ionibowcher.png' },
-            //     { name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png' },
-            //     { name: 'Onyama Limba', image: 'onyamalimba.png' },
-            //     { name: 'Stephen Shaw', image: 'stephenshaw.png' },
-            //     { name: 'XuXue Feng', image: 'xuxuefeng.png' },
-            // ],
         };
     },
     customerService: null,
@@ -299,34 +286,19 @@ export default {
         },
 
         del(id) {
-            // console.log(id);
-
+            console.log(id);
             this.$confirm.require({
                 group: 'dialog',
                 header: 'Confirmation',
                 message: 'Are you sure you want to delete?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    axios({
-                        method: 'delete',
-                        url: '/user/delete',
-                        data: {
-                            deleteIdArray: id,
-                        },
-                        headers: {
-                            source: 'dvcon',
-                            apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
-                            token: localStorage.getItem('token'),
-                        },
-                    })
-                        .then(function(response) {
-                            console.log(response);
-                            // alert('Deleted successfully');
-                            location.reload();
-                        })
-                        .catch(function(response) {
-                            console.log(response);
-                        });
+                    
+                    axios({method: 'delete',url: '/user/delete',data: {deleteIdArray: id}
+                    }).
+                    then(function(response) {console.log(response);location.reload();})
+                        
+
                     this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Deleted successfully', life: 3000 });
                 },
                 reject: () => {
