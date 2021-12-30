@@ -45,7 +45,7 @@
                     </Column>
                     <Column field="name" header="Title" style="min-width:12rem">
                         <template #body="{data}">
-                             <router-link to="/cms/edit"><span class="p-column-title">Name</span>
+                             <router-link to="/cms/edit"><span class="p-column-title"></span>
                             {{data.name}}</router-link>
                         </template>
                         
