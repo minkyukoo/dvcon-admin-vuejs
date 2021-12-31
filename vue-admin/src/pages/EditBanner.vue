@@ -17,7 +17,7 @@
                     </div>
                     <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="state2">state</label>
-                        <Dropdown v-model="dropdownValue" :optionValue="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
+                        <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
                     </div>
                     <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="title2">Link</label>
@@ -28,14 +28,15 @@
                     <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="subtitle2">Image <span class="img-info">(File size must be at least 500*900px) </span> </label>
                         <div class="custom-select">
-                            <span>Select File</span>
-                            <input type="file" class="select-file" />
-                            <Button label="Select File" class="SelectBtn" />
-                        </div>
+                                <span v-if="!fileName">Select File</span>
+                                <span v-else>{{ fileName }}</span>
+                                <input type="file" class="select-file" v-on:change="onFileChange" />
+                                <Button label="Select File" class="SelectBtn" />
+                            </div>
                     </div>
                     <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="state2">Type</label>
-                        <Dropdown v-model="dropdownValueType" :optionValue="dropdownValueType" :options="dropdownValueTypes" optionLabel="name" placeholder="Select" />
+                        <Dropdown v-model="dropdownValueType" :options="dropdownValueTypes" optionLabel="name" placeholder="Select" />
                     </div>
                 </div>
                 <!-- <div class="p-formgrid p-grid">
@@ -101,8 +102,8 @@ export default {
                 this.link = res.data.data[0].link;
                 this.dropdownValueType = res.data.data[0].bannerPostion;
                 this.dropdownValue = res.data.data[0].status;
-                // this.fileName = res.data.data[0].bannerImage;
-                console.log(this.title)
+                this.fileName = res.data.data[0].bannerImage;
+                console.log(res.data.data[0].bannerImage)
             })
             .catch((err) => {
                 alert(err);
