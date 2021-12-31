@@ -276,4 +276,7 @@ export default {
 </script>
 
 <style lang="scss">
+.text-red {
+    color: red;
+}
 </style>
