@@ -1,7 +1,6 @@
 <template>
-<router-link to="/banner-management">
-        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" 
-        class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
+    <router-link to="/banner-management">
+        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-5"></Button>
     </router-link>
     <div class="card">
         <div class="p-grid p-fluid">
@@ -10,19 +9,19 @@
                 <div class="p-grid p-formgrid p-mb-3">
                     <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="title2">Title</label>
-                        <InputText type="text" placeholder="Title" id="title2" v-model="title"></InputText>
+                        <InputText type="text" placeholder="Title" :modelValue="title" id="title2" v-model="title"></InputText>
                     </div>
                     <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="subtitle2">Subtitle</label>
-                        <InputText type="text" placeholder="Subtitle" id="subtitle2" v-model="subtitle"></InputText>
+                        <InputText type="text" placeholder="Subtitle" :modelValue="subtitle" id="subtitle2" v-model="subtitle"></InputText>
                     </div>
                     <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="state2">state</label>
-                        <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
+                        <Dropdown v-model="dropdownValue" :optionValue="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
                     </div>
                     <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="title2">Link</label>
-                        <InputText type="text" placeholder="link" id="title2" v-model="link"></InputText>
+                        <InputText type="text" :modelValue="link" placeholder="link" id="title2" v-model="link"></InputText>
                     </div>
                 </div>
                 <div class="p-grid p-formgrid">
@@ -36,7 +35,7 @@
                     </div>
                     <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="state2">Type</label>
-                        <Dropdown v-model="dropdownValueType" :options="dropdownValueTypes" optionLabel="name" placeholder="Select" />
+                        <Dropdown v-model="dropdownValueType" :optionValue="dropdownValueType" :options="dropdownValueTypes" optionLabel="name" placeholder="Select" />
                     </div>
                 </div>
                 <!-- <div class="p-formgrid p-grid">
@@ -61,29 +60,70 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: 'EditBanner',
     data() {
         return {
-            dropdownValues: [{ name: 'Select' }, { name: 'activation' }, { name: 'inactivation' }],
-            dropdownValueTypes: [{ name: 'state' }, { name: 'main r' }, { name: 'sub top' }, { name: 'sub bottom' }],
+            dropdownValues: [{ name: 'Select' }, { name: 'active' }, { name: 'inactive' }],
+            dropdownValueTypes: [{ name: 'main_banner' }, { name: 'banner_top' }, { name: 'banner_bottom' }],
             dropdownValue: null,
             dropdownValueType: null,
             title: null,
             subtitle: null,
             link: null,
+            file: null,
+            image: '',
+            fileName: '',
+            // dog_id: this.dog.id,
+            formData: new FormData(),
         };
     },
+    mounted() {
+        axios
+            .post(
+                'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/id',
+                {
+                    id: this.$route.params.id,
+                },
+                {
+                    headers: {
+                        source: 'dvcon',
+                        apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+                        token: localStorage.getItem('token'),
+                    },
+                }
+            )
+            .then((res) => {
+                console.log(res);
+                this.title = res.data.data[0].title;
+                this.subtitle = res.data.data[0].subTitle;
+                this.link = res.data.data[0].link;
+                this.dropdownValueType = res.data.data[0].bannerPostion;
+                this.dropdownValue = res.data.data[0].status;
+                // this.fileName = res.data.data[0].bannerImage;
+                console.log(this.title)
+            })
+            .catch((err) => {
+                alert(err);
+            });
+    },
     methods: {
-        // reinitialize() {
-        //     (this.dropdownValue = null), (this.dropdownValueType = null);
-        // },
+        onFileChange(e) {
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length) return;
+            this.formData.append('image', files[0]);
+            // this.formData.append('_method', 'PUT');
+            this.file = files[0];
+            this.fileName = this.file.name;
+            console.log(this.fileName);
+        },
     },
 };
 </script>
 
 <style scoped>
-.img-info{
+.img-info {
     font-size: 11px;
     font-weight: 400;
     color: red;
@@ -110,5 +150,12 @@ export default {
 }
 .SelectBtn {
     max-width: 100px;
+}
+.custom-select span {
+    max-width: 140px;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 </style>

@@ -36,12 +36,14 @@ const routes = [
         name: 'CreateBanner',
         component: () => import('./pages/CreateBanner.vue'),
         beforeEnter: guard,
+        
     },
     {
-        path: '/edit-banner',
+        path: '/edit-banner/:id',
         name: 'EditBanner',
         component: () => import('./pages/EditBanner.vue'),
         beforeEnter: guard,
+        
     },
     {
         path: '/user',

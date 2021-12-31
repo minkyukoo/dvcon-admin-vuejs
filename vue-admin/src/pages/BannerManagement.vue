@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Toast />
         <div class="card">
             <div class="p-grid p-fluid">
                 <div class="p-col-12">
@@ -41,7 +42,6 @@
         <div class="card">
             <div class="p-grid">
                 <div class="p-col-12">
-                    <Toast />
                     <div class="p-d-flex p-jc-between">
                         <h4>Banner Management</h4>
                         <div>
@@ -123,12 +123,12 @@
                             </template>
                         </Column> -->
                         <Column field="inventoryStatus" header="management">
-                            <template #body>
+                            <template #body="{ data }">
                                 <div class="p-d-flex">
-                                    <router-link to="/edit-banner">
+                                    <router-link :to="'/edit-banner/' + data.id">
                                         <Button label="correction" icon="pi pi-pencil" iconPos="left" class="p-button p-button-outlined p-button-help p-button-sm p-mr-2 p-mb-2"></Button>
                                     </router-link>
-                                    <Button label="Delete" icon="pi pi-trash" iconPos="left" class="p-button p-button-outlined p-button-danger p-button-sm p-mr-2 p-mb-2" @click="showModal"></Button>
+                                    <Button label="Delete" icon="pi pi-trash" iconPos="left" class="p-button p-button-outlined p-button-danger p-button-sm p-mr-2 p-mb-2" @click="showModal(data.id)"></Button>
                                 </div>
                             </template>
                         </Column>
@@ -139,7 +139,7 @@
         <Modal v-show="isModalVisible" @close="closeModal" v-bind:showCloseBtn="false">
             <template v-slot:header>
                 <div class="p-text-center w-100">
-                    <i class="pi pi-question-circle" style="fontsize: 2.5rem; color: #1976d2"></i>
+                    <i class="pi pi-question-circle" style="fontsize: 4.5rem; color: #1976d2"></i>
                 </div>
             </template>
             <template v-slot:body>
@@ -161,6 +161,7 @@
 <script>
 // import ProductService from '../service/ProductService';
 import axios from 'axios';
+import { useRoute } from 'vue-router';
 // import CustomerService from '../service/CustomerService';
 // import {FilterMatchMode,FilterOperator} from 'primevue/api';
 import Modal from '../components/CustomModal.vue';
@@ -177,6 +178,7 @@ export default {
             products: {},
             title: null,
             loading1: true,
+            deletedID: null,
         };
     },
     // customerService: null,
@@ -191,11 +193,14 @@ export default {
         // this.customerService = new CustomerService();
     },
     mounted() {
+        const route = useRoute();
+        console.log(route.params);
+
         this.getProductsWithOrdersSmall();
     },
     methods: {
         async getProductsWithOrdersSmall() {
-            console.log('search banner by Name', this.dropdownValue?.name);
+            // console.log('search banner by Name', this.dropdownValue?.name);
             await axios
                 .post(
                     'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner',
@@ -204,6 +209,8 @@ export default {
                         status: this.dropdownValue?.name,
                         startDate: this.calendarValue1,
                         endDate: this.calendarValue2,
+                        sortBy: "createdDate",
+                        sortOrder: "desc"
                     },
                     {
                         headers: {
@@ -237,14 +244,40 @@ export default {
                 year: 'numeric',
             });
         },
-        showModal() {
+        showModal(id) {
+            console.log(id);
             this.isModalVisible = true;
+            this.deletedID = id;
         },
         closeModal() {
             this.isModalVisible = false;
         },
-        DeleteRow() {
-            console.log('delete row');
+        async DeleteRow() {
+            // console.log('login token', localStorage.getItem('token'));
+            return await axios
+                .delete(
+                    'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/delete',
+                    {
+                        data: {
+                            deleteIdArray: this.deletedID,
+                        },
+                        headers: {
+                            source: 'dvcon',
+                            apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+                            token: localStorage.getItem('token'),
+                        },
+                    },
+                )
+                .then((response) => {
+                    // console.log(response);
+                    alert(response.data.message);
+                    location.reload();
+                    // alert(response)
+                })
+                .catch((response) => {
+                    // console.log(response);
+                    alert(response);
+                });
         },
         reInitialize() {
             this.dropdownValue = null;

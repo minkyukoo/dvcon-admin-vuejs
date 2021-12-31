@@ -1,6 +1,7 @@
 <template>
     <router-link to="/banner-management">
-        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-5"></Button>
+        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" 
+        class="p-button p-button-sm p-mr-2 p-mb-5"></Button>
     </router-link>
     <div class="card">
         <form>
@@ -165,5 +166,12 @@ export default {
 }
 .SelectBtn {
     max-width: 100px;
+}
+.custom-select span{
+    max-width: 140px;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 </style>
