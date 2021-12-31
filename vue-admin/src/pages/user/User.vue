@@ -221,6 +221,8 @@ export default {
             this.email = '';
             this.mobile = '';
             this.error = {};
+            this.calendarValue = '';
+            this.calendarValue1 = '';
             this.userService.getUserList(this.name, this.email, this.mobile).then((data) => {
                 this.customer1 = data;
             });
