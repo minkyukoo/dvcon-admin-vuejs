@@ -51,6 +51,7 @@
                         </div>
                     </div>
                     <DataTable :value="products" class="p-datatable-gridlines" dataKey="id" responsiveLayout="scroll" :paginator="true" :rows="4" :rowHover="true" v-if="products.length > 0" :loading="loading1">
+                        <ConfirmDialog group="dialog" />
                         <!-- <template #header>
                                 <div class="table-header-container">
                                     <Button icon="pi pi-plus" label="Expand All" @click="expandAll" class="p-mr-2 p-mb-2" />
