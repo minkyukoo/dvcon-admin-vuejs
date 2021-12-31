@@ -20,7 +20,7 @@
 
                     <div class="p-field p-col">
                         <label for="state">gender</label>
-                        <Dropdown id="state" v-model="dropdownItem" :options="dropdownItems" optionLabel="name" placeholder="Select One" :optionValue="mydata.gender"></Dropdown>
+                        <Dropdown id="state" v-model="mydata.gender" :options="dropdownItems" optionLabel="name" :placeholder="mydata.gender" ></Dropdown>
                     </div>
                 </div>
                 <div class="p-d-flex p-jc-end">
@@ -37,9 +37,9 @@ export default {
     data() {
         return {
             dropdownItems: [
-                { name: 'male', code: 'male' },
-                { name: 'female', code: 'female' },
-                { name: 'others', code: 'others' },
+                { name: 'male', code: 'm' },
+                { name: 'female', code: 'f' },
+               
             ],
             dropdownItem: null,
             display: false,
@@ -76,7 +76,7 @@ export default {
                 message: 'Are you sure you want to proceed?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    this.userService.updateUser(this.mydata.name, this.mydata.phone, this.mydata.Email, this.mydata.gender, this.$route.params.id).then(res => {
+                    this.userService.updateUser(this.mydata.name, this.mydata.phone, this.mydata.Email, this.mydata.gender.code, this.$route.params.id).then(res => {
                         console.warn(res);
                         this.$router.push({ name: 'User' });
                     }).catch(res=> alert(res))

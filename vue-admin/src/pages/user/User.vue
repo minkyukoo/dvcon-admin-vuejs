@@ -141,7 +141,7 @@
                                 <router-link :to="'/user/edit-user/' + data.id"
                                     ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link
                                 >
-                                <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined p-mr-2 p-mb-2" @click="del(data.id)" />
+                                <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined p-mr-2 p-mb-2" @click="confirm(data.id)" />
                             </div>
                         </template>
                         <!-- <template #filter="{filterModel}">
@@ -233,7 +233,6 @@ export default {
                 this.loading1 = false;
                 this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
             });
-            
         },
         lastweek() {
             const date = new Date();
@@ -293,7 +292,7 @@ export default {
         Showid() {
             console.log('hello');
         },
-        
+
         open() {
             this.display = true;
         },
@@ -340,15 +339,8 @@ export default {
 
             return total;
         },
-        reloadA() {
-            console.log('jhgh')
-            // this.userService.getUserList(this.name, this.email, this.mobile).then((data) => {
-            //     this.customer1 = data;
-            // });
-        },
 
-        del(id) {
-            console.log(id);
+        confirm(id) {
             this.$confirm.require({
                 group: 'dialog',
                 header: 'Confirmation',
@@ -357,15 +349,22 @@ export default {
                 accept: () => {
                     axios({ method: 'delete', url: '/user/delete', data: { deleteIdArray: id } }).then(function (response) {
                         console.log(response);
-                        location.reload();
                     });
-                    this.this.reloadA();
+
                     this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Deleted successfully', life: 3000 });
                 },
                 reject: () => {
                     this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
                 },
             });
+            setTimeout(() => {
+                this.userService.getUserList(this.name, this.email, this.mobile, this.calendarValue, this.calendarValue1).then((data) => {
+                    this.customer1 = data;
+                    console.log(data);
+                    this.loading1 = false;
+                    this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
+                });
+            }, 2000);
         },
     },
 };

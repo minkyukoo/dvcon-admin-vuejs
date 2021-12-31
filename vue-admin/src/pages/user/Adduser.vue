@@ -19,7 +19,7 @@
 
                     <div class="p-field p-col">
                         <label for="state">gender</label>
-                        <Dropdown id="state" v-model="dropdownItem" :options="dropdownItems" optionLabel="name" placeholder="Select One"></Dropdown>
+                        <Dropdown id="state" v-model="gender" :options="dropdownItems" optionLabel="name" placeholder="Select One"></Dropdown>
                     </div>
                 </div>
                 <div class="p-formgrid p-grid">
@@ -46,15 +46,14 @@ export default {
     data() {
         return {
             dropdownItems: [
-                { name: 'male', code: 'male' },
-                { name: 'female', code: 'female' },
-                { name: 'others', code: 'others' },
+                { name: 'male', code: 'm' },
+                { name: 'female', code: 'f' },
             ],
             dropdownItem: null,
             name: '',
             mobile: '',
             email: '',
-            gender: 'm',
+            gender: '',
             pass: '',
             confirm_pass: '',
         };
@@ -64,7 +63,7 @@ export default {
     },
     methods: {
         Adduser() {
-            this.userService.addUser(this.name, this.mobile, this.email, this.gender, this.pass, this.confirm_pass).then(data => {
+            this.userService.addUser(this.name, this.mobile, this.email, this.gender.code, this.pass, this.confirm_pass).then((data) => {
                 alert(data);
                 this.$router.push({ name: 'User' });
             });
