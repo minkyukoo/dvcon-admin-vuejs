@@ -213,6 +213,8 @@ export default {
             this.name = '';
             this.email = '';
             this.mobile = '';
+            this.calendarValue = '';
+            this.calendarValue1 = '';
             this.userService.getUserList(this.name, this.email, this.mobile).then((data) => {
                 this.customer1 = data;
             });
