@@ -49,7 +49,7 @@
 </template>
 <script>
 import axios from 'axios';
-import UserService from '../service/API/UserService';
+import UserService from '../../service/API/UserService';
 // import {useRouter} from 'vue-router'
 export default {
     data() {

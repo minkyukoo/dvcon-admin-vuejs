@@ -47,7 +47,7 @@ const routes = [
         path: '/user',
         name: 'User',
         exact: true,
-        component: () => import('./components/User.vue'),
+        component: () => import('./pages/user/User.vue'),
         beforeEnter: guard,
         meta: {
             breadcrumb: [{ parent: 'User', label: 'User' }],
@@ -57,7 +57,7 @@ const routes = [
         path: '/add-user',
         name: 'Adduser',
         exact: true,
-        component: () => import('./components/Adduser.vue'),
+        component: () => import('./pages/user/Adduser.vue'),
         beforeEnter: guard,
         meta: {
             breadcrumb: [{ parent: 'User', label: 'Add User' }],
@@ -67,7 +67,7 @@ const routes = [
         path: '/user/view-user/:id',
         name: 'ViewUser',
         exact: true,
-        component: () => import('./components/ViewUser.vue'),
+        component: () => import('./pages/user/ViewUser.vue'),
         beforeEnter: guard,
         meta: {
             breadcrumb: [{ parent: 'User', label: 'View User' }],
@@ -77,7 +77,7 @@ const routes = [
         path: '/user/edit-user/:id',
         name: 'UpdateUser',
         exact: true,
-        component: () => import('./components/UpdateUser.vue'),
+        component: () => import('./pages/user/UpdateUser.vue'),
         beforeEnter: guard,
         meta: {
             breadcrumb: [{ parent: 'User', label: 'Update User' }],

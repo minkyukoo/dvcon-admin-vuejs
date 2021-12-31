@@ -41,7 +41,7 @@
     </div>
 </template>
 <script>
-import UserService from '../service/API/UserService';
+import UserService from '../../service/API/UserService';
 export default {
     data() {
         return {

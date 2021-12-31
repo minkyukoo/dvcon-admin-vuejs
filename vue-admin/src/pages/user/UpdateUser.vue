@@ -32,7 +32,7 @@
     </div>
 </template>
 <script>
-import UserService from '../service/API/UserService';
+import UserService from '../../service/API/UserService';
 export default {
     data() {
         return {
@@ -79,7 +79,7 @@ export default {
                     this.userService.updateUser(this.mydata.name, this.mydata.phone, this.mydata.Email, this.mydata.gender, this.$route.params.id).then(res => {
                         console.warn(res);
                         this.$router.push({ name: 'User' });
-                    });
+                    }).catch(res=> alert(res))
 
                     this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
                 },

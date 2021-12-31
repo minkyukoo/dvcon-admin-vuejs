@@ -41,11 +41,11 @@
                 </div>
                 <div class="p-d-flex p-jc-between p-ai-center p-mt-6">
                     <div class="">
-                        <Button label="today" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
-                        <Button label="last week" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
-                        <Button label="last month" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
-                        <Button label="last 6 months" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
-                        <Button label="last year" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"></Button>
+                        <Button label="today" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="today"></Button>
+                        <Button label="last week" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastweek"></Button>
+                        <Button label="last month" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastmonth"></Button>
+                        <Button label="last 6 months" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastsixmonth"></Button>
+                        <Button label="last year" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastyear"></Button>
                     </div>
                     <div>
                         <Button :label="$t('button.reset')" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="resetUser"></Button>
@@ -66,7 +66,20 @@
                     </div>
                 </div>
 
-                <DataTable :value="customer1" :paginator="true" class="p-datatable-gridlines" :rows="5" dataKey="id" :rowHover="true" v-model:filters="filters1" filterDisplay="menu" :loading="loading1" :filters="filters1" responsiveLayout="scroll">
+                <DataTable
+                    :value="customer1"
+                    :paginator="true"
+                    class="p-datatable-gridlines"
+                    :rows="5"
+                    dataKey="id"
+                    :rowHover="true"
+                    v-model:filters="filters1"
+                    filterDisplay="menu"
+                    :loading="loading1"
+                    :filters="filters1"
+                    responsiveLayout="scroll"
+                    v-if="render"
+                >
                     <ConfirmDialog group="dialog" />
                     <!-- <template #header>
                         <div class="p-d-flex p-jc-between p-flex-column p-flex-sm-row">
@@ -77,55 +90,51 @@
                             </span>
                         </div>
                     </template> -->
-                    <template #empty>
-                        No customers found.
-                    </template>
-                    <template #loading>
-                        Loading customers data. Please wait.
-                    </template>
+                    <template #empty> No customers found. </template>
+                    <template #loading> Loading customers data. Please wait. </template>
 
                     <Column field="" header="">
-                        <template #body="{data}">
-                            <span class="p-column-title"> <Checkbox id="data.id" name="option" value="data.id" v-model="checkboxValue"/></span>
-                            <span style="display:none">{{ data.name }}</span>
+                        <template #body="{ data }">
+                            <span class="p-column-title"> <Checkbox id="data.id" name="option" value="data.id" v-model="checkboxValue" /></span>
+                            <span style="display: none">{{ data.name }}</span>
                             <Checkbox id="checkOption1" name="option" value="Chicago" v-model="checkboxValue" />
                         </template>
                     </Column>
-                    <Column field="name" header="Name" style="min-width:12rem">
-                        <template #body="{data}">
+                    <Column field="name" header="Name" style="min-width: 12rem">
+                        <template #body="{ data }">
                             <span class="p-column-title">Name</span>
                             {{ data.name }}
                         </template>
                     </Column>
-                    <Column header="Id" style="min-width:12rem">
-                        <template #body="{data}">
+                    <Column header="Id" style="min-width: 12rem">
+                        <template #body="{ data }">
                             <span class="p-column-title">Id</span>
                             {{ data.id }}
                         </template>
                     </Column>
-                    <Column header="Email" style="min-width:12rem">
-                        <template #body="{data}">
+                    <Column header="Email" style="min-width: 12rem">
+                        <template #body="{ data }">
                             <span class="p-column-title">Email</span>
                             {{ data.email }}
                         </template>
                     </Column>
-                    <Column header="Mobile" style="min-width:12rem">
-                        <template #body="{data}">
+                    <Column header="Mobile" style="min-width: 12rem">
+                        <template #body="{ data }">
                             <span class="p-column-title">Mobile</span>
                             {{ data.mobile }}
                         </template>
                     </Column>
-                    <Column header="created-date" style="min-width:12rem">
-                        <template #body="{data}">
+                    <Column header="created-date" style="min-width: 12rem">
+                        <template #body="{ data }">
                             <span class="p-column-title">Created-Date</span>
                             {{ data.createdDate }}
                         </template>
                     </Column>
                     <Column header="extra">
-                        <template #body="{data}">
+                        <template #body="{ data }">
                             <span class="p-column-title">Balance</span>
-                            <p style="display:none">{{ data.mobile }}</p>
-                            <div style="display:flex">
+                            <p style="display: none">{{ data.mobile }}</p>
+                            <div style="display: flex">
                                 <router-link :to="'/user/view-user/' + data.id"
                                     ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> view</Button>
                                 </router-link>
@@ -147,13 +156,14 @@
 <script>
 import { useRoute } from 'vue-router';
 // import { FilterMatchMode, FilterOperator } from 'primevue/api';
-import UserService from '../service/API/UserService';
+import UserService from '../../service/API/UserService';
 import axios from 'axios';
 // import ProductService from '../service/ProductService';
 // import axios from 'axios';
 export default {
     data() {
         return {
+            render: true,
             name: '',
             email: '',
             mobile: '',
@@ -193,7 +203,7 @@ export default {
     mounted() {
         const route = useRoute();
         console.log(route.params);
-        this.userService.getUserList(this.name, this.email, this.mobile).then(data => {
+        this.userService.getUserList(this.name, this.email, this.mobile).then((data) => {
             this.customer1 = data;
             this.loading1 = false;
         });
@@ -203,21 +213,75 @@ export default {
             this.name = '';
             this.email = '';
             this.mobile = '';
-            this.userService.getUserList(this.name, this.email, this.mobile).then(data => {
+            this.userService.getUserList(this.name, this.email, this.mobile).then((data) => {
                 this.customer1 = data;
             });
         },
         searchuser() {
-            this.userService.getUserList(this.name, this.email, this.mobile).then(data => {
+            this.userService.getUserList(this.name, this.email, this.mobile, this.calendarValue, this.calendarValue1).then((data) => {
                 this.customer1 = data;
                 console.log(data);
                 this.loading1 = false;
-                this.customer1.forEach(customer => (customer.date = new Date(customer.date)));
+                this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
+            });
+        },
+        today() {
+            const utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+            this.userService.getUserListsingle(utc).then((data) => {
+                this.customer1 = data;
+                console.log(data);
+                this.loading1 = false;
+                this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
+            });
+            
+        },
+        lastweek() {
+            const date = new Date();
+            date.setDate(date.getDate() - 7);
+            const startDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+            this.userService.getUserListsingle(startDate).then((data) => {
+                this.customer1 = data;
+                console.log(data);
+                this.loading1 = false;
+                this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
+            });
+        },
+        lastmonth() {
+            const date = new Date();
+            date.setDate(date.getDate() - 30);
+            const startDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+            this.userService.getUserListsingle(startDate).then((data) => {
+                this.customer1 = data;
+                console.log(data);
+                this.loading1 = false;
+                this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
+            });
+        },
+        lastsixmonth() {
+            const date = new Date();
+            date.setDate(date.getDate() - 182);
+            const startDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+            this.userService.getUserListsingle(startDate).then((data) => {
+                this.customer1 = data;
+                console.log(data);
+                this.loading1 = false;
+                this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
+            });
+        },
+        lastyear() {
+            const date = new Date();
+            date.setDate(date.getDate() - 365);
+            const startDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+            this.userService.getUserListsingle(startDate).then((data) => {
+                this.customer1 = data;
+                console.log(data);
+                this.loading1 = false;
+                this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
             });
         },
         exceldownload() {
             console.log(this.customerService);
-            this.userService.downloadExcel().then(response => {
+            this.userService.downloadExcel().then((response) => {
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
@@ -229,6 +293,7 @@ export default {
         Showid() {
             console.log('hello');
         },
+        
         open() {
             this.display = true;
         },
@@ -246,7 +311,7 @@ export default {
             this.$toast.add({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
         },
         expandAll() {
-            this.expandedRows = this.products.filter(p => p.id);
+            this.expandedRows = this.products.filter((p) => p.id);
             this.$toast.add({ severity: 'success', summary: 'All Rows Expanded', life: 3000 });
         },
         collapseAll() {
@@ -258,9 +323,9 @@ export default {
         },
         formatDate(value) {
             return value.toLocaleDateString('en-US', {
-                day: '2-digit',
-                month: '2-digit',
                 year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
             });
         },
         calculateCustomerTotal(name) {
@@ -275,6 +340,12 @@ export default {
 
             return total;
         },
+        reloadA() {
+            console.log('jhgh')
+            // this.userService.getUserList(this.name, this.email, this.mobile).then((data) => {
+            //     this.customer1 = data;
+            // });
+        },
 
         del(id) {
             console.log(id);
@@ -284,11 +355,11 @@ export default {
                 message: 'Are you sure you want to delete?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    axios({ method: 'delete', url: '/user/delete', data: { deleteIdArray: id } }).then(function(response) {
+                    axios({ method: 'delete', url: '/user/delete', data: { deleteIdArray: id } }).then(function (response) {
                         console.log(response);
                         location.reload();
                     });
-
+                    this.this.reloadA();
                     this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Deleted successfully', life: 3000 });
                 },
                 reject: () => {
