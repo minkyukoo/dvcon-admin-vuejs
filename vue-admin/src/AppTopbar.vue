@@ -73,14 +73,14 @@
                                     <span>Notifications</span>
                                 </a>
                             </li> -->
-                            <li>
-                                <div><span @click="logout">Logout</span></div>
+                            <li @click="logout">
+                                <div><span>Logout</span></div>
                             </li>
                         </ul>
                     </li>
                 </ul>
 
-                <LanguageInput/>
+                <LanguageInput />
 
                 <!-- <a href="#" tabindex="0" class="layout-rightpanel-button" @click="onRightMenuButtonClick($event)">
                     <i class="pi pi-arrow-left"></i>
@@ -173,7 +173,7 @@ export default {
             this.$emit('sidebar-mouse-leave');
         },
         logout() {
-            console.log("logout method clicked")
+            console.log('logout method clicked');
             localStorage.clear();
             this.$router.push({ name: 'login' });
         },
@@ -189,7 +189,7 @@ export default {
     },
     components: {
         AppMenu,
-        LanguageInput
+        LanguageInput,
     },
 };
 </script>

@@ -49,7 +49,7 @@
 </template>
 <script>
 import axios from 'axios';
-
+import UserService from '../service/API/UserService';
 // import {useRouter} from 'vue-router'
 export default {
     data() {
@@ -68,31 +68,19 @@ export default {
             },
         };
     },
+    created() {
+        this.userService = new UserService();
+    },
     methods: {
         del(id) {
-            // console.log(id);
-
-            // -----------------------
             this.$confirm.require({
                 group: 'dialog',
                 header: 'Confirmation',
                 message: 'Are you sure you want to delete?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    axios({
-                        method: 'delete',
-                        url: `/user/delete`,
-                        data: {
-                            deleteIdArray: id,
-                        },
-                        headers: {
-                            source: 'dvcon',
-                            apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
-                            token: localStorage.getItem('token'),
-                        },
-                    }).then(res => {
+                    axios({ method: 'delete', url: `/user/delete`, data: { deleteIdArray: id } }).then(res => {
                         console.warn(res);
-                        //  alert('Deleted successfully');
                         this.$router.push({ name: 'User' });
                     });
 
@@ -105,31 +93,13 @@ export default {
         },
     },
     mounted() {
-        axios({
-            method: 'post',
-            url: 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/user/view/id',
-            data: {
-                id: this.$route.params.id,
-            },
-            headers: {
-                source: 'dvcon',
-                apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
-                token: localStorage.getItem('token'),
-            },
-        })
-            .then(res => {
-                this.mydata.name = res.data.data[0].name;
-                this.mydata.Email = res.data.data[0].email;
-                this.mydata.phone = res.data.data[0].mobile;
-                this.mydata.gender = res.data.data[0].gender === 'm' ? 'male' : 'female';
-
-                console.log(res.data.data);
-            })
-            .catch(err => {
-                alert(err);
-            });
-
-        // console.log(this.$route.params.id)
+        this.userService.viewUser(this.$route.params.id).then(res => {
+            this.mydata.name = res.data.data[0].name;
+            this.mydata.Email = res.data.data[0].email;
+            this.mydata.phone = res.data.data[0].mobile;
+            this.mydata.gender = res.data.data[0].gender === 'm' ? 'male' : 'female';
+            console.log(res.data.data);
+        });
     },
 };
 </script>
