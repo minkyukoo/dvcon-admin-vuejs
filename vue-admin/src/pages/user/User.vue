@@ -123,12 +123,8 @@
                                 <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined p-mr-2 p-mb-2" @click="confirm(data.id)" />
                             </div>
                         </template>
-                        <!-- <template #filter="{filterModel}">
-                            <InputNumber v-model="filterModel.value" mode="currency" currency="USD" locale="en-US" />
-                        </template> -->
                     </Column>
                 </DataTable>
-                <Button label="help" @click="selects">Get Ids</Button>
             </div>
         </div>
     </div>
@@ -146,6 +142,7 @@ export default {
     data() {
         return {
             selected: [],
+            selectedItemss: '',
             render: true,
             name: '',
             email: '',
@@ -157,11 +154,9 @@ export default {
             visibleTop: false,
             visibleBottom: false,
             visibleFull: false,
-            selectedProduct: null,
             calendarValue: '',
             calendarValue1: '',
             customer1: null,
-
             loading1: true,
             idFrozen: false,
             products: null,
@@ -190,6 +185,7 @@ export default {
             this.loading1 = false;
         });
     },
+    watch: {},
     methods: {
         selects() {
             let xyz = [];
@@ -197,8 +193,7 @@ export default {
             for (var a = 0; a < data.length; a++) {
                 xyz.push(data[a].id);
             }
-            alert(xyz);
-            // alert(formatDate(2022-01-03T09:28:00.000Z));
+            this.selectedItemss = xyz.toString();
         },
         resetUser() {
             this.name = '';
@@ -212,28 +207,7 @@ export default {
             });
         },
         searchuser() {
-            // let vcheckData = {
-            //     name: this.name,
-            //     email: this.email,
-            //     mobile: this.mobile,
-            //     calendarValue: this.calendarValue,
-            //     calendarValue1: this.calendarValue1
-            // };
-            // const { isInvalid, error } = validateUsersearch(vcheckData);
-            // if (isInvalid) {
-            //     this.error = error;
-            //     console.log(error);
-            // } else {
-            //     this.error = {};
-            //     console.log('pass');
-                this.userService.getUserList(this.name, this.email, this.mobile, this.calendarValue, this.calendarValue1).then((data) => {
-                    this.customer1 = data;
-                    console.log(data);
-                    this.loading1 = false;
-                    this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
-                });
-            // }
-            this.userService.getUserList(this.name, this.email, this.mobile).then((data) => {
+            this.userService.getUserList(this.name, this.email, this.mobile, this.calendarValue, this.calendarValue1).then((data) => {
                 this.customer1 = data;
                 console.log(data);
                 this.loading1 = false;
@@ -294,8 +268,8 @@ export default {
             });
         },
         exceldownload() {
-            console.log(this.customerService);
-            this.userService.downloadExcel(this.name,this.mobile,this.email,this.calendarValue,this.calendarValue1).then((response) => {
+            this.selects();
+            this.userService.downloadExcel(this.name, this.mobile, this.email, this.calendarValue, this.calendarValue1, this.selectedItemss).then((response) => {
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
@@ -341,6 +315,9 @@ export default {
                 month: '2-digit',
                 year: 'numeric',
             });
+        },
+        datefind(val) {
+            return;
         },
         calculateCustomerTotal(name) {
             let total = 0;
