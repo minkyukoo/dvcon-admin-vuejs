@@ -1,9 +1,9 @@
 import validator from 'validator';
 
-const validateAddUser = (data) => {
+const validateEditUser = (data) => {
   let errors = {}
 
-  const {name, mobile, email, password, confirmPassword, gender} = data;
+  const {name, mobile, email, gender} = data;
 
   if(validator.isEmpty(name)) {
     errors.name =  'Please enter a name'
@@ -20,12 +20,6 @@ const validateAddUser = (data) => {
   if(validator.isEmpty(email)) {
     errors.email = 'Email is required'
   }
-  if(validator.isEmpty(password)) {
-    errors.password = 'Password is required'
-  }
-  if(validator.isEmpty(confirmPassword)) {
-    errors.confirmPassword = 'confirm Password is required'
-  }
 
 
   return {
@@ -34,4 +28,4 @@ const validateAddUser = (data) => {
   }
 }
 
-export default validateAddUser;
+export default validateEditUser;
