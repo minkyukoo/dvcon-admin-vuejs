@@ -35,7 +35,7 @@
                 </div>
                 <div>
                     <Button label="reset" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reInitialize"></Button>
-                    <Button label="search" icon="pi pi-search" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="getProductsWithOrdersSmall"></Button>
+                    <Button label="search" icon="pi pi-search" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="searchUser"></Button>
                 </div>
             </div>
         </div>
@@ -50,7 +50,9 @@
                             </router-link>
                         </div>
                     </div>
-                    <DataTable :value="products" class="p-datatable-gridlines" dataKey="id" responsiveLayout="scroll" :paginator="true" :rows="4" :rowHover="true" v-if="products.length > 0" :loading="loading1">
+                    <DataTable :value="products" class="p-datatable-gridlines" dataKey="id" 
+                    responsiveLayout="scroll" :paginator="true" :rows="5" :rowHover="true"  
+                    :loading="loading1" v-if="products.length> 0">
                         <ConfirmDialog group="dialog" />
                         <!-- <template #header>
                                 <div class="table-header-container">
@@ -69,8 +71,8 @@
                         </Column> -->
                         <Column field="" header="">
                             <template #body="{ data }">
-                                <span class="p-column-title"> <Checkbox id="data.id" name="option" value="data.id" v-model="checkboxValue" /></span>
-                                <span style="display: none">{{ data.name }}</span>
+                                <span class="p-column-title"> <Checkbox :id="data.id" name="option" value="data.id" v-model="checkboxValue" /></span>
+                                <span style="display: none">{{ data.id }}</span>
                                 <Checkbox id="checkOption1" name="option" value="Chicago" v-model="checkboxValue" />
                             </template>
                         </Column>
@@ -159,7 +161,7 @@
 </template>
 
 <script>
-// import ProductService from '../service/ProductService';
+import ProductService from '../service/ProductService';
 import axios from 'axios';
 import { useRoute } from 'vue-router';
 // import CustomerService from '../service/CustomerService';
@@ -182,47 +184,66 @@ export default {
         };
     },
     // customerService: null,
-    // productService: null,
+    productService: null,
 
     components: {
         Modal,
     },
 
     created() {
-        // this.productService = new ProductService();
+        this.productService = new ProductService();
         // this.customerService = new CustomerService();
     },
     mounted() {
         const route = useRoute();
         console.log(route.params);
 
-        this.getProductsWithOrdersSmall();
+        this.productService
+            .getProductsWithOrdersSmall(this.title, this.dropdownValue?.name, this.calendarValue1, this.calendarValue2)
+            .then((data) => {
+                console.log(data);
+                this.products = data;
+                this.loading1 = false;
+                // console.log(JSON.stringify(this.products));
+            })
+            .catch((err) => console.log(err));
     },
     methods: {
-        async getProductsWithOrdersSmall() {
-            // console.log('search banner by Name', this.dropdownValue?.name);
-            await axios
-                .post(
-                    'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner',
-                    {
-                        searchData: this.title,
-                        status: this.dropdownValue?.name,
-                        startDate: this.calendarValue1,
-                        endDate: this.calendarValue2,
-                        sortBy: "createdDate",
-                        sortOrder: "desc"
-                    },
-                    {
-                        headers: {
-                            source: 'dvcon',
-                            apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
-                            token: localStorage.getItem('token'),
-                        },
-                    }
-                )
+        // async getProductsWithOrdersSmall() {
+        //     // console.log('search banner by Name', this.dropdownValue?.name);
+        //     await axios
+        //         .post(
+        //             'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner',
+        //             {
+        //                 searchData: this.title,
+        //                 status: this.dropdownValue?.name,
+        //                 startDate: this.calendarValue1,
+        //                 endDate: this.calendarValue2,
+        //                 sortBy: "createdDate",
+        //                 sortOrder: "desc"
+        //             },
+        //             {
+        //                 headers: {
+        //                     source: 'dvcon',
+        //                     apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+        //                     token: localStorage.getItem('token'),
+        //                 },
+        //             }
+        //         )
+        //         .then((data) => {
+        //             console.log(data);
+        //             this.products = data.data.data.banners;
+        //             this.loading1 = false;
+        //             // console.log(JSON.stringify(this.products));
+        //         })
+        //         .catch((err) => console.log(err));
+        // },
+        searchUser() {
+            this.productService
+                .getProductsWithOrdersSmall(this.title, this.dropdownValue?.name, this.calendarValue1, this.calendarValue2)
                 .then((data) => {
                     console.log(data);
-                    this.products = data.data.data.banners;
+                    this.products = data;
                     this.loading1 = false;
                     // console.log(JSON.stringify(this.products));
                 })
@@ -255,22 +276,19 @@ export default {
         async DeleteRow() {
             // console.log('login token', localStorage.getItem('token'));
             return await axios
-                .delete(
-                    'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/delete',
-                    {
-                        data: {
-                            deleteIdArray: this.deletedID,
-                        },
-                        headers: {
-                            source: 'dvcon',
-                            apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
-                            token: localStorage.getItem('token'),
-                        },
+                .delete('http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/delete', {
+                    data: {
+                        deleteIdArray: this.deletedID,
                     },
-                )
+                    headers: {
+                        source: 'dvcon',
+                        apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+                        token: localStorage.getItem('token'),
+                    },
+                })
                 .then((response) => {
                     console.log(response);
-                    alert("Baner removed");
+                    alert('Baner removed');
                     location.reload();
                     // alert(response)
                 })
