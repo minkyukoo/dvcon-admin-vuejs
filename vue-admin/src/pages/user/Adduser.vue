@@ -1,5 +1,8 @@
 <template>
     <div class="p-grid">
+        <div class="p-col-12 p-pb-0">
+            <Button @click="$router.push('/user')" label="Go Back" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
+        </div>
         <div class="p-col-12">
             <div class="card p-fluid">
                 <h4><strong>New</strong></h4>
