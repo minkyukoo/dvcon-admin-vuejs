@@ -21,10 +21,10 @@ export default class UserService {
     async viewUser(ids) {
         return await axios.post(`/user/view/id`, { id: ids }).then((res) => res);
     }
-    async downloadExcel(name, mobile, email, startdate,enddate) {
+    async downloadExcel(name, mobile, email, startdate, enddate, idary) {
         // http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/user//generate-excel/?status=active&page=1&limit=20&name=Elinasn
         return await axios({
-            url: `/user//generate-excel/?status=active&page=&limit=&name=${name}&mobile=${mobile}&email=${email}&startDate=${startdate == null ? '' : startdate}&&endDate=${enddate == null ? '' : enddate}`,
+            url: `/user//generate-excel/?status=active&page=&limit=&name=${name}&mobile=${mobile}&email=${email}&startDate=${startdate == null ? '' : startdate}&&endDate=${enddate == null ? '' : enddate}&idArray=${idary}`,
             method: 'GET',
             responseType: 'blob', // important
         }).then((res) => res);
