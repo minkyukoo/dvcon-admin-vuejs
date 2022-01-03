@@ -32,11 +32,11 @@
                     </div> -->
                     <div class="p-field p-col-12 p-md-3">
                         <label for="pass">{{ $t('search.label.startDate') }}</label>
-                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue" :placeholder="$t('search.placeholder.date')"></Calendar>
+                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue" :placeholder="$t('search.placeholder.date')" dateFormat="yy.mm.dd"></Calendar>
                     </div>
                     <div class="p-field p-col-12 p-md-3">
                         <label for="verify-pass">{{ $t('search.label.lastDate') }}</label>
-                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue1" :placeholder="$t('search.placeholder.date')"></Calendar>
+                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue1" :placeholder="$t('search.placeholder.date')" dateFormat="yy.mm.dd"></Calendar>
                     </div>
                 </div>
                 <div class="p-d-flex p-jc-between p-ai-center p-mt-6">
@@ -66,40 +66,14 @@
                     </div>
                 </div>
 
-                <DataTable
-                    :value="customer1"
-                    :paginator="true"
-                    class="p-datatable-gridlines"
-                    :rows="5"
-                    dataKey="id"
-                    :rowHover="true"
-                    v-model:filters="filters1"
-                    filterDisplay="menu"
-                    :loading="loading1"
-                    :filters="filters1"
-                    responsiveLayout="scroll"
-                    v-if="render"
-                >
+                <DataTable :value="customer1" :paginator="true" class="p-datatable-gridlines" :rows="5" dataKey="id" :rowHover="true" :loading="loading1" :filters="filters1" responsiveLayout="scroll" v-model:selection="selected">
+                    <!-- v-model:selection="selected" -->
                     <ConfirmDialog group="dialog" />
-                    <!-- <template #header>
-                        <div class="p-d-flex p-jc-between p-flex-column p-flex-sm-row">
-                            <Button type="button" icon="pi pi-filter-slash" label="Clear" class="p-button-outlined p-mb-2" @click="clearFilter1()"/>
-                            <span class="p-input-icon-left p-mb-2">
-                                <i class="pi pi-search" />
-                                <InputText v-model="filters1['global'].value" placeholder="Keyword Search" style="width: 100%"/>
-                            </span>
-                        </div>
-                    </template> -->
+
                     <template #empty> No customers found. </template>
                     <template #loading> Loading customers data. Please wait. </template>
 
-                    <Column field="" header="">
-                        <template #body="{ data }">
-                            <span class="p-column-title"> <Checkbox id="data.id" name="option" value="data.id" v-model="checkboxValue" /></span>
-                            <span style="display: none">{{ data.name }}</span>
-                            <Checkbox id="checkOption1" name="option" value="Chicago" v-model="checkboxValue" />
-                        </template>
-                    </Column>
+                    <column selectionMode="multiple" style="width: 16px; text-align: center" />
                     <Column field="name" header="Name" style="min-width: 12rem">
                         <template #body="{ data }">
                             <span class="p-column-title">Name</span>
@@ -149,10 +123,12 @@
                         </template> -->
                     </Column>
                 </DataTable>
+                <Button label="help" @click="selects">Get Ids</Button>
             </div>
         </div>
     </div>
 </template>
+
 <script>
 import { useRoute } from 'vue-router';
 // import { FilterMatchMode, FilterOperator } from 'primevue/api';
@@ -163,6 +139,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
+            selected: [],
             render: true,
             name: '',
             email: '',
@@ -174,13 +151,11 @@ export default {
             visibleTop: false,
             visibleBottom: false,
             visibleFull: false,
-            checkboxValue: [],
             selectedProduct: null,
             calendarValue: null,
             calendarValue1: null,
             customer1: null,
-            filters1: null,
-            filters2: {},
+
             loading1: true,
             idFrozen: false,
             products: null,
@@ -209,6 +184,15 @@ export default {
         });
     },
     methods: {
+        selects() {
+            let xyz = [];
+            let data = this.selected;
+            for (var a = 0; a < data.length; a++) {
+                xyz.push(data[a].id);
+            }
+            alert(xyz);
+            // alert(formatDate(2022-01-03T09:28:00.000Z));
+        },
         resetUser() {
             this.name = '';
             this.email = '';
@@ -324,9 +308,9 @@ export default {
         },
         formatDate(value) {
             return value.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: '2-digit',
                 day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
             });
         },
         calculateCustomerTotal(name) {
