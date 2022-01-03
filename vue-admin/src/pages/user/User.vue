@@ -233,6 +233,12 @@ export default {
                     this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
                 });
             // }
+            this.userService.getUserList(this.name, this.email, this.mobile).then((data) => {
+                this.customer1 = data;
+                console.log(data);
+                this.loading1 = false;
+                this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
+            });
         },
         today() {
             const utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
@@ -289,7 +295,7 @@ export default {
         },
         exceldownload() {
             console.log(this.customerService);
-            this.userService.downloadExcel().then((response) => {
+            this.userService.downloadExcel(this.name,this.mobile,this.email,this.calendarValue,this.calendarValue1).then((response) => {
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
