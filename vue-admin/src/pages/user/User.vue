@@ -194,6 +194,14 @@ export default {
                 xyz.push(data[a].id);
             }
             this.selectedItemss = xyz.toString();
+            if (this.calendarValue !== '') {
+                this.calendarValue = this.calendarValue.toISOString().slice(0, 10);
+                console.log(this.calendarValue);
+            }
+            if (this.calendarValue1 !== '') {
+                this.calendarValue1 = this.calendarValue1.toISOString().slice(0, 10) + 1;
+                console.log(this.calendarValue1);
+            }
         },
         resetUser() {
             this.name = '';
