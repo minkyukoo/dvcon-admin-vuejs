@@ -28,11 +28,11 @@
                     <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="subtitle2">Image <span class="img-info">(File size must be at least 500*900px) </span> </label>
                         <div class="custom-select">
-                                <span v-if="!fileName">Select File</span>
-                                <span v-else>{{ fileName }}</span>
-                                <input type="file" class="select-file" v-on:change="onFileChange" />
-                                <Button label="Select File" class="SelectBtn" />
-                            </div>
+                            <span v-if="!fileName">Select File</span>
+                            <span v-else>{{ fileName }}</span>
+                            <input type="file" class="select-file" v-on:change="onFileChange" />
+                            <Button label="Select File" class="SelectBtn" />
+                        </div>
                     </div>
                     <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="state2">Type</label>
@@ -54,7 +54,7 @@
         <div class="p-d-flex p-jc-end p-ai-center">
             <div>
                 <!-- <Button label="initialization" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reinitialize"></Button> -->
-                <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
+                <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="updateBanner"></Button>
             </div>
         </div>
     </div>
@@ -103,7 +103,7 @@ export default {
                 this.dropdownValueType = res.data.data[0].bannerPostion;
                 this.dropdownValue = res.data.data[0].status;
                 this.fileName = res.data.data[0].bannerImage;
-                console.log(res.data.data[0].bannerImage)
+                console.log(res.data.data[0].bannerImage);
             })
             .catch((err) => {
                 alert(err);
@@ -118,6 +118,31 @@ export default {
             this.file = files[0];
             this.fileName = this.file.name;
             console.log(this.fileName);
+        },
+        updateBanner() {
+            this.formData.append('id', this.$route.params.id);
+            this.formData.append('title', this.title);
+            this.formData.append('subtitle', this.subtitle);
+            this.formData.append('link', this.link);
+            this.formData.append('type', this.dropdownValueType?.name);
+            this.formData.append('status', this.dropdownValue?.name);
+
+            axios
+                .put('http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/edit', this.formData, {
+                    headers: {
+                        source: 'dvcon',
+                        apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+                        token: localStorage.getItem('token'),
+                    },
+                })
+                .then((res) => {
+                    console.log(res);
+                    alert('Successfully Edited');
+                    this.$router.push({ name: 'BannerManagement' });
+                })
+                .catch((err) => {
+                    alert(err);
+                });
         },
     },
 };

@@ -269,8 +269,8 @@ export default {
                     },
                 )
                 .then((response) => {
-                    // console.log(response);
-                    alert(response.data.message);
+                    console.log(response);
+                    alert("Baner removed");
                     location.reload();
                     // alert(response)
                 })
