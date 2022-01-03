@@ -2,12 +2,7 @@
     <div class="p-grid">
         <Toast />
         <div class="p-col-12 p-pb-0">
-            <Button
-                @click="$router.push('/user')"
-                label="Go Back"
-                icon="pi pi-angle-left"
-                class="p-button-text p-mr-2 p-mb-2"
-            />
+            <Button @click="$router.push('/user')" label="Go Back" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
         </div>
         <div class="p-col-12">
             <div class="card p-fluid">
@@ -17,64 +12,30 @@
                 <div class="p-formgrid p-grid">
                     <div class="p-field p-col">
                         <label for="nameuser">Name</label>
-                        <InputText
-                            id="nameuser"
-                            :class="`${error.name ? 'p-invalid' : ''}`"
-                            type="text"
-                            placeholder="Name"
-                            :modelValue="mydata.name"
-                            v-model="mydata.name"
-                        />
+                        <InputText id="nameuser" :class="`${error.name ? 'p-invalid' : ''}`" type="text" placeholder="Name" :modelValue="mydata.name" v-model="mydata.name" />
                         <div class="text-red">{{ error.name }}</div>
                     </div>
                     <div class="p-field p-col">
                         <label for="emailuser">Email Id</label>
-                        <InputText
-                            id="emailuser"
-                            :class="`${error.email ? 'p-invalid' : ''}`"
-                            type="email"
-                            placeholder="Email_Id"
-                            :modelValue="mydata.Email"
-                            v-model="mydata.Email"
-                        />
+                        <InputText id="emailuser" :class="`${error.email ? 'p-invalid' : ''}`" type="email" placeholder="Email_Id" :modelValue="mydata.Email" v-model="mydata.Email" />
                         <div class="text-red">{{ error.email }}</div>
                     </div>
                     <div class="p-field p-col">
                         <label for="mobileuser">Phone Number</label>
-                        <InputText
-                            id="mobileuser"
-                            :class="`${error.mobile ? 'p-invalid' : ''}`"
-                            type="text"
-                            placeholder="Phone_No"
-                            :modelValue="mydata.phone"
-                            v-model="mydata.phone"
-                        />
+                        <InputText id="mobileuser" :class="`${error.mobile ? 'p-invalid' : ''}`" type="text" placeholder="Phone_No" :modelValue="mydata.phone" v-model="mydata.phone" />
                         <div class="text-red">{{ error.mobile }}</div>
                     </div>
 
                     <div class="p-field p-col">
                         <label for="state">gender</label>
-                        <Dropdown
-                            id="state"
-                            :class="`${error.gender ? 'p-invalid' : ''}`"
-                            v-model="mydata.gender"
-                            :options="dropdownItems"
-                            optionLabel="name"
-                            :placeholder="mydata.gender"
-                        ></Dropdown>
+                        <Dropdown id="state" :class="`${error.gender ? 'p-invalid' : ''}`" v-model="mydata.gender" :options="dropdownItems" optionLabel="name" :placeholder="mydata.gender"></Dropdown>
                         <div class="text-red">{{ error.gender }}</div>
                     </div>
                 </div>
                 <div class="p-d-flex p-jc-end">
                     <ConfirmPopup group="popup"></ConfirmPopup>
-                    <Button @click="confirmreject" icon="pi pi-times" label="Cancel" class="p-mr-2"></Button>
-                    <Button
-                        ref="popup"
-                        @click="confirm($event)"
-                        icon="pi pi-check"
-                        label="Confirm"
-                        class="p-mr-2"
-                    ></Button>
+                    <Button @click="cancel" icon="pi pi-times" label="Cancel" class="p-mr-2"></Button>
+                    <Button ref="popup" @click="confirm($event)" icon="pi pi-check" label="Confirm" class="p-mr-2"></Button>
                 </div>
             </div>
         </div>
@@ -106,7 +67,7 @@ export default {
                 phone: '',
                 gender: '',
             },
-            error: {}
+            error: {},
         };
     },
     created() {
@@ -119,10 +80,11 @@ export default {
         close() {
             this.display = false;
         },
-        confirmreject() {
-            console.log('reject');
+        cancel() {
             this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-            this.$router.push({ name: 'User' });
+            setTimeout(()=>{
+                this.$router.push({ name: 'User' });
+            }, 2000);
         },
         confirm(event) {
             this.$confirm.require({
