@@ -324,9 +324,6 @@ export default {
                 year: 'numeric',
             });
         },
-        datefind(val) {
-            return;
-        },
         calculateCustomerTotal(name) {
             let total = 0;
             if (this.customer3) {
