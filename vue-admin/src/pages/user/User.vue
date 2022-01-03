@@ -9,16 +9,19 @@
                 <div class="p-formgrid p-grid">
                     <div class="p-field p-col">
                         <label for="nameuser">{{ $t('search.label.name') }}</label>
-                        <InputText id="nameuser" type="text" :placeholder="$t('search.placeholder.search')" v-model="name" />
+                        <InputText id="nameuser" :class="`${error.name ? 'p-invalid' : ''}`" type="text" :placeholder="$t('search.placeholder.search')" v-model="name" />
+                        <div class="text-red">{{ error.name }}</div>
                     </div>
 
                     <div class="p-field p-col">
                         <label for="mobileuser">{{ $t('search.label.phoneNumber') }}</label>
-                        <InputText id="mobileuser" type="text" :placeholder="$t('search.placeholder.search')" v-model="mobile" />
+                        <InputText id="mobileuser" :class="`${error.mobile ? 'p-invalid' : ''}`" type="text" :placeholder="$t('search.placeholder.search')" v-model="mobile" />
+                        <div class="text-red">{{ error.mobile }}</div>
                     </div>
                     <div class="p-field p-col">
                         <label for="emailuser">{{ $t('search.label.email') }}</label>
-                        <InputText id="emailuser" type="email" :placeholder="$t('search.placeholder.search')" v-model="email" />
+                        <InputText id="emailuser" :class="`${error.email ? 'p-invalid' : ''}`" type="email" :placeholder="$t('search.placeholder.search')" v-model="email" />
+                        <div class="text-red">{{ error.email }}</div>
                     </div>
                     <!-- <div class="p-field p-col">
                         <label for="state">gender</label>
@@ -32,11 +35,13 @@
                     </div> -->
                     <div class="p-field p-col-12 p-md-3">
                         <label for="pass">{{ $t('search.label.startDate') }}</label>
-                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue" :placeholder="$t('search.placeholder.date')" dateFormat="yy.mm.dd"></Calendar>
+                        <Calendar :class="`${error.calendarValue ? 'p-invalid' : ''}`" :showIcon="true" :showButtonBar="true" v-model="calendarValue" dateFormat="yy.mm.dd" :placeholder="$t('search.placeholder.date')"></Calendar>
+                        <div class="text-red">{{ error.calendarValue }}</div>
                     </div>
                     <div class="p-field p-col-12 p-md-3">
                         <label for="verify-pass">{{ $t('search.label.lastDate') }}</label>
-                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue1" :placeholder="$t('search.placeholder.date')" dateFormat="yy.mm.dd"></Calendar>
+                        <Calendar :class="`${error.calendarValue1 ? 'p-invalid' : ''}`" :showIcon="true" :showButtonBar="true" v-model="calendarValue1" dateFormat="yy.mm.dd" :placeholder="$t('search.placeholder.date')"></Calendar>
+                        <div class="text-red">{{ error.calendarValue1 }}</div>
                     </div>
                 </div>
                 <div class="p-d-flex p-jc-between p-ai-center p-mt-6">
@@ -131,6 +136,7 @@
 
 <script>
 import { useRoute } from 'vue-router';
+// import validateUsersearch from '../../validations/validateUserSearch';
 // import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import UserService from '../../service/API/UserService';
 import axios from 'axios';
@@ -152,8 +158,8 @@ export default {
             visibleBottom: false,
             visibleFull: false,
             selectedProduct: null,
-            calendarValue: null,
-            calendarValue1: null,
+            calendarValue: '',
+            calendarValue1: '',
             customer1: null,
 
             loading1: true,
@@ -168,6 +174,7 @@ export default {
                 { name: 'others', code: 'others' },
             ],
             dropdownItem: null,
+            error: {},
         };
     },
     customerService: null,
@@ -197,6 +204,7 @@ export default {
             this.name = '';
             this.email = '';
             this.mobile = '';
+            this.error = {};
             this.calendarValue = '';
             this.calendarValue1 = '';
             this.userService.getUserList(this.name, this.email, this.mobile).then((data) => {
@@ -204,12 +212,27 @@ export default {
             });
         },
         searchuser() {
-            this.userService.getUserList(this.name, this.email, this.mobile, this.calendarValue, this.calendarValue1).then((data) => {
-                this.customer1 = data;
-                console.log(data);
-                this.loading1 = false;
-                this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
-            });
+            // let vcheckData = {
+            //     name: this.name,
+            //     email: this.email,
+            //     mobile: this.mobile,
+            //     calendarValue: this.calendarValue,
+            //     calendarValue1: this.calendarValue1
+            // };
+            // const { isInvalid, error } = validateUsersearch(vcheckData);
+            // if (isInvalid) {
+            //     this.error = error;
+            //     console.log(error);
+            // } else {
+            //     this.error = {};
+            //     console.log('pass');
+                this.userService.getUserList(this.name, this.email, this.mobile, this.calendarValue, this.calendarValue1).then((data) => {
+                    this.customer1 = data;
+                    console.log(data);
+                    this.loading1 = false;
+                    this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
+                });
+            // }
         },
         today() {
             const utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');

@@ -26,7 +26,10 @@
 
             <div class="layout-topbar-right">
                 <ul class="layout-topbar-actions">
-                    <li ref="search" class="topbar-item search-item" :class="{ 'active-topmenuitem': searchActive }">
+                    <li>
+                        <LanguageInput />
+                    </li>
+                    <!-- <li ref="search" class="topbar-item search-item" :class="{ 'active-topmenuitem': searchActive }">
                         <a tabindex="0" @click="onTopbarSearchToggle">
                             <i class="topbar-icon pi pi-search"></i>
                         </a>
@@ -46,11 +49,11 @@
                                 </span>
                             </div>
                         </ul>
-                    </li>
+                    </li>-->
 
                     <li ref="profile" class="topbar-item user-profile" :class="{ 'active-topmenuitem fadeInDown': topbarUserMenuActive }">
                         <a @click="onTopbarUserMenuClick">
-                            <img src="assets/layout/images/avatar-profilemenu.png" alt="freya-layout" />
+                            <img src="assets/layout/images/user.png" alt="User" />
                         </a>
                         <ul class="fadeInDown">
                             <!-- <li>
@@ -72,19 +75,19 @@
                                 <a href="#">
                                     <span>Notifications</span>
                                 </a>
-                            </li> -->
+                            </li>-->
                             <li @click="logout">
-                                <div><span>Logout</span></div>
+                                <div>
+                                    <span>Logout</span>
+                                </div>
                             </li>
                         </ul>
                     </li>
                 </ul>
 
-                <LanguageInput />
-
                 <!-- <a href="#" tabindex="0" class="layout-rightpanel-button" @click="onRightMenuButtonClick($event)">
                     <i class="pi pi-arrow-left"></i>
-                </a> -->
+                </a>-->
             </div>
         </div>
     </div>
@@ -181,7 +184,7 @@ export default {
             if (window.innerWidth >= 576) {
                 this.$refs.desktopInput.$el.focus();
             } else {
-                this.$nextTick(function() {
+                this.$nextTick(function () {
                     this.$refs.phoneInput.$el.focus();
                 });
             }
