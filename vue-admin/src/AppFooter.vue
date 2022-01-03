@@ -22,7 +22,6 @@
                         </ul>
                     </div>
                 </div>
-
             </div>
             <div class="p-col-12 p-md-6 p-lg-3">
                 <span class="footer-menutitle">CONTACT US</span>

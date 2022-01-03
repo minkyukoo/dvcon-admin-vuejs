@@ -90,7 +90,6 @@ import TriStateCheckbox from 'primevue/tristatecheckbox';
 
 import CodeHighlight from './AppCodeHighlight';
 
-// import VueI18n from "vue3-i18n";
 import i18n from './config/i18n';
 
 import 'primevue/resources/primevue.min.css';
@@ -112,11 +111,12 @@ const app = createApp({
 
 app.config.globalProperties.$appState = reactive({ colorScheme: 'light', isNewThemeLoaded: false });
 
-app.use(PrimeVue, { ripple: true });
+app.use(PrimeVue, { 
+    ripple: true,
+});
 app.use(ConfirmationService);
 app.use(ToastService);
 app.use(router);
-// app.use(VueI18n);
 app.use(i18n);
 
 app.directive('tooltip', Tooltip);

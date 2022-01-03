@@ -24,4 +24,17 @@ export default {
     },
 };
 </script>
-<style scoped></style>
+<style lang="scss" scoped>
+.lang-dropdown {
+    select {
+        border: none;
+        font-size: 14px;
+        font-weight: 400;
+        color: rgba(41, 50, 65, 0.8);
+        &:focus {
+            border: none;
+            outline: 0;
+        }
+    }
+}
+</style>

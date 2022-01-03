@@ -35,12 +35,12 @@
                     </div> -->
                     <div class="p-field p-col-12 p-md-3">
                         <label for="pass">{{ $t('search.label.startDate') }}</label>
-                        <Calendar :class="`${error.calendarValue ? 'p-invalid' : ''}`" :showIcon="true" :showButtonBar="true" v-model="calendarValue" :placeholder="$t('search.placeholder.date')"></Calendar>
+                        <Calendar :class="`${error.calendarValue ? 'p-invalid' : ''}`" :showIcon="true" :showButtonBar="true" v-model="calendarValue" dateFormat="yy.mm.dd" :placeholder="$t('search.placeholder.date')"></Calendar>
                         <div class="text-red">{{ error.calendarValue }}</div>
                     </div>
                     <div class="p-field p-col-12 p-md-3">
                         <label for="verify-pass">{{ $t('search.label.lastDate') }}</label>
-                        <Calendar :class="`${error.calendarValue1 ? 'p-invalid' : ''}`" :showIcon="true" :showButtonBar="true" v-model="calendarValue1" :placeholder="$t('search.placeholder.date')"></Calendar>
+                        <Calendar :class="`${error.calendarValue1 ? 'p-invalid' : ''}`" :showIcon="true" :showButtonBar="true" v-model="calendarValue1" dateFormat="yy.mm.dd" :placeholder="$t('search.placeholder.date')"></Calendar>
                         <div class="text-red">{{ error.calendarValue1 }}</div>
                     </div>
                 </div>

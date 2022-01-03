@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="p-d-flex p-jc-end">
-                    <Button label="Primary" class="p-mr-2 p-mb-2" @click="Adduser"><i class="pi pi-search p-mr-2"></i> Create User</Button>
+                    <Button label="Primary" class="p-mr-2 p-mb-2" @click="Adduser"><i class="pi pi-plus p-mr-2"></i> Create User</Button>
                 </div>
             </div>
         </div>
