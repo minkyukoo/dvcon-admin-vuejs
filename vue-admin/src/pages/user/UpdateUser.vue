@@ -28,7 +28,7 @@
                 </div>
                 <div class="p-d-flex p-jc-end">
                     <ConfirmPopup group="popup"></ConfirmPopup>
-                    <Button icon="pi pi-times" label="Cancel" class="p-mr-2"></Button>
+                    <Button icon="pi pi-times" label="Cancel" class="p-mr-2" @click="cancel"></Button>
                     <Button ref="popup" @click="confirm($event)" icon="pi pi-check" label="Confirm" class="p-mr-2"></Button>
                 </div>
             </div>
@@ -71,6 +71,9 @@ export default {
         },
         close() {
             this.display = false;
+        },
+        cancel() {
+            this.$router.push({ name: 'User' });
         },
         confirm(event) {
             this.$confirm.require({
