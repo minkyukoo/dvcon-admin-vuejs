@@ -337,7 +337,6 @@ export default {
                 day: '2-digit',
             });
         },
-
         calculateCustomerTotal(name) {
             let total = 0;
             if (this.customer3) {
