@@ -2,7 +2,7 @@
     <ConfirmDialog group="dialog" />
     <div class="p-grid">
         <div class="p-col-12 p-pb-0">
-            <Button @click="$router.push('/user')" label="Go Back" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
+            <Button @click="$router.go(-1)" label="Go Back" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
         </div>
         <div class="p-col-12">
             <div class="card p-fluid">
@@ -82,7 +82,7 @@ export default {
                 message: 'Are you sure you want to delete?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    axios({ method: 'delete', url: `/user/delete`, data: { deleteIdArray: id } }).then(res => {
+                    axios({ method: 'delete', url: `/user/delete`, data: { deleteIdArray: id } }).then((res) => {
                         console.warn(res);
                         this.$router.push({ name: 'User' });
                     });
@@ -96,7 +96,7 @@ export default {
         },
     },
     mounted() {
-        this.userService.viewUser(this.$route.params.id).then(res => {
+        this.userService.viewUser(this.$route.params.id).then((res) => {
             this.mydata.name = res.data.data[0].name;
             this.mydata.Email = res.data.data[0].email;
             this.mydata.phone = res.data.data[0].mobile;

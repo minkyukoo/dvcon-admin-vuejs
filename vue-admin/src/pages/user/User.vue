@@ -106,7 +106,7 @@
                     <Column header="created-date" style="min-width: 12rem">
                         <template #body="{ data }">
                             <span class="p-column-title">Created-Date</span>
-                            {{ data.createdDate }}
+                            {{ formatDate(data.createdDate) }}
                         </template>
                     </Column>
                     <Column header="extra">
@@ -183,6 +183,7 @@ export default {
         this.userService.getUserList(this.name, this.email, this.mobile).then((data) => {
             this.customer1 = data;
             this.loading1 = false;
+            this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
         });
     },
     watch: {},
@@ -212,6 +213,7 @@ export default {
             this.calendarValue1 = '';
             this.userService.getUserList(this.name, this.email, this.mobile).then((data) => {
                 this.customer1 = data;
+                this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
             });
         },
         searchuser() {
@@ -219,61 +221,76 @@ export default {
                 this.customer1 = data;
                 console.log(data);
                 this.loading1 = false;
-                this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
+                this.customer1.forEach((xyx) => (xyx.date = new Date(xyx.date)));
+                this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
             });
         },
         today() {
-            const utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
-            this.userService.getUserListsingle(utc).then((data) => {
-                this.customer1 = data;
-                console.log(data);
-                this.loading1 = false;
-                this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
-            });
+            const utc = new Date().toJSON().slice(0, 10).replace(/-/g, '.');
+            this.calendarValue = utc;
+            this.calendarValue1 = utc;
+            // this.userService.getUserListsingle(utc).then((data) => {
+            //     this.customer1 = data;
+            //     console.log(data);
+            //     this.loading1 = false;
+            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            // });
         },
         lastweek() {
             const date = new Date();
+            const edate = new Date();
             date.setDate(date.getDate() - 7);
-            const startDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
-            this.userService.getUserListsingle(startDate).then((data) => {
-                this.customer1 = data;
-                console.log(data);
-                this.loading1 = false;
-                this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
-            });
+            const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
+            this.calendarValue = startDate;
+            this.calendarValue1 = edate;
+            // this.userService.getUserListsingle(startDate).then((data) => {
+            //     this.customer1 = data;
+            //     console.log(data);
+            //     this.loading1 = false;
+            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            // });
         },
         lastmonth() {
             const date = new Date();
-            date.setDate(date.getDate() - 30);
-            const startDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
-            this.userService.getUserListsingle(startDate).then((data) => {
-                this.customer1 = data;
-                console.log(data);
-                this.loading1 = false;
-                this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
-            });
+            const edate = new Date();
+            date.setDate(date.getDate() - 31);
+            const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
+            this.calendarValue = startDate;
+            this.calendarValue1 = edate;
+            // this.userService.getUserListsingle(startDate).then((data) => {
+            //     this.customer1 = data;
+            //     console.log(data);
+            //     this.loading1 = false;
+            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            // });
         },
         lastsixmonth() {
             const date = new Date();
+            const edate = new Date();
             date.setDate(date.getDate() - 182);
-            const startDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
-            this.userService.getUserListsingle(startDate).then((data) => {
-                this.customer1 = data;
-                console.log(data);
-                this.loading1 = false;
-                this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
-            });
+            const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
+            this.calendarValue = startDate;
+            this.calendarValue1 = edate;
+            // this.userService.getUserListsingle(startDate).then((data) => {
+            //     this.customer1 = data;
+            //     console.log(data);
+            //     this.loading1 = false;
+            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            // });
         },
         lastyear() {
             const date = new Date();
+            const edate = new Date();
             date.setDate(date.getDate() - 365);
-            const startDate = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
-            this.userService.getUserListsingle(startDate).then((data) => {
-                this.customer1 = data;
-                console.log(data);
-                this.loading1 = false;
-                this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
-            });
+            const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
+            this.calendarValue = startDate;
+            this.calendarValue1 = edate;
+            // this.userService.getUserListsingle(startDate).then((data) => {
+            //     this.customer1 = data;
+            //     console.log(data);
+            //     this.loading1 = false;
+            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            // });
         },
         exceldownload() {
             this.selects();
@@ -286,10 +303,6 @@ export default {
                 link.click();
             });
         },
-        Showid() {
-            console.log('hello');
-        },
-
         open() {
             this.display = true;
         },
@@ -319,14 +332,12 @@ export default {
         },
         formatDate(value) {
             return value.toLocaleDateString('en-US', {
-                day: '2-digit',
-                month: '2-digit',
                 year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
             });
         },
-        datefind(val) {
-            return;
-        },
+
         calculateCustomerTotal(name) {
             let total = 0;
             if (this.customer3) {

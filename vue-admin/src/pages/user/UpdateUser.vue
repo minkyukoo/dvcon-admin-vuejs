@@ -2,7 +2,7 @@
     <div class="p-grid">
         <Toast />
         <div class="p-col-12 p-pb-0">
-            <Button @click="$router.push('/user')" label="Go Back" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
+            <Button @click="$router.go(-1)" label="Go Back" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
         </div>
         <div class="p-col-12">
             <div class="card p-fluid">
