@@ -5,7 +5,12 @@
                 <a @click="goDashboard" class="logo">
                     <img src="assets/layout/images/logo-freya-single.svg" alt="freya-layout" />
                 </a>
-                <InputText id="email" placeholder="Email" v-model="email" :class="`input-forms ${error.email ? 'p-invalid' : ''}`" />
+                <InputText
+                    id="email"
+                    placeholder="Email"
+                    v-model="email"
+                    :class="`input-forms ${error.email ? 'p-invalid' : ''}`"
+                />
                 <div class="text-red">{{ error.email }}</div>
                 <Password
                     id="password"
@@ -67,6 +72,7 @@ export default {
                             localStorage.setItem('token', response.data.data.token);
                             window.location = '/';
                             // this.$router.push({ name: 'dashboard' });
+
                         }
                     })
                     .catch(function (response) {
