@@ -271,6 +271,7 @@ export default {
             this.deletedID = id;
         },
         closeModal() {
+            this.$toast.add({severity:'warn', summary: 'Canceled', detail:'Message Detail', life: 3000});
             this.isModalVisible = false;
         },
         async DeleteRow() {
@@ -288,7 +289,7 @@ export default {
                 })
                 .then((response) => {
                     console.log(response);
-                    alert('Baner removed');
+                    this.$toast.add({severity:'success', summary: 'Banner Successfully Removed', detail:'Message Detail', life: 3000});
                     location.reload();
                     // alert(response)
                 })

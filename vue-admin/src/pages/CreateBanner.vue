@@ -4,6 +4,7 @@
         class="p-button p-button-sm p-mr-2 p-mb-5"></Button>
     </router-link>
     <div class="card">
+        <Toast />
         <form>
             <div class="p-grid p-fluid">
                 <div class="p-col-12">
@@ -125,9 +126,10 @@ export default {
                     }
                 )
                 .then((res) => {
-                    alert(res.data.data[0]);
-                    this.$router.push({ name: 'BannerManagement' });
                     console.log(res);
+                     alert("Banner Successfully Added")
+                    this.$router.push({ name: 'BannerManagement' });
+                    
                 })
                 .catch((err) => {
                     console.log(err);

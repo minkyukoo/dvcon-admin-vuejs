@@ -77,8 +77,8 @@
                             </span>
                         </div>
                     </template> -->
-                    <template #empty> No customers found. </template>
-                    <template #loading> Loading customers data. Please wait. </template>
+                    <template #empty> No Banners found. </template>
+                    <template #loading> Loading Banners data. Please wait. </template>
 
                     <Column field="" header="">
                         <template #body="{ data }">
