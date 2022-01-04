@@ -103,6 +103,7 @@ axios.defaults.headers = {
     apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
     token: localStorage.getItem('token'),
 };
+
 const app = createApp({
     render() {
         return h(AppWrapper);
@@ -111,7 +112,7 @@ const app = createApp({
 
 app.config.globalProperties.$appState = reactive({ colorScheme: 'light', isNewThemeLoaded: false });
 
-app.use(PrimeVue, { 
+app.use(PrimeVue, {
     ripple: true,
 });
 app.use(ConfirmationService);
@@ -204,5 +205,9 @@ app.component('Tree', Tree);
 app.component('TreeSelect', TreeSelect);
 app.component('TreeTable', TreeTable);
 app.component('TriStateCheckbox', TriStateCheckbox);
-
+// Auto Logout
+setTimeout(() => {
+    localStorage.clear();
+    window.location.href = '/login';
+}, 30 * 60 * 1000);
 app.mount('#app');

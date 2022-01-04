@@ -176,7 +176,7 @@ export default {
             this.$emit('sidebar-mouse-leave');
         },
         logout() {
-            console.log('logout method clicked');
+            // console.log('logout method clicked');
             localStorage.clear();
             this.$router.push({ name: 'login' });
         },
