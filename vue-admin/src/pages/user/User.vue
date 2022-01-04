@@ -372,7 +372,7 @@ export default {
                     this.customer1 = data;
                     console.log(data);
                     this.loading1 = false;
-                    this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
+                    this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
                 });
             }, 2000);
         },
