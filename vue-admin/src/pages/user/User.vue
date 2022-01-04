@@ -331,11 +331,22 @@ export default {
             return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
         },
         formatDate(value) {
-            return value.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-            });
+            // return value.toLocaleDateString('en-US', {
+            //     year: 'numeric',
+            //     month: '2-digit',
+            //     day: '2-digit',
+            // });
+            const date = new Date(value);
+            var dd = date.getDate();
+            var mm = date.getMonth() + 1;
+            var yyyy = date.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd;
+            }
+            if (mm < 10) {
+                mm = '0' + mm;
+            }
+            return (value = yyyy + '.' + mm + '.' + dd);
         },
         calculateCustomerTotal(name) {
             let total = 0;
