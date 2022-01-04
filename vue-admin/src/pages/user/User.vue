@@ -7,18 +7,18 @@
                     <strong>{{ $t('search.title') }}</strong>
                 </h4>
                 <div class="p-formgrid p-grid p-mb-3">
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0">
+                    <div class="p-field p-col-12 p-mb-2 p-lg-4 p-mb-lg-0">
                         <label for="nameuser">{{ $t('search.label.name') }}</label>
                         <InputText id="nameuser" :class="`${error.name ? 'p-invalid' : ''}`" type="text" :placeholder="$t('search.placeholder.search')" v-model="name" />
                         <div class="text-red">{{ error.name }}</div>
                     </div>
 
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0">
+                    <div class="p-field p-col-12 p-mb-2 p-lg-4 p-mb-lg-0">
                         <label for="mobileuser">{{ $t('search.label.phoneNumber') }}</label>
                         <InputText id="mobileuser" :class="`${error.mobile ? 'p-invalid' : ''}`" type="text" :placeholder="$t('search.placeholder.search')" v-model="mobile" />
                         <div class="text-red">{{ error.mobile }}</div>
                     </div>
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0">
+                    <div class="p-field p-col-12 p-mb-2 p-lg-4 p-mb-lg-0">
                         <label for="emailuser">{{ $t('search.label.email') }}</label>
                         <InputText id="emailuser" :class="`${error.email ? 'p-invalid' : ''}`" type="email" :placeholder="$t('search.placeholder.search')" v-model="email" />
                         <div class="text-red">{{ error.email }}</div>
@@ -331,11 +331,22 @@ export default {
             return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
         },
         formatDate(value) {
-            return value.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-            });
+            // return value.toLocaleDateString('en-US', {
+            //     year: 'numeric',
+            //     month: '2-digit',
+            //     day: '2-digit',
+            // });
+            const date = new Date(value);
+            var dd = date.getDate();
+            var mm = date.getMonth() + 1;
+            var yyyy = date.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd;
+            }
+            if (mm < 10) {
+                mm = '0' + mm;
+            }
+            return (value = yyyy + '.' + mm + '.' + dd);
         },
         calculateCustomerTotal(name) {
             let total = 0;
@@ -372,7 +383,7 @@ export default {
                     this.customer1 = data;
                     console.log(data);
                     this.loading1 = false;
-                    this.customer1.forEach((customer) => (customer.date = new Date(customer.date)));
+                    this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
                 });
             }, 2000);
         },
