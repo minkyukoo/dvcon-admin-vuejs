@@ -39,8 +39,6 @@ export default {
     },
     methods: {
         async Login() {
-            // localStorage.setItem('token',{username: this.username,password:this.password});
-            // window.location = "/"
             let credentials = {
                 email: this.email,
                 password: this.password,

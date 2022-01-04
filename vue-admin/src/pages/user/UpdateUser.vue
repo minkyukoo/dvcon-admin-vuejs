@@ -83,7 +83,7 @@ export default {
         cancel() {
             this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
             setTimeout(()=>{
-                this.$router.push({ name: 'User' });
+                this.$router.go(-1);
             }, 2000);
         },
         confirm(event) {
