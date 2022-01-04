@@ -6,19 +6,19 @@
                 <h4>
                     <strong>{{ $t('search.title') }}</strong>
                 </h4>
-                <div class="p-formgrid p-grid">
-                    <div class="p-field p-col">
+                <div class="p-formgrid p-grid p-mb-3">
+                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0">
                         <label for="nameuser">{{ $t('search.label.name') }}</label>
                         <InputText id="nameuser" :class="`${error.name ? 'p-invalid' : ''}`" type="text" :placeholder="$t('search.placeholder.search')" v-model="name" />
                         <div class="text-red">{{ error.name }}</div>
                     </div>
 
-                    <div class="p-field p-col">
+                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0">
                         <label for="mobileuser">{{ $t('search.label.phoneNumber') }}</label>
                         <InputText id="mobileuser" :class="`${error.mobile ? 'p-invalid' : ''}`" type="text" :placeholder="$t('search.placeholder.search')" v-model="mobile" />
                         <div class="text-red">{{ error.mobile }}</div>
                     </div>
-                    <div class="p-field p-col">
+                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0">
                         <label for="emailuser">{{ $t('search.label.email') }}</label>
                         <InputText id="emailuser" :class="`${error.email ? 'p-invalid' : ''}`" type="email" :placeholder="$t('search.placeholder.search')" v-model="email" />
                         <div class="text-red">{{ error.email }}</div>
