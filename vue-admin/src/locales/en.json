@@ -32,6 +32,7 @@
   },
   "button": {
     "reset": "Reset",
+    "back": "Go Back",
     "search": "Search",
     "new": "New",
     "downloadExcel": "Download Excel",
@@ -42,6 +43,43 @@
     "lastWeek": "Last week",
     "lastMonth": "Last month",
     "last6Months": "Last 6 months",
-    "lastYear": "Last year"
+    "lastYear": "Last year",
+    "createUser": "Create User",
+    "Cancle": "Cancle"
+  },
+  "form": {
+    "label": {
+      "name": "Name",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "gender": "Gender",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "startDate": "Start Date",
+      "lastDate": "Last Date"
+    },
+    "placeholder": {
+      "search": "Search",
+      "date": "YYYY.MM.DD",
+      "enter": "Enter",
+      "name": "Enter name",
+      "email": "Enter email",
+      "mobile": "Enter mobile",
+      "password": "Enter Password",
+      "confirmPassword": "Enter confirm password"
+    }
+  },
+  "page": {
+    "user": {
+      "addUser": {
+        "heading":"Add new user"
+      },
+      "editUser": {
+        "heading":"Correction user"
+      },
+      "viewUser": {
+        "heading":"User more Information"
+      }
+    }
   }
 }

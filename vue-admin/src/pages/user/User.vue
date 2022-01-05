@@ -22,6 +22,8 @@
                         <InputText id="emailuser" :class="`${error.email ? 'p-invalid' : ''}`" type="email" :placeholder="$t('search.placeholder.search')" v-model="email" />
                         <div class="text-red">{{ error.email }}</div>
                     </div>
+                </div>
+                <div class="p-formgrid p-grid p-mb-3">
                     <!-- <div class="p-field p-col">
                         <label for="state">gender</label>
                         <Dropdown id="state" v-model="dropdownItem" :options="dropdownItems" optionLabel="name" placeholder="Select One"></Dropdown>
