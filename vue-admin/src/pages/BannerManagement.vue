@@ -56,9 +56,7 @@
                             </router-link>
                         </div>
                     </div>
-                    <DataTable :value="products" class="p-datatable-gridlines" dataKey="id" 
-                    responsiveLayout="scroll" :paginator="true" :rows="5" :rowHover="true"  
-                    :loading="loading1" v-if="products.length> 0">
+                    <DataTable :value="products" class="p-datatable-gridlines" dataKey="id" responsiveLayout="scroll" :paginator="true" :rows="5" :rowHover="true" :loading="loading1" v-if="products.length > 0">
                         <ConfirmDialog group="dialog" />
                         <!-- <template #header>
                                 <div class="table-header-container">
@@ -74,7 +72,8 @@
                                 <span class="p-column-title">Number</span>
                                 {{ slotProps.data.id }}
                             </template>
-                        </Column> -->
+                        </Column>
+                        -->
                         <Column field="" header="">
                             <template #body="{ data }">
                                 <span class="p-column-title"> <Checkbox :id="data.id" name="option" value="data.id" v-model="checkboxValue" /></span>
@@ -107,14 +106,13 @@
                             </template>
                         </Column>
                         <Column field="Creation" header="Creation Date">
-                                {{ formatCurrency(slotProps.data.createdDate) }}
-                        >
+                            {{ formatCurrency(slotProps.data.createdDate) }}
+                        </Column>
                         <Column field="Status" header="Status">
                             <template #body="slotProps">
                                 <span class="p-column-title">Status</span>
                                 {{ formatCurrency(slotProps.data.status) }}
-                            </template></Column
-                        >
+                            </template></Column>
                         <!-- <Column field="rating" header="Reviews" >
                             <template #body="slotProps">
                                 <span class="p-column-title">Reviews</span>
@@ -261,7 +259,7 @@ export default {
             this.deletedID = id;
         },
         closeModal() {
-            this.$toast.add({severity:'warn', summary: 'Canceled', detail:'Message Detail', life: 3000});
+            this.$toast.add({ severity: 'warn', summary: 'Canceled', detail: 'Message Detail', life: 3000 });
             this.isModalVisible = false;
         },
         async DeleteRow() {
@@ -279,7 +277,7 @@ export default {
                 })
                 .then((response) => {
                     console.log(response);
-                    this.$toast.add({severity:'success', summary: 'Banner Successfully Removed', detail:'Message Detail', life: 3000});
+                    this.$toast.add({ severity: 'success', summary: 'Banner Successfully Removed', detail: 'Message Detail', life: 3000 });
                     location.reload();
                     // alert(response)
                 })
