@@ -76,7 +76,7 @@
                                 {{ data.title }}
                             </template>
                         </Column>
-                        <Column field="Image" header="Image" style="min-width: 12rem">
+                        <Column field="Image" header="Image">
                             <template #body="{ data }">
                                 <span class="p-column-title">Image</span>
                                 <img :src="'http://dvcon-admin-nodejs.dvconsulting.org:4545' + data.bannerImage" :alt="data.image" class="product-image" />
@@ -362,6 +362,7 @@ export default {
 
 .product-image {
     width: 100px;
+    height: 100px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
