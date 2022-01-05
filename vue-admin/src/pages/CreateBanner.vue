@@ -1,45 +1,48 @@
 <template>
     <router-link to="/banner-management">
-        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-5"></Button>
+        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" 
+        class="p-button p-button-sm p-mr-2 p-mb-5"></Button>
     </router-link>
     <div class="card">
-        <div class="p-grid p-fluid">
-            <div class="p-col-12 p-md-9">
-                <h5>New</h5>
-                <div class="p-grid p-formgrid p-mb-3">
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
-                        <label for="title2">Title</label>
-                        <InputText type="text" placeholder="Title" id="title2" v-model="title"></InputText>
-                    </div>
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
-                        <label for="subtitle2">Subtitle</label>
-                        <InputText type="text" placeholder="Subtitle" id="subtitle2" v-model="subtitle"></InputText>
-                    </div>
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
-                        <label for="state2">state</label>
-                        <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
-                    </div>
-                </div>
-                <div class="p-grid p-formgrid">
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
-                        <label for="title2">Link</label>
-                        <InputText type="text" placeholder="link" id="title2" v-model="link"></InputText>
-                    </div>
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
-                        <label for="subtitle2">Image <span class="img-info">(File size must be at least 500*900px) </span> </label>
-                        <div class="custom-select">
-                            <span v-if="!fileName">Select File</span>
-                            <span v-else>{{ fileName }}</span>
-                            <input type="file" class="select-file" v-on:change="onFileChange" />
-                            <Button label="Select File" class="SelectBtn" />
+        <Toast />
+        <form>
+            <div class="p-grid p-fluid">
+                <div class="p-col-12">
+                    <h5>New</h5>
+                    <div class="p-grid p-formgrid p-mb-3">
+                        <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
+                            <label for="title2">Title</label>
+                            <InputText type="text" placeholder="Title" id="title2" v-model="title"></InputText>
+                        </div>
+                        <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
+                            <label for="subtitle2">Subtitle</label>
+                            <InputText type="text" placeholder="Subtitle" id="subtitle2" v-model="subtitle"></InputText>
+                        </div>
+                        <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
+                            <label for="state2">state</label>
+                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
+                        </div>
+                        <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
+                            <label for="title2">Link</label>
+                            <InputText type="text" placeholder="link" id="title2" v-model="link"></InputText>
                         </div>
                     </div>
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
-                        <label for="state2">Type</label>
-                        <Dropdown v-model="dropdownValueType" :options="dropdownValueTypes" optionLabel="name" placeholder="Select" />
+                    <div class="p-grid p-formgrid p-mb-3">
+                        <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
+                            <label for="subtitle2">Image <span class="img-info">(File size must be at least 500*900px) </span> </label>
+                            <div class="custom-select">
+                                <span v-if="!fileName">Select File</span>
+                                <span v-else>{{ fileName }}</span>
+                                <input type="file" class="select-file" v-on:change="onFileChange" />
+                                <Button label="Select File" class="SelectBtn" />
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
+                            <label for="state2">Type</label>
+                            <Dropdown v-model="dropdownValueType" :options="dropdownValueTypes" optionLabel="name" placeholder="Select" />
+                        </div>
                     </div>
-                </div>
-                <!-- <div class="p-formgrid p-grid">
+                    <!-- <div class="p-formgrid p-grid">
                     <div class="p-field p-col">
                         <label for="name2">Start Date</label>
                         <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue1"></Calendar>
@@ -49,14 +52,15 @@
                         <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue2"></Calendar>
                     </div>
                 </div> -->
+                </div>
             </div>
-        </div>
-        <div class="p-d-flex p-jc-end p-ai-center">
-            <div>
-                <Button label="reset" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reinitialize"> </Button>
-                <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="addBanner"></Button>
+            <div class="p-d-flex p-jc-end p-ai-center">
+                <div>
+                    <Button label="reset" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reinitialize"> </Button>
+                    <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="addBanner"></Button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </template>
 
@@ -89,24 +93,29 @@ export default {
             var files = e.target.files || e.dataTransfer.files;
             if (!files.length) return;
             this.formData.append('image', files[0]);
+            // this.formData.append('_method', 'PUT');
             this.file = files[0];
             this.fileName = this.file.name;
             console.log(this.fileName);
         },
         addBanner() {
             console.log(this.file);
-
+            this.formData.append('title', this.title)
+            this.formData.append('subtitle', this.subtitle)
+            this.formData.append('link', this.link)
+            this.formData.append('status', this.dropdownValue?.name)
+            this.formData.append('type', this.dropdownValueType?.name)
             return axios
                 .post(
-                    'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/add',
-                    {
-                        title: this.title,
-                        subtitle: this.subtitle,
-                        link: this.link,
-                        status: this.dropdownValue?.name,
-                        type: this.dropdownValueType?.name,
-                        image: this.file,
-                    },
+                    'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/add', this.formData,
+                    // {
+                    //     title: this.title,
+                    //     subtitle: this.subtitle,
+                    //     link: this.link,
+                    //     status: this.dropdownValue?.name,
+                    //     type: this.dropdownValueType?.name,
+                    //     image: this.file,
+                    // },
                     {
                         headers: {
                             source: 'dvcon',
@@ -119,6 +128,9 @@ export default {
                     alert(res.data.data[0]);
                     this.$router.push({ name: 'User' });
                     console.log(res);
+                     alert("Banner Successfully Added")
+                    this.$router.push({ name: 'BannerManagement' });
+                    
                 })
                 .catch((err) => {
                     console.log(err);
@@ -157,5 +169,12 @@ export default {
 }
 .SelectBtn {
     max-width: 100px;
+}
+.custom-select span{
+    max-width: 140px;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 </style>

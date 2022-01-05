@@ -1,25 +1,24 @@
 <template>
     <div>
+        <Toast />
         <div class="card">
             <div class="p-grid p-fluid">
-                <div class="p-col-12 p-md-6">
+                <div class="p-col-12">
                     <h5>Search</h5>
                     <div class="p-formgrid p-grid">
-                        <div class="p-field p-col">
+                        <div class="p-field p-col-12 p-md-4">
                             <label for="name2">Name</label>
                             <InputText id="name2" type="text" placeholder="Search" :modelValue="title" v-model="title" />
                         </div>
-                        <div class="p-field p-col">
+                        <div class="p-field p-col-12 p-md-4">
                             <label for="email2">state</label>
                             <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
                         </div>
-                    </div>
-                    <div class="p-formgrid p-grid">
-                        <div class="p-field p-col">
+                        <div class="p-field p-col-12 p-md-4">
                             <label for="name2">Start Date</label>
                             <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue1"></Calendar>
                         </div>
-                        <div class="p-field p-col">
+                        <div class="p-field p-col-12 p-md-4">
                             <label for="email2">End Date</label>
                             <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue2"></Calendar>
                         </div>
@@ -42,14 +41,13 @@
                 </div>
                 <div>
                     <Button label="reset" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reInitialize"></Button>
-                    <Button label="search" icon="pi pi-search" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="getProductsWithOrdersSmall"></Button>
+                    <Button label="search" icon="pi pi-search" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="searchUser"></Button>
                 </div>
             </div>
         </div>
         <div class="card">
             <div class="p-grid">
                 <div class="p-col-12">
-                    <Toast />
                     <div class="p-d-flex p-jc-between">
                         <h4>Banner Management</h4>
                         <div>
@@ -58,7 +56,8 @@
                             </router-link>
                         </div>
                     </div>
-                    <DataTable :value="products" dataKey="id" responsiveLayout="scroll" :paginator="true" :rows="4" :rowHover="true" v-if="products.length > 0" :loading="loading1">
+                    <DataTable :value="products" class="p-datatable-gridlines" dataKey="id" responsiveLayout="scroll" :paginator="true" :rows="5" :rowHover="true" :loading="loading1" v-if="products.length > 0">
+                        <ConfirmDialog group="dialog" />
                         <!-- <template #header>
                                 <div class="table-header-container">
                                     <Button icon="pi pi-plus" label="Expand All" @click="expandAll" class="p-mr-2 p-mb-2" />
@@ -74,6 +73,14 @@
                                 {{ slotProps.data.id }}
                             </template>
                         </Column>
+                        -->
+                        <Column field="" header="">
+                            <template #body="{ data }">
+                                <span class="p-column-title"> <Checkbox :id="data.id" name="option" value="data.id" v-model="checkboxValue" /></span>
+                                <span style="display: none">{{ data.id }}</span>
+                                <Checkbox id="checkOption1" name="option" value="Chicago" v-model="checkboxValue" />
+                            </template>
+                        </Column>
                         <Column field="name" header="Title">
                             <template #body="slotProps">
                                 <span class="p-column-title">Title</span>
@@ -86,7 +93,7 @@
                                 {{ slotProps.data.subTitle }}
                             </template>
                         </Column> -->
-                        <Column header="Image">
+                        <Column header="Image" style="min-width: 12rem">
                             <template #body="slotProps">
                                 <span class="p-column-title">Image</span>
                                 <img :src="'http://dvcon-admin-nodejs.dvconsulting.org:4545' + slotProps.data.bannerImage" :alt="slotProps.data.image" class="product-image" />
@@ -99,17 +106,13 @@
                             </template>
                         </Column>
                         <Column field="Creation" header="Creation Date">
-                            <template #body="slotProps">
-                                <span class="p-column-title">Creation Date</span>
-                                {{ formatCurrency(slotProps.data.createdDate) }}
-                            </template></Column
-                        >
+                            {{ formatCurrency(slotProps.data.createdDate) }}
+                        </Column>
                         <Column field="Status" header="Status">
                             <template #body="slotProps">
                                 <span class="p-column-title">Status</span>
                                 {{ formatCurrency(slotProps.data.status) }}
-                            </template></Column
-                        >
+                            </template></Column>
                         <!-- <Column field="rating" header="Reviews" >
                             <template #body="slotProps">
                                 <span class="p-column-title">Reviews</span>
@@ -123,11 +126,13 @@
                             </template>
                         </Column> -->
                         <Column field="inventoryStatus" header="management">
-                            <template #body>
-                                <router-link to="/edit-banner">
-                                    <Button label="correction" icon="pi pi-pencil" iconPos="left" class="p-button p-button-info p-button-sm p-mr-2 p-mb-2"></Button>
-                                </router-link>
-                                <Button label="Delete" icon="pi pi-trash" iconPos="left" class="p-button p-button-danger p-button-sm p-mr-2 p-mb-2" @click="showModal"></Button>
+                            <template #body="{ data }">
+                                <div class="p-d-flex">
+                                    <router-link :to="'/edit-banner/' + data.id">
+                                        <Button label="correction" icon="pi pi-pencil" iconPos="left" class="p-button p-button-outlined p-button-help p-button-sm p-mr-2 p-mb-2"></Button>
+                                    </router-link>
+                                    <Button label="Delete" icon="pi pi-trash" iconPos="left" class="p-button p-button-outlined p-button-danger p-button-sm p-mr-2 p-mb-2" @click="showModal(data.id)"></Button>
+                                </div>
                             </template>
                         </Column>
                     </DataTable>
@@ -157,8 +162,9 @@
 </template>
 
 <script>
-// import ProductService from '../service/ProductService';
+import ProductService from '../service/ProductService';
 import axios from 'axios';
+import { useRoute } from 'vue-router';
 // import CustomerService from '../service/CustomerService';
 // import {FilterMatchMode,FilterOperator} from 'primevue/api';
 import Modal from '../components/CustomModal.vue';
@@ -175,21 +181,33 @@ export default {
             products: {},
             title: null,
             loading1: true,
+            deletedID: null,
         };
     },
     // customerService: null,
-    // productService: null,
+    productService: null,
 
     components: {
         Modal,
     },
 
     created() {
-        // this.productService = new ProductService();
+        this.productService = new ProductService();
         // this.customerService = new CustomerService();
     },
     mounted() {
-        this.getProductsWithOrdersSmall();
+        const route = useRoute();
+        console.log(route.params);
+
+        this.productService
+            .getProductsWithOrdersSmall(this.title, this.dropdownValue?.name, this.calendarValue1, this.calendarValue2)
+            .then((data) => {
+                console.log(data);
+                this.products = data;
+                this.loading1 = false;
+                // console.log(JSON.stringify(this.products));
+            })
+            .catch((err) => console.log(err));
     },
     methods: {
         async getProductsWithOrdersSmall() {
@@ -213,7 +231,7 @@ export default {
                 )
                 .then((data) => {
                     console.log(data);
-                    this.products = data.data.data.banners;
+                    this.products = data;
                     this.loading1 = false;
                     // console.log(JSON.stringify(this.products));
                 })
@@ -235,14 +253,38 @@ export default {
                 year: 'numeric',
             });
         },
-        showModal() {
+        showModal(id) {
+            console.log(id);
             this.isModalVisible = true;
+            this.deletedID = id;
         },
         closeModal() {
+            this.$toast.add({ severity: 'warn', summary: 'Canceled', detail: 'Message Detail', life: 3000 });
             this.isModalVisible = false;
         },
-        DeleteRow() {
-            console.log('delete row');
+        async DeleteRow() {
+            // console.log('login token', localStorage.getItem('token'));
+            return await axios
+                .delete('http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/delete', {
+                    data: {
+                        deleteIdArray: this.deletedID,
+                    },
+                    headers: {
+                        source: 'dvcon',
+                        apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+                        token: localStorage.getItem('token'),
+                    },
+                })
+                .then((response) => {
+                    console.log(response);
+                    this.$toast.add({ severity: 'success', summary: 'Banner Successfully Removed', detail: 'Message Detail', life: 3000 });
+                    location.reload();
+                    // alert(response)
+                })
+                .catch((response) => {
+                    // console.log(response);
+                    alert(response);
+                });
         },
         reInitialize() {
             this.dropdownValue = null;

@@ -1,40 +1,40 @@
 <template>
-<router-link to="/banner-management">
-        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" 
-        class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
+    <router-link to="/banner-management">
+        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-5"></Button>
     </router-link>
     <div class="card">
         <div class="p-grid p-fluid">
-            <div class="p-col-12 p-md-9">
+            <div class="p-col-12">
                 <h5>Correction</h5>
                 <div class="p-grid p-formgrid p-mb-3">
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
+                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="title2">Title</label>
-                        <InputText type="text" placeholder="Title" id="title2" v-model="title"></InputText>
+                        <InputText type="text" placeholder="Title" :modelValue="title" id="title2" v-model="title"></InputText>
                     </div>
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
+                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="subtitle2">Subtitle</label>
-                        <InputText type="text" placeholder="Subtitle" id="subtitle2" v-model="subtitle"></InputText>
+                        <InputText type="text" placeholder="Subtitle" :modelValue="subtitle" id="subtitle2" v-model="subtitle"></InputText>
                     </div>
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
+                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="state2">state</label>
                         <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
                     </div>
+                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
+                        <label for="title2">Link</label>
+                        <InputText type="text" :modelValue="link" placeholder="link" id="title2" v-model="link"></InputText>
+                    </div>
                 </div>
                 <div class="p-grid p-formgrid">
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
-                        <label for="title2">Link</label>
-                        <InputText type="text" placeholder="link" id="title2" v-model="link"></InputText>
-                    </div>
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
+                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="subtitle2">Image <span class="img-info">(File size must be at least 500*900px) </span> </label>
                         <div class="custom-select">
-                            <span>Select File</span>
-                            <input type="file" class="select-file" />
+                            <span v-if="!fileName">Select File</span>
+                            <span v-else>{{ fileName }}</span>
+                            <input type="file" class="select-file" v-on:change="onFileChange" />
                             <Button label="Select File" class="SelectBtn" />
                         </div>
                     </div>
-                    <div class="p-col-12 p-mb-2 p-lg-4 p-mb-lg-0 p-field">
+                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="state2">Type</label>
                         <Dropdown v-model="dropdownValueType" :options="dropdownValueTypes" optionLabel="name" placeholder="Select" />
                     </div>
@@ -54,36 +54,102 @@
         <div class="p-d-flex p-jc-end p-ai-center">
             <div>
                 <!-- <Button label="initialization" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reinitialize"></Button> -->
-                <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2"></Button>
+                <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="updateBanner"></Button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: 'EditBanner',
     data() {
         return {
-            dropdownValues: [{ name: 'Select' }, { name: 'activation' }, { name: 'inactivation' }],
-            dropdownValueTypes: [{ name: 'state' }, { name: 'main r' }, { name: 'sub top' }, { name: 'sub bottom' }],
+            dropdownValues: [{ name: 'Select' }, { name: 'active' }, { name: 'inactive' }],
+            dropdownValueTypes: [{ name: 'main_banner' }, { name: 'banner_top' }, { name: 'banner_bottom' }],
             dropdownValue: null,
             dropdownValueType: null,
             title: null,
             subtitle: null,
             link: null,
+            file: null,
+            image: '',
+            fileName: '',
+            // dog_id: this.dog.id,
+            formData: new FormData(),
         };
     },
+    mounted() {
+        axios
+            .post(
+                'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/id',
+                {
+                    id: this.$route.params.id,
+                },
+                {
+                    headers: {
+                        source: 'dvcon',
+                        apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+                        token: localStorage.getItem('token'),
+                    },
+                }
+            )
+            .then((res) => {
+                console.log(res);
+                this.title = res.data.data[0].title;
+                this.subtitle = res.data.data[0].subTitle;
+                this.link = res.data.data[0].link;
+                this.dropdownValueType = res.data.data[0].bannerPostion;
+                this.dropdownValue = res.data.data[0].status;
+                this.fileName = res.data.data[0].bannerImage;
+                console.log(res.data.data[0].bannerImage);
+            })
+            .catch((err) => {
+                alert(err);
+            });
+    },
     methods: {
-        // reinitialize() {
-        //     (this.dropdownValue = null), (this.dropdownValueType = null);
-        // },
+        onFileChange(e) {
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length) return;
+            this.formData.append('image', files[0]);
+            // this.formData.append('_method', 'PUT');
+            this.file = files[0];
+            this.fileName = this.file.name;
+            console.log(this.fileName);
+        },
+        updateBanner() {
+            this.formData.append('id', this.$route.params.id);
+            this.formData.append('title', this.title);
+            this.formData.append('subtitle', this.subtitle);
+            this.formData.append('link', this.link);
+            this.formData.append('type', this.dropdownValueType?.name);
+            this.formData.append('status', this.dropdownValue?.name);
+
+            axios
+                .put('http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/edit', this.formData, {
+                    headers: {
+                        source: 'dvcon',
+                        apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+                        token: localStorage.getItem('token'),
+                    },
+                })
+                .then((res) => {
+                    console.log(res);
+                    alert('Successfully Edited');
+                    this.$router.push({ name: 'BannerManagement' });
+                })
+                .catch((err) => {
+                    alert(err);
+                });
+        },
     },
 };
 </script>
 
 <style scoped>
-.img-info{
+.img-info {
     font-size: 11px;
     font-weight: 400;
     color: red;
@@ -110,5 +176,12 @@ export default {
 }
 .SelectBtn {
     max-width: 100px;
+}
+.custom-select span {
+    max-width: 140px;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 </style>
