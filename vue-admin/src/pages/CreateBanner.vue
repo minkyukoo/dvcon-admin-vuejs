@@ -83,7 +83,7 @@ export default {
     },
     methods: {
         reinitialize() {
-            (this.dropdownValue = null), (this.dropdownValueType = null), (this.title = null), (this.subtitle = null), (this.link = null), (this.fileName = null),(this.file = {});
+            (this.dropdownValue = null), (this.dropdownValueType = null), (this.title = null), (this.subtitle = null), (this.link = null), (this.fileName = null), (this.file = {});
         },
         onFileChange(e) {
             var files = e.target.files || e.dataTransfer.files;
@@ -111,16 +111,16 @@ export default {
                         headers: {
                             source: 'dvcon',
                             apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
-                            token: localStorage.getItem('token'),
+                            token: sessionStorage.getItem('token'),
                         },
                     }
                 )
-                .then(res => {
+                .then((res) => {
                     alert(res.data.data[0]);
                     this.$router.push({ name: 'User' });
                     console.log(res);
                 })
-                .catch(err => {
+                .catch((err) => {
                     console.log(err);
                     alert(err);
                 });

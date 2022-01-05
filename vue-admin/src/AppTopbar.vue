@@ -177,7 +177,7 @@ export default {
         },
         logout() {
             // console.log('logout method clicked');
-            localStorage.clear();
+            sessionStorage.clear();
             this.$router.push({ name: 'login' });
         },
         onSearchFocus() {

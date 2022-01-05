@@ -6,7 +6,7 @@ export default class UserService {
             .post(`/user`, { status: 'active', name: name, email: email, mobile: mobile, startDate: date1, endDate: date2 })
             .then((res) => res.data.data.users)
             .catch(() => {
-                localStorage.clear();
+                sessionStorage.clear();
             });
     }
     async getUserListsingle(startdate) {

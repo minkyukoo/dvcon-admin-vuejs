@@ -11,8 +11,7 @@
                         </div>
                         <div class="p-field p-col">
                             <label for="email2">state</label>
-                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name"
-                             placeholder="Select" />
+                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
                         </div>
                     </div>
                     <div class="p-formgrid p-grid">
@@ -27,10 +26,10 @@
                     </div>
                 </div>
                 <div class="p-col-12 p-md-6">
-                    <h1>{{title}}</h1>
-                    <h1>{{dropdownValue}}</h1>
-                    <h1>{{calendarValue1}}</h1>
-                    <h1>{{calendarValue2}}</h1>
+                    <h1>{{ title }}</h1>
+                    <h1>{{ dropdownValue }}</h1>
+                    <h1>{{ calendarValue1 }}</h1>
+                    <h1>{{ calendarValue2 }}</h1>
                 </div>
             </div>
             <div class="p-d-flex p-jc-between p-ai-center">
@@ -67,19 +66,15 @@
                                 </div>
                             </template> -->
                         <!-- <Column :expander="true" headerStyle="width: 3rem" /> -->
-                        <template #empty>
-                        No customers found.
-                    </template>
-                    <template #loading>
-                        Loading customers data. Please wait.
-                    </template>
+                        <template #empty> No customers found. </template>
+                        <template #loading> Loading customers data. Please wait. </template>
                         <Column field="name" header="Number">
                             <template #body="slotProps">
                                 <span class="p-column-title">Number</span>
                                 {{ slotProps.data.id }}
                             </template>
                         </Column>
-                        <Column field="name" header="Title" >
+                        <Column field="name" header="Title">
                             <template #body="slotProps">
                                 <span class="p-column-title">Title</span>
                                 {{ slotProps.data.title }}
@@ -97,19 +92,19 @@
                                 <img :src="'http://dvcon-admin-nodejs.dvconsulting.org:4545' + slotProps.data.bannerImage" :alt="slotProps.data.image" class="product-image" />
                             </template>
                         </Column>
-                        <Column field="price" header="Banner Position" >
+                        <Column field="price" header="Banner Position">
                             <template #body="slotProps">
                                 <span class="p-column-title">Banner Position</span>
                                 {{ formatCurrency(slotProps.data.bannerPostion) }}
                             </template>
                         </Column>
-                        <Column field="Creation" header="Creation Date" >
+                        <Column field="Creation" header="Creation Date">
                             <template #body="slotProps">
                                 <span class="p-column-title">Creation Date</span>
                                 {{ formatCurrency(slotProps.data.createdDate) }}
                             </template></Column
                         >
-                        <Column field="Status" header="Status" >
+                        <Column field="Status" header="Status">
                             <template #body="slotProps">
                                 <span class="p-column-title">Status</span>
                                 {{ formatCurrency(slotProps.data.status) }}
@@ -142,21 +137,19 @@
         <Modal v-show="isModalVisible" @close="closeModal" v-bind:showCloseBtn="false">
             <template v-slot:header>
                 <div class="p-text-center w-100">
-                    <i class="pi pi-question-circle" style="fontSize: 2.5rem;color: #1976D2"></i>
+                    <i class="pi pi-question-circle" style="fontsize: 2.5rem; color: #1976d2"></i>
                 </div>
             </template>
             <template v-slot:body>
                 <div class="w-full p-text-center">
-                    <h4 class=" p-mb-1">Are you Sure ?</h4>
+                    <h4 class="p-mb-1">Are you Sure ?</h4>
                     You can't revert the changes
                 </div>
             </template>
             <template v-slot:footer>
                 <div class="p-d-flex p-jc-center">
-                    <Button label="Cancel" class="p-button p-button-secondary p-button-sm p-mr-2 p-mb-2"
-                     @click="closeModal"> </Button>
-                    <Button label="Confirm" class="p-button p-button-success p-button-sm p-mr-2 p-mb-2"
-                     @click="DeleteRow(data.id)"> </Button>
+                    <Button label="Cancel" class="p-button p-button-secondary p-button-sm p-mr-2 p-mb-2" @click="closeModal"> </Button>
+                    <Button label="Confirm" class="p-button p-button-success p-button-sm p-mr-2 p-mb-2" @click="DeleteRow(data.id)"> </Button>
                 </div>
             </template>
         </Modal>
@@ -172,11 +165,7 @@ import Modal from '../components/CustomModal.vue';
 export default {
     data() {
         return {
-            dropdownValues: [
-                { name: 'active'},
-                { name: 'inactive'},
-                { name: 'deleted'},
-            ],
+            dropdownValues: [{ name: 'active' }, { name: 'inactive' }, { name: 'deleted' }],
             dropdownValue: null,
             calendarValue1: null,
             calendarValue2: null,
@@ -204,7 +193,7 @@ export default {
     },
     methods: {
         async getProductsWithOrdersSmall() {
-            console.log("search banner by Name" , this.dropdownValue?.name)
+            console.log('search banner by Name', this.dropdownValue?.name);
             await axios
                 .post(
                     'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner',
@@ -218,17 +207,17 @@ export default {
                         headers: {
                             source: 'dvcon',
                             apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
-                            token: localStorage.getItem('token'),
+                            token: sessionStorage.getItem('token'),
                         },
                     }
                 )
-                .then(data => {
+                .then((data) => {
                     console.log(data);
                     this.products = data.data.data.banners;
                     this.loading1 = false;
                     // console.log(JSON.stringify(this.products));
                 })
-                .catch(err => console.log(err));
+                .catch((err) => console.log(err));
         },
         onRowExpand(event) {
             this.$toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });

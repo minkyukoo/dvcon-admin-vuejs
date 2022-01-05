@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 function guest(to, from, next) {
-    if (localStorage.token) {
+    if (sessionStorage.token) {
         next({ name: 'dashboard' });
     } else next();
 }
 
 function guard(to, from, next) {
-    if (localStorage.token) {
+    if (sessionStorage.token) {
         next();
     } else {
         next({ name: 'login' });

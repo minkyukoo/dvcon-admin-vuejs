@@ -5,19 +5,9 @@
                 <a @click="goDashboard" class="logo">
                     <img src="assets/layout/images/logo-freya-single.svg" alt="freya-layout" />
                 </a>
-                <InputText
-                    id="email"
-                    placeholder="Email"
-                    v-model="email"
-                    :class="`input-forms ${error.email ? 'p-invalid' : ''}`"
-                />
+                <InputText id="email" placeholder="Email" v-model="email" :class="`input-forms ${error.email ? 'p-invalid' : ''}`" />
                 <div class="text-red">{{ error.email }}</div>
-                <Password
-                    id="password"
-                    placeholder="Password"
-                    :feedback="false"
-                    v-model="password"
-                />
+                <Password id="password" placeholder="Password" :feedback="false" v-model="password" />
                 <div class="text-red">{{ error.password }}</div>
                 <Button label="LOGIN" type="button" @click="Login"></Button>
                 <!-- <a href="#">forget password?</a> -->
@@ -28,7 +18,7 @@
 </template>
 
 <script>
-import validateLogin from "../validations/validateLogin";
+import validateLogin from '../validations/validateLogin';
 import axios from 'axios';
 export default {
     data() {
@@ -64,11 +54,10 @@ export default {
                         console.log(response);
                         if (response.data.status === 200) {
                             console.log(response.data.status);
-                            // localStorage.removeItem("expirytoken");
-                            localStorage.setItem('token', response.data.data.token);
+                            // sessionStorage.removeItem("expirytoken");
+                            sessionStorage.setItem('token', response.data.data.token);
                             window.location = '/';
                             // this.$router.push({ name: 'dashboard' });
-
                         }
                     })
                     .catch(function (response) {

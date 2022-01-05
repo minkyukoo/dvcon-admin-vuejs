@@ -101,7 +101,7 @@ axios.defaults.baseURL = 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-
 axios.defaults.headers = {
     source: 'dvcon',
     apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
-    token: localStorage.getItem('token'),
+    token: sessionStorage.getItem('token'),
 };
 
 const app = createApp({
@@ -207,7 +207,7 @@ app.component('TreeTable', TreeTable);
 app.component('TriStateCheckbox', TriStateCheckbox);
 // Auto Logout
 setTimeout(() => {
-    localStorage.clear();
+    sessionStorage.clear();
     window.location.href = '/login';
 }, 30 * 60 * 1000);
 app.mount('#app');
