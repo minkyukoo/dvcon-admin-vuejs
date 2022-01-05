@@ -1,5 +1,6 @@
 <template>
     <router-link to="/banner-management">
+        <Toast />
         <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-5"></Button>
     </router-link>
     <div class="card">
@@ -17,7 +18,7 @@
                     </div>
                     <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="state2">state</label>
-                        <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
+                        <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" :placeholder="dropdownValue" />
                     </div>
                     <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="title2">Link</label>
@@ -36,32 +37,23 @@
                     </div>
                     <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="state2">Type</label>
-                        <Dropdown v-model="dropdownValueType" :options="dropdownValueTypes" optionLabel="name" placeholder="Select" />
+                        <Dropdown v-model="dropdownValueType" :options="dropdownValueTypes" optionLabel="name" :placeholder="dropdownValueType" />
                     </div>
                 </div>
-                <!-- <div class="p-formgrid p-grid">
-                    <div class="p-field p-col">
-                        <label for="name2">Start Date</label>
-                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue1"></Calendar>
-                    </div>
-                    <div class="p-field p-col">
-                        <label for="email2">End Date</label>
-                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue2"></Calendar>
-                    </div>
-                </div> -->
             </div>
         </div>
         <div class="p-d-flex p-jc-end p-ai-center">
+            <ConfirmPopup group="popup"></ConfirmPopup>
             <div>
-                <!-- <Button label="initialization" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reinitialize"></Button> -->
-                <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="updateBanner"></Button>
+                <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="confirm($event)"></Button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import BannerService from '../../service/API/BannerService';
 export default {
     name: 'EditBanner',
     data() {
@@ -76,27 +68,15 @@ export default {
             file: null,
             image: '',
             fileName: '',
-            // dog_id: this.dog.id,
-            formData: new FormData(),
         };
     },
+    created() {
+        this.bannerService = new BannerService();
+    },
     mounted() {
-        axios
-            .post(
-                'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/id',
-                {
-                    id: this.$route.params.id,
-                },
-                {
-                    headers: {
-                        source: 'dvcon',
-                        apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
-                        token: localStorage.getItem('token'),
-                    },
-                }
-            )
+        this.bannerService
+            .viewBanner(this.$route.params.id)
             .then((res) => {
-                console.log(res);
                 this.title = res.data.data[0].title;
                 this.subtitle = res.data.data[0].subTitle;
                 this.link = res.data.data[0].link;
@@ -119,30 +99,27 @@ export default {
             this.fileName = this.file.name;
             console.log(this.fileName);
         },
-        updateBanner() {
-            this.formData.append('id', this.$route.params.id);
-            this.formData.append('title', this.title);
-            this.formData.append('subtitle', this.subtitle);
-            this.formData.append('link', this.link);
-            this.formData.append('type', this.dropdownValueType?.name);
-            this.formData.append('status', this.dropdownValue?.name);
+        confirm(event) {
+            this.$confirm.require({
+                target: event.currentTarget,
+                group: 'popup',
+                message: 'Are you sure you want to proceed?',
+                icon: 'pi pi-exclamation-triangle',
+                accept: () => {
+                    this.bannerService
+                        .updateBanner(this.$route.params.id, this.title, this.subtitle)
+                        .then((res) => {
+                            console.warn(res);
+                            this.$router.push({ name: 'BannerManagement' });
+                        })
+                        .catch((res) => alert(res));
 
-            axios
-                .put('http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/edit', this.formData, {
-                    headers: {
-                        source: 'dvcon',
-                        apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
-                        token: localStorage.getItem('token'),
-                    },
-                })
-                .then((res) => {
-                    console.log(res);
-                    alert('Successfully Edited');
-                    this.$router.push({ name: 'BannerManagement' });
-                })
-                .catch((err) => {
-                    alert(err);
-                });
+                    this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+                },
+                reject: () => {
+                    this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+                },
+            });
         },
     },
 };

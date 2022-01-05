@@ -7,21 +7,26 @@
                     <strong>{{ $t('search.title') }}</strong>
                 </h4>
                 <div class="p-formgrid p-grid p-mb-3">
-                    <div class="p-field p-col-12 p-mb-2 p-lg-4 p-mb-lg-0">
+                    <div class="p-field p-col-12 p-mb-2 p-lg-3 p-mb-lg-0">
                         <label for="nameuser">{{ $t('search.label.name') }}</label>
                         <InputText id="nameuser" :class="`${error.name ? 'p-invalid' : ''}`" type="text" :placeholder="$t('search.placeholder.search')" v-model="name" />
                         <div class="text-red">{{ error.name }}</div>
                     </div>
 
-                    <div class="p-field p-col-12 p-mb-2 p-lg-4 p-mb-lg-0">
+                    <div class="p-field p-col-12 p-mb-2 p-lg-3 p-mb-lg-0">
                         <label for="mobileuser">{{ $t('search.label.phoneNumber') }}</label>
                         <InputText id="mobileuser" :class="`${error.mobile ? 'p-invalid' : ''}`" type="text" :placeholder="$t('search.placeholder.search')" v-model="mobile" />
                         <div class="text-red">{{ error.mobile }}</div>
                     </div>
-                    <div class="p-field p-col-12 p-mb-2 p-lg-4 p-mb-lg-0">
+                    <div class="p-field p-col-12 p-mb-2 p-lg-3 p-mb-lg-0">
                         <label for="emailuser">{{ $t('search.label.email') }}</label>
                         <InputText id="emailuser" :class="`${error.email ? 'p-invalid' : ''}`" type="email" :placeholder="$t('search.placeholder.search')" v-model="email" />
                         <div class="text-red">{{ error.email }}</div>
+                    </div>
+                    <div class="p-field p-col-12 p-mb-2 p-lg-3 p-mb-lg-0">
+                        <label for="pass">{{ $t('search.label.startDate') }}</label>
+                        <Calendar :class="`${error.calendarValue ? 'p-invalid' : ''}`" :showIcon="true" :showButtonBar="true" v-model="calendarValue" dateFormat="yy.mm.dd" :placeholder="$t('search.placeholder.date')"></Calendar>
+                        <div class="text-red">{{ error.calendarValue }}</div>
                     </div>
                     <!-- <div class="p-field p-col">
                         <label for="state">gender</label>
@@ -33,11 +38,7 @@
                         <label for="pass">Password</label>
                         <InputText id="pass" type="password" placeholder="password" />
                     </div> -->
-                    <div class="p-field p-col-12 p-md-3">
-                        <label for="pass">{{ $t('search.label.startDate') }}</label>
-                        <Calendar :class="`${error.calendarValue ? 'p-invalid' : ''}`" :showIcon="true" :showButtonBar="true" v-model="calendarValue" dateFormat="yy.mm.dd" :placeholder="$t('search.placeholder.date')"></Calendar>
-                        <div class="text-red">{{ error.calendarValue }}</div>
-                    </div>
+
                     <div class="p-field p-col-12 p-md-3">
                         <label for="verify-pass">{{ $t('search.label.lastDate') }}</label>
                         <Calendar :class="`${error.calendarValue1 ? 'p-invalid' : ''}`" :showIcon="true" :showButtonBar="true" v-model="calendarValue1" dateFormat="yy.mm.dd" :placeholder="$t('search.placeholder.date')"></Calendar>
@@ -184,6 +185,7 @@ export default {
             this.customer1 = data;
             this.loading1 = false;
             this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            console.log(data);
         });
     },
     watch: {},
@@ -229,12 +231,6 @@ export default {
             const utc = new Date().toJSON().slice(0, 10).replace(/-/g, '.');
             this.calendarValue = utc;
             this.calendarValue1 = utc;
-            // this.userService.getUserListsingle(utc).then((data) => {
-            //     this.customer1 = data;
-            //     console.log(data);
-            //     this.loading1 = false;
-            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-            // });
         },
         lastweek() {
             const date = new Date();
@@ -243,12 +239,6 @@ export default {
             const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
             this.calendarValue = startDate;
             this.calendarValue1 = edate;
-            // this.userService.getUserListsingle(startDate).then((data) => {
-            //     this.customer1 = data;
-            //     console.log(data);
-            //     this.loading1 = false;
-            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-            // });
         },
         lastmonth() {
             const date = new Date();
@@ -257,12 +247,6 @@ export default {
             const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
             this.calendarValue = startDate;
             this.calendarValue1 = edate;
-            // this.userService.getUserListsingle(startDate).then((data) => {
-            //     this.customer1 = data;
-            //     console.log(data);
-            //     this.loading1 = false;
-            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-            // });
         },
         lastsixmonth() {
             const date = new Date();
@@ -271,12 +255,6 @@ export default {
             const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
             this.calendarValue = startDate;
             this.calendarValue1 = edate;
-            // this.userService.getUserListsingle(startDate).then((data) => {
-            //     this.customer1 = data;
-            //     console.log(data);
-            //     this.loading1 = false;
-            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-            // });
         },
         lastyear() {
             const date = new Date();
@@ -285,12 +263,6 @@ export default {
             const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
             this.calendarValue = startDate;
             this.calendarValue1 = edate;
-            // this.userService.getUserListsingle(startDate).then((data) => {
-            //     this.customer1 = data;
-            //     console.log(data);
-            //     this.loading1 = false;
-            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-            // });
         },
         exceldownload() {
             this.selects();

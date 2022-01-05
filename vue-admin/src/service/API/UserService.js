@@ -2,12 +2,7 @@ import axios from 'axios';
 
 export default class UserService {
     async getUserList(name, email, mobile, date1, date2) {
-        return await axios
-            .post(`/user`, { status: 'active', name: name, email: email, mobile: mobile, startDate: date1, endDate: date2 })
-            .then((res) => res.data.data.users)
-            .catch(() => {
-                sessionStorage.clear();
-            });
+        return await axios.post(`/user`, { status: 'active', name: name, email: email, mobile: mobile, startDate: date1, endDate: date2 }).then((res) => res.data.data.users);
     }
     async getUserListsingle(startdate) {
         return await axios.post(`/user`, { status: 'active', startDate: startdate }).then((res) => res.data.data.users);

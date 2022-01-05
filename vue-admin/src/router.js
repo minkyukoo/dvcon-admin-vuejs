@@ -28,22 +28,20 @@ const routes = [
     {
         path: '/banner-management',
         name: 'BannerManagement',
-        component: () => import('./pages/BannerManagement.vue'),
+        component: () => import('./pages/Banner/BannerManagement.vue'),
         beforeEnter: guard,
     },
     {
         path: '/create-banner',
         name: 'CreateBanner',
-        component: () => import('./pages/CreateBanner.vue'),
+        component: () => import('./pages/Banner/CreateBanner.vue'),
         beforeEnter: guard,
-        
     },
     {
         path: '/edit-banner/:id',
         name: 'EditBanner',
-        component: () => import('./pages/EditBanner.vue'),
+        component: () => import('./pages/Banner/EditBanner.vue'),
         beforeEnter: guard,
-        
     },
     {
         path: '/user',

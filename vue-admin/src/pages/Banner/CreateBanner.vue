@@ -1,7 +1,6 @@
 <template>
     <router-link to="/banner-management">
-        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" 
-        class="p-button p-button-sm p-mr-2 p-mb-5"></Button>
+        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-5"></Button>
     </router-link>
     <div class="card">
         <Toast />
@@ -36,6 +35,7 @@
                                 <input type="file" class="select-file" v-on:change="onFileChange" />
                                 <Button label="Select File" class="SelectBtn" />
                             </div>
+                            <img id="frame" src="" width="100px" height="100px" />
                         </div>
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="state2">Type</label>
@@ -100,14 +100,15 @@ export default {
         },
         addBanner() {
             console.log(this.file);
-            this.formData.append('title', this.title)
-            this.formData.append('subtitle', this.subtitle)
-            this.formData.append('link', this.link)
-            this.formData.append('status', this.dropdownValue?.name)
-            this.formData.append('type', this.dropdownValueType?.name)
+            this.formData.append('title', this.title);
+            this.formData.append('subtitle', this.subtitle);
+            this.formData.append('link', this.link);
+            this.formData.append('status', this.dropdownValue?.name);
+            this.formData.append('type', this.dropdownValueType?.name);
             return axios
                 .post(
-                    'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/add', this.formData,
+                    'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/add',
+                    this.formData,
                     // {
                     //     title: this.title,
                     //     subtitle: this.subtitle,
@@ -128,9 +129,8 @@ export default {
                     alert(res.data.data[0]);
                     this.$router.push({ name: 'User' });
                     console.log(res);
-                     alert("Banner Successfully Added")
+                    alert('Banner Successfully Added');
                     this.$router.push({ name: 'BannerManagement' });
-                    
                 })
                 .catch((err) => {
                     console.log(err);
@@ -170,7 +170,7 @@ export default {
 .SelectBtn {
     max-width: 100px;
 }
-.custom-select span{
+.custom-select span {
     max-width: 140px;
     display: inline-block;
     overflow: hidden;

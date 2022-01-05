@@ -14,22 +14,23 @@ export default class ProductService {
     }
 
     getProductsWithOrdersSmall() {
-        return axios.post(
-            'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner',
-            {
-                searchData: null,
-                status: null,
-                startDate: null,
-                endDate: null,
-            },
-            {
-                headers: {
-                    source: 'dvcon',
-                    apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
-                    token: sessionStorage.getItem('token'),
+        return axios
+            .post(
+                'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner',
+                {
+                    searchData: null,
+                    status: null,
+                    startDate: null,
+                    endDate: null,
                 },
-            }
-        );
-        // .then(res => res.data.data);
+                {
+                    headers: {
+                        source: 'dvcon',
+                        apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+                        token: sessionStorage.getItem('token'),
+                    },
+                }
+            )
+            .then((res) => res.data.data.banners);
     }
 }
