@@ -37,6 +37,11 @@
     "downloadExcel": "엑셀 다운로드",
     "view": "보기",
     "edit": "수정",
-    "delete": "삭제"
+    "delete": "삭제",
+    "today": "오늘",
+    "lastWeek": "지난주",
+    "lastMonth": "지난 달",
+    "last6Months": "지난 6 개월",
+    "lastYear": "작년"
   }
 }

@@ -37,6 +37,11 @@
     "downloadExcel": "Download Excel",
     "view": "View",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "today": "Today",
+    "lastWeek": "Last week",
+    "lastMonth": "Last month",
+    "last6Months": "Last 6 months",
+    "lastYear": "Last year"
   }
 }
