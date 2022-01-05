@@ -24,6 +24,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="p-col-12 p-md-6">
+                    <h1>{{ title }}</h1>
+                    <h1>{{ dropdownValue }}</h1>
+                    <h1>{{ calendarValue1 }}</h1>
+                    <h1>{{ calendarValue2 }}</h1>
+                </div>
             </div>
             <div class="p-d-flex p-jc-between p-ai-center">
                 <div class="">
@@ -63,7 +69,7 @@
                         <!-- <Column :expander="true" headerStyle="width: 3rem" /> -->
                         <template #empty> No customers found. </template>
                         <template #loading> Loading customers data. Please wait. </template>
-                        <!-- <Column field="name" header="Number">
+                        <Column field="name" header="Number">
                             <template #body="slotProps">
                                 <span class="p-column-title">Number</span>
                                 {{ slotProps.data.id }}
@@ -76,7 +82,7 @@
                                 <Checkbox id="checkOption1" name="option" value="Chicago" v-model="checkboxValue" />
                             </template>
                         </Column>
-                        <Column field="name" header="Title" style="min-width: 12rem">
+                        <Column field="name" header="Title">
                             <template #body="slotProps">
                                 <span class="p-column-title">Title</span>
                                 {{ slotProps.data.title }}
@@ -94,19 +100,16 @@
                                 <img :src="'http://dvcon-admin-nodejs.dvconsulting.org:4545' + slotProps.data.bannerImage" :alt="slotProps.data.image" class="product-image" />
                             </template>
                         </Column>
-                        <Column field="price" header="Banner Position" style="min-width: 12rem">
+                        <Column field="price" header="Banner Position">
                             <template #body="slotProps">
                                 <span class="p-column-title">Banner Position</span>
                                 {{ formatCurrency(slotProps.data.bannerPostion) }}
                             </template>
                         </Column>
-                        <Column field="Creation" header="Creation Date" style="min-width: 12rem">
-                            <template #body="slotProps">
-                                <span class="p-column-title">Creation Date</span>
+                        <Column field="Creation" header="Creation Date">
                                 {{ formatCurrency(slotProps.data.createdDate) }}
-                            </template></Column
                         >
-                        <Column field="Status" header="Status" style="min-width: 12rem">
+                        <Column field="Status" header="Status">
                             <template #body="slotProps">
                                 <span class="p-column-title">Status</span>
                                 {{ formatCurrency(slotProps.data.status) }}
@@ -141,7 +144,7 @@
         <Modal v-show="isModalVisible" @close="closeModal" v-bind:showCloseBtn="false">
             <template v-slot:header>
                 <div class="p-text-center w-100">
-                    <i class="pi pi-question-circle" style="fontsize: 4.5rem; color: #1976d2"></i>
+                    <i class="pi pi-question-circle" style="fontsize: 2.5rem; color: #1976d2"></i>
                 </div>
             </template>
             <template v-slot:body>
@@ -153,7 +156,7 @@
             <template v-slot:footer>
                 <div class="p-d-flex p-jc-center">
                     <Button label="Cancel" class="p-button p-button-secondary p-button-sm p-mr-2 p-mb-2" @click="closeModal"> </Button>
-                    <Button label="Confirm" class="p-button p-button-success p-button-sm p-mr-2 p-mb-2" @click="DeleteRow"> </Button>
+                    <Button label="Confirm" class="p-button p-button-success p-button-sm p-mr-2 p-mb-2" @click="DeleteRow(data.id)"> </Button>
                 </div>
             </template>
         </Modal>
@@ -209,38 +212,25 @@ export default {
             .catch((err) => console.log(err));
     },
     methods: {
-        // async getProductsWithOrdersSmall() {
-        //     // console.log('search banner by Name', this.dropdownValue?.name);
-        //     await axios
-        //         .post(
-        //             'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner',
-        //             {
-        //                 searchData: this.title,
-        //                 status: this.dropdownValue?.name,
-        //                 startDate: this.calendarValue1,
-        //                 endDate: this.calendarValue2,
-        //                 sortBy: "createdDate",
-        //                 sortOrder: "desc"
-        //             },
-        //             {
-        //                 headers: {
-        //                     source: 'dvcon',
-        //                     apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
-        //                     token: localStorage.getItem('token'),
-        //                 },
-        //             }
-        //         )
-        //         .then((data) => {
-        //             console.log(data);
-        //             this.products = data.data.data.banners;
-        //             this.loading1 = false;
-        //             // console.log(JSON.stringify(this.products));
-        //         })
-        //         .catch((err) => console.log(err));
-        // },
-        searchUser() {
-            this.productService
-                .getProductsWithOrdersSmall(this.title, this.dropdownValue?.name, this.calendarValue1, this.calendarValue2)
+        async getProductsWithOrdersSmall() {
+            console.log('search banner by Name', this.dropdownValue?.name);
+            await axios
+                .post(
+                    'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner',
+                    {
+                        searchData: this.title,
+                        status: this.dropdownValue?.name,
+                        startDate: this.calendarValue1,
+                        endDate: this.calendarValue2,
+                    },
+                    {
+                        headers: {
+                            source: 'dvcon',
+                            apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+                            token: sessionStorage.getItem('token'),
+                        },
+                    }
+                )
                 .then((data) => {
                     console.log(data);
                     this.products = data;

@@ -1,4 +1,8 @@
 <template>
+<router-link to="/cms">
+        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" 
+        class="p-button back-button p-button-sm p-mr-2 p-mb-2"></Button>
+    </router-link>
 <div class="p-grid cms_wrap">
         <div class="p-col-12">
             <div class="card">
@@ -40,5 +44,16 @@ export default {
     .align-right{
         text-align: right;
         width: 100%;
+    }
+    .back-button{
+        background-color: transparent;
+        border:0;
+        color:#000;
+        outline: none;
+    }
+    .back-button:hover{
+         background-color: transparent;
+        border:0;
+        color:#000;
     }
 </style>

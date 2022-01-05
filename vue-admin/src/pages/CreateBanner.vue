@@ -120,12 +120,13 @@ export default {
                         headers: {
                             source: 'dvcon',
                             apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
-                            token: localStorage.getItem('token'),
-                            'Content-Type': 'multipart/form-data'
+                            token: sessionStorage.getItem('token'),
                         },
                     }
                 )
                 .then((res) => {
+                    alert(res.data.data[0]);
+                    this.$router.push({ name: 'User' });
                     console.log(res);
                      alert("Banner Successfully Added")
                     this.$router.push({ name: 'BannerManagement' });

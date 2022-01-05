@@ -61,7 +61,7 @@ import Rating from 'primevue/rating';
 import RadioButton from 'primevue/radiobutton';
 import Ripple from 'primevue/ripple';
 import SelectButton from 'primevue/selectbutton';
-import ScrollPanel from 'primevue/scrollpanel'
+import ScrollPanel from 'primevue/scrollpanel';
 import ScrollTop from 'primevue/scrolltop';
 import Slider from 'primevue/slider';
 import Sidebar from 'primevue/sidebar';
@@ -90,25 +90,34 @@ import TriStateCheckbox from 'primevue/tristatecheckbox';
 
 import CodeHighlight from './AppCodeHighlight';
 
-// import VueI18n from "vue3-i18n";
-import i18n from "./config/i18n";
+import i18n from './config/i18n';
 
 import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
 import 'prismjs/themes/prism-coy.css';
 import './App.scss';
+import axios from 'axios';
+axios.defaults.baseURL = 'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin';
+axios.defaults.headers = {
+    source: 'dvcon',
+    apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+    token: sessionStorage.getItem('token'),
+};
 
 const app = createApp({
-    render () { return h(AppWrapper) }
+    render() {
+        return h(AppWrapper);
+    },
 });
 
 app.config.globalProperties.$appState = reactive({ colorScheme: 'light', isNewThemeLoaded: false });
 
-app.use(PrimeVue, { ripple: true });
+app.use(PrimeVue, {
+    ripple: true,
+});
 app.use(ConfirmationService);
 app.use(ToastService);
 app.use(router);
-// app.use(VueI18n);
 app.use(i18n);
 
 app.directive('tooltip', Tooltip);
@@ -196,5 +205,9 @@ app.component('Tree', Tree);
 app.component('TreeSelect', TreeSelect);
 app.component('TreeTable', TreeTable);
 app.component('TriStateCheckbox', TriStateCheckbox);
-
+// Auto Logout
+setTimeout(() => {
+    sessionStorage.clear();
+    window.location.href = '/login';
+}, 30 * 60 * 1000);
 app.mount('#app');

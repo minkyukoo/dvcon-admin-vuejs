@@ -12,7 +12,7 @@
                 <div class="layout-content">
                     <router-view/>
                 </div>
-                <AppFooter/>
+                <!-- <AppFooter/> -->
             </div>
         </div>
 
@@ -30,7 +30,7 @@
 import { DomHandler } from 'primevue/utils';
 import EventBus from './event-bus';
 import AppTopBar from "./AppTopbar";
-import AppFooter from "./AppFooter";
+// import AppFooter from "./AppFooter";
 import AppConfig from "./AppConfig";
 import AppRightPanel from "./AppRightPanel";
 export default {
@@ -82,7 +82,7 @@ export default {
     },
     components: {
         AppTopBar,
-        AppFooter,
+        // AppFooter,
         AppConfig,
         AppRightPanel,
     },
@@ -276,4 +276,7 @@ export default {
 </script>
 
 <style lang="scss">
+.text-red {
+    color: red;
+}
 </style>
