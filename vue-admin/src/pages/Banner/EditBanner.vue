@@ -26,7 +26,10 @@
                 </div>
                 <div class="p-grid p-formgrid">
                     <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
-                        <label for="subtitle2">Image <span class="img-info">(File size must be at least 500*900px) </span> </label>
+                        <label for="subtitle2"
+                            >Image
+                            <!-- <span class="img-info">(File size must be at least 500*900px) </span> -->
+                        </label>
                         <div class="custom-select">
                             <span v-if="!fileName">Select File</span>
                             <span v-else>{{ fileName }}</span>
@@ -34,6 +37,12 @@
                             <Button label="Select File" class="SelectBtn" />
                         </div>
                     </div>
+                    <div class="p-col-12 p-mb-2 p-lg-2 p-mb-lg-0 p-field" style="display: block; text-align: center">
+                        <div style="color: gray; font-size: 13px; padding-bottom: 10px"><span>(Acceptable file types "jpg", "png", "jpeg", "gif")</span></div>
+
+                        <img :src="'http://dvcon-admin-nodejs.dvconsulting.org:4545' + fileName" :alt="fileName" class="product-image" />
+                    </div>
+
                     <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="state2">Type</label>
                         <Dropdown v-model="dropdownValueType" :options="dropdownValueTypes" optionLabel="name" :placeholder="dropdownValueType" />
@@ -138,6 +147,11 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding-left: 15px;
+}
+.product-image {
+    width: 70px;
+    height: 70px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 .select-file {
     position: absolute;
