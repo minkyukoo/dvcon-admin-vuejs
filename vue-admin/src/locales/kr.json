@@ -32,11 +32,32 @@
   },
   "button": {
     "reset": "초기화",
+    "back": "뒤로",
     "search": "검색",
     "new": "새로 만들기",
     "downloadExcel": "엑셀 다운로드",
     "view": "보기",
     "edit": "수정",
-    "delete": "삭제"
+    "delete": "삭제",
+    "today": "오늘",
+    "lastWeek": "지난주",
+    "lastMonth": "지난 달",
+    "last6Months": "지난 6 개월",
+    "lastYear": "작년",
+    "createUser": "만들기",
+    "Cancle": "카클"
+  },
+  "page": {
+    "user": {
+      "addUser": {
+        "heading":"새로 만들기"
+      },
+      "editUser": {
+        "heading":"수정"
+      },
+      "viewUser": {
+        "heading":"상세정보"
+      }
+    }
   }
 }

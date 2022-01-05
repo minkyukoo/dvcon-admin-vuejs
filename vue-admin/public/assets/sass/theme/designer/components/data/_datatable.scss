@@ -127,8 +127,10 @@
             }
 
             &.p-highlight {
-                background: $highlightBg;
-                color: $highlightTextColor;
+                // background: $highlightBg;
+                // color: $highlightTextColor;
+                background: $tableBodyRowHoverBg;
+                color: $tableBodyRowTextHoverColor;
             }
 
             &.p-datatable-dragpoint-top > td {

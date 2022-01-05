@@ -7,38 +7,36 @@
                     <strong>{{ $t('search.title') }}</strong>
                 </h4>
                 <div class="p-formgrid p-grid p-mb-3">
-                    <div class="p-field p-col-12 p-mb-2 p-lg-3 p-mb-lg-0">
+                    <div class="p-field p-col-12 p-md-3">
                         <label for="nameuser">{{ $t('search.label.name') }}</label>
                         <InputText id="nameuser" :class="`${error.name ? 'p-invalid' : ''}`" type="text" :placeholder="$t('search.placeholder.search')" v-model="name" />
                         <div class="text-red">{{ error.name }}</div>
                     </div>
-
-                    <div class="p-field p-col-12 p-mb-2 p-lg-3 p-mb-lg-0">
+                    <div class="p-field p-col-12 p-md-3">
                         <label for="mobileuser">{{ $t('search.label.phoneNumber') }}</label>
                         <InputText id="mobileuser" :class="`${error.mobile ? 'p-invalid' : ''}`" type="text" :placeholder="$t('search.placeholder.search')" v-model="mobile" />
                         <div class="text-red">{{ error.mobile }}</div>
                     </div>
-                    <div class="p-field p-col-12 p-mb-2 p-lg-3 p-mb-lg-0">
+                    <div class="p-field p-col-12 p-md-3">
                         <label for="emailuser">{{ $t('search.label.email') }}</label>
                         <InputText id="emailuser" :class="`${error.email ? 'p-invalid' : ''}`" type="email" :placeholder="$t('search.placeholder.search')" v-model="email" />
                         <div class="text-red">{{ error.email }}</div>
                     </div>
-                    <div class="p-field p-col-12 p-mb-2 p-lg-3 p-mb-lg-0">
-                        <label for="pass">{{ $t('search.label.startDate') }}</label>
-                        <Calendar :class="`${error.calendarValue ? 'p-invalid' : ''}`" :showIcon="true" :showButtonBar="true" v-model="calendarValue" dateFormat="yy.mm.dd" :placeholder="$t('search.placeholder.date')"></Calendar>
-                        <div class="text-red">{{ error.calendarValue }}</div>
-                    </div>
+                </div>
+                <div class="p-formgrid p-grid p-mb-3">
                     <!-- <div class="p-field p-col">
                         <label for="state">gender</label>
                         <Dropdown id="state" v-model="dropdownItem" :options="dropdownItems" optionLabel="name" placeholder="Select One"></Dropdown>
                     </div> -->
-                </div>
-                <div class="p-formgrid p-grid">
                     <!-- <div class="p-field p-col-12 p-md-3">
                         <label for="pass">Password</label>
                         <InputText id="pass" type="password" placeholder="password" />
                     </div> -->
-
+                    <div class="p-field p-col-12 p-md-3">
+                        <label for="pass">{{ $t('search.label.startDate') }}</label>
+                        <Calendar :class="`${error.calendarValue ? 'p-invalid' : ''}`" :showIcon="true" :showButtonBar="true" v-model="calendarValue" dateFormat="yy.mm.dd" :placeholder="$t('search.placeholder.date')"></Calendar>
+                        <div class="text-red">{{ error.calendarValue }}</div>
+                    </div>
                     <div class="p-field p-col-12 p-md-3">
                         <label for="verify-pass">{{ $t('search.label.lastDate') }}</label>
                         <Calendar :class="`${error.calendarValue1 ? 'p-invalid' : ''}`" :showIcon="true" :showButtonBar="true" v-model="calendarValue1" dateFormat="yy.mm.dd" :placeholder="$t('search.placeholder.date')"></Calendar>
@@ -47,11 +45,11 @@
                 </div>
                 <div class="p-d-flex p-jc-between p-ai-center p-mt-6">
                     <div class="">
-                        <Button label="today" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="today"></Button>
-                        <Button label="last week" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastweek"></Button>
-                        <Button label="last month" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastmonth"></Button>
-                        <Button label="last 6 months" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastsixmonth"></Button>
-                        <Button label="last year" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastyear"></Button>
+                        <Button :label="$t('button.today')" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="today"></Button>
+                        <Button :label="$t('button.lastWeek')" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastweek"></Button>
+                        <Button :label="$t('button.lastMonth')" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastmonth"></Button>
+                        <Button :label="$t('button.last6Months')" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastsixmonth"></Button>
+                        <Button :label="$t('button.lastYear')" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastyear"></Button>
                     </div>
                     <div>
                         <Button :label="$t('button.reset')" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="resetUser"></Button>
@@ -63,11 +61,13 @@
         <div class="p-col-12">
             <div class="card">
                 <div class="p-d-flex p-jc-between p-mb-2">
-                    <div><h5>User List</h5></div>
                     <div>
-                        <Button label="Primary" class="p-mr-2 p-mb-2" @click="exceldownload"><i class="pi pi-download p-mr-2"></i> Download Excel</Button>
+                        <h5>{{ $t('table.userlist.heading') }}</h5>
+                    </div>
+                    <div>
+                        <Button label="Primary" class="p-mr-2 p-mb-2" @click="exceldownload"><i class="pi pi-download p-mr-2"></i>{{ $t('button.downloadExcel') }}</Button>
                         <router-link to="/add-user">
-                            <Button label="Primary" class="p-mr-2 p-mb-2"><i class="pi pi-plus p-mr-2"></i> New</Button>
+                            <Button label="Primary" class="p-mr-2 p-mb-2"><i class="pi pi-plus p-mr-2"></i> {{ $t('button.new') }}</Button>
                         </router-link>
                     </div>
                 </div>
@@ -80,48 +80,48 @@
                     <template #loading> Loading customers data. Please wait. </template>
 
                     <column selectionMode="multiple" style="width: 16px; text-align: center" />
-                    <Column field="name" header="Name" style="min-width: 12rem">
+                    <Column field="name" :header="$t('table.userlist.thead.name')" style="min-width: 12rem">
                         <template #body="{ data }">
                             <span class="p-column-title">Name</span>
                             {{ data.name }}
                         </template>
                     </Column>
-                    <Column header="Id" style="min-width: 12rem">
+                    <Column :header="$t('table.userlist.thead.id')" style="min-width: 12rem">
                         <template #body="{ data }">
                             <span class="p-column-title">Id</span>
                             {{ data.id }}
                         </template>
                     </Column>
-                    <Column header="Email" style="min-width: 12rem">
+                    <Column :header="$t('table.userlist.thead.email')" style="min-width: 12rem">
                         <template #body="{ data }">
                             <span class="p-column-title">Email</span>
                             {{ data.email }}
                         </template>
                     </Column>
-                    <Column header="Mobile" style="min-width: 12rem">
+                    <Column :header="$t('table.userlist.thead.mobile')" style="min-width: 12rem">
                         <template #body="{ data }">
                             <span class="p-column-title">Mobile</span>
                             {{ data.mobile }}
                         </template>
                     </Column>
-                    <Column header="created-date" style="min-width: 12rem">
+                    <Column :header="$t('table.userlist.thead.createdDate')" style="min-width: 12rem">
                         <template #body="{ data }">
                             <span class="p-column-title">Created-Date</span>
                             {{ formatDate(data.createdDate) }}
                         </template>
                     </Column>
-                    <Column header="extra">
+                    <Column :header="$t('table.userlist.thead.actions')">
                         <template #body="{ data }">
                             <span class="p-column-title">Balance</span>
                             <p style="display: none">{{ data.mobile }}</p>
                             <div style="display: flex">
                                 <router-link :to="'/user/view-user/' + data.id"
-                                    ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> view</Button>
+                                    ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> {{ $t('button.view') }}</Button>
                                 </router-link>
                                 <router-link :to="'/user/edit-user/' + data.id"
-                                    ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link
+                                    ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> {{ $t('button.edit') }}</Button></router-link
                                 >
-                                <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined p-mr-2 p-mb-2" @click="confirm(data.id)" />
+                                <Button :label="$t('button.delete')" icon="pi pi-trash" class="p-button-danger p-button-outlined p-mr-2 p-mb-2" @click="confirm(data.id)" />
                             </div>
                         </template>
                     </Column>
@@ -185,7 +185,6 @@ export default {
             this.customer1 = data;
             this.loading1 = false;
             this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-            console.log(data);
         });
     },
     watch: {},
@@ -231,6 +230,12 @@ export default {
             const utc = new Date().toJSON().slice(0, 10).replace(/-/g, '.');
             this.calendarValue = utc;
             this.calendarValue1 = utc;
+            // this.userService.getUserListsingle(utc).then((data) => {
+            //     this.customer1 = data;
+            //     console.log(data);
+            //     this.loading1 = false;
+            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            // });
         },
         lastweek() {
             const date = new Date();
@@ -239,6 +244,12 @@ export default {
             const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
             this.calendarValue = startDate;
             this.calendarValue1 = edate;
+            // this.userService.getUserListsingle(startDate).then((data) => {
+            //     this.customer1 = data;
+            //     console.log(data);
+            //     this.loading1 = false;
+            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            // });
         },
         lastmonth() {
             const date = new Date();
@@ -247,6 +258,12 @@ export default {
             const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
             this.calendarValue = startDate;
             this.calendarValue1 = edate;
+            // this.userService.getUserListsingle(startDate).then((data) => {
+            //     this.customer1 = data;
+            //     console.log(data);
+            //     this.loading1 = false;
+            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            // });
         },
         lastsixmonth() {
             const date = new Date();
@@ -255,6 +272,12 @@ export default {
             const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
             this.calendarValue = startDate;
             this.calendarValue1 = edate;
+            // this.userService.getUserListsingle(startDate).then((data) => {
+            //     this.customer1 = data;
+            //     console.log(data);
+            //     this.loading1 = false;
+            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            // });
         },
         lastyear() {
             const date = new Date();
@@ -263,6 +286,12 @@ export default {
             const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
             this.calendarValue = startDate;
             this.calendarValue1 = edate;
+            // this.userService.getUserListsingle(startDate).then((data) => {
+            //     this.customer1 = data;
+            //     console.log(data);
+            //     this.loading1 = false;
+            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            // });
         },
         exceldownload() {
             this.selects();
@@ -363,8 +392,15 @@ export default {
 };
 </script>
 
-<style scoped>
-.p-fluid .p-button {
-    width: auto;
+<style lang="scss" scoped>
+.p-datatable-tbody {
+    .p-button {
+        white-space: nowrap;
+    }
+}
+.p-fluid {
+    .p-button {
+        width: auto;
+    }
 }
 </style>
