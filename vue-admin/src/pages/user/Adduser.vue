@@ -1,11 +1,11 @@
 <template>
     <div class="p-grid">
         <div class="p-col-12 p-pb-0">
-            <Button @click="$router.push('/user')" label="Go Back" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
+            <Button @click="$router.push('/user')" :label="$t('button.back')" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
         </div>
         <div class="p-col-12">
             <div class="card p-fluid">
-                <h4><strong>New</strong></h4>
+                <h4><strong>{{$t('page.user.addUser.heading')}}</strong></h4>
                 <div class="p-formgrid p-grid">
                     <div class="p-field p-col">
                         <label for="nameuser">Name</label>
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="p-d-flex p-jc-end">
-                    <Button label="Primary" class="p-mr-2 p-mb-2" @click="Adduser"><i class="pi pi-plus p-mr-2"></i> Create User</Button>
+                    <Button label="Primary" class="p-mr-2 p-mb-2" @click="Adduser"><i class="pi pi-plus p-mr-2"></i> {{$t('button.createUser')}}</Button>
                 </div>
             </div>
         </div>
