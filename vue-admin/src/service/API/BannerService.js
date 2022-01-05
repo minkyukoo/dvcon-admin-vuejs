@@ -22,4 +22,7 @@ export default class BannerService {
             })
             .then((res) => res);
     }
+    async addBanner(name, mobile, email, gender, pass, confirm_pass) {
+        return await axios.post(`/user/add`, { name: name, mobile: mobile, email: email, gender: gender, password: pass, confirm_password: confirm_pass }).then((res) => res.data.data[0]);
+    }
 }

@@ -1,8 +1,7 @@
 <template>
-    <router-link to="/banner-management">
-        <Toast />
-        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-5"></Button>
-    </router-link>
+    <div class="p-col-12 p-pb-0">
+        <Button @click="$router.go(-1)" label="Go Back" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
+    </div>
     <div class="card">
         <div class="p-grid p-fluid">
             <div class="p-col-12">

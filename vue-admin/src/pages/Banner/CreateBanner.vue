@@ -1,7 +1,7 @@
 <template>
-    <router-link to="/banner-management">
-        <Button label="Go Back" icon="pi pi-angle-left" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-5"></Button>
-    </router-link>
+    <div class="p-col-12 p-pb-0">
+        <Button @click="$router.go(-1)" label="Go Back" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
+    </div>
     <div class="card">
         <Toast />
         <form>
@@ -126,7 +126,7 @@ export default {
                     }
                 )
                 .then((res) => {
-                    alert(res.data.data[0]);
+                    // alert(res.data.data[0]);
                     this.$router.push({ name: 'User' });
                     console.log(res);
                     alert('Banner Successfully Added');
