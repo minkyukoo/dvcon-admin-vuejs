@@ -28,6 +28,10 @@
                     </div>
                     <div class="p-grid p-formgrid p-mb-3">
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
+                            <label for="state2">Type</label>
+                            <Dropdown v-model="dropdownValueType" :options="dropdownValueTypes" optionLabel="name" placeholder="Select" />
+                        </div>
+                        <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="subtitle2">Image <span class="img-info">(File size must be at least 500*900px) </span> </label>
                             <div class="custom-select">
                                 <span v-if="!fileName">Select File</span>
@@ -37,21 +41,7 @@
                             </div>
                             <img id="frame" src="" width="100px" height="100px" />
                         </div>
-                        <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
-                            <label for="state2">Type</label>
-                            <Dropdown v-model="dropdownValueType" :options="dropdownValueTypes" optionLabel="name" placeholder="Select" />
-                        </div>
                     </div>
-                    <!-- <div class="p-formgrid p-grid">
-                    <div class="p-field p-col">
-                        <label for="name2">Start Date</label>
-                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue1"></Calendar>
-                    </div>
-                    <div class="p-field p-col">
-                        <label for="email2">End Date</label>
-                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue2"></Calendar>
-                    </div>
-                </div> -->
                 </div>
             </div>
             <div class="p-d-flex p-jc-end p-ai-center">
@@ -71,7 +61,7 @@ export default {
     // props: ['dog', 'image'],
     data() {
         return {
-            dropdownValues: [{ name: 'Select' }, { name: 'active' }, { name: 'inactive' }],
+            dropdownValues: [{ name: 'active' }, { name: 'inactive' }],
             dropdownValueTypes: [{ name: 'main_banner' }, { name: 'banner_top' }, { name: 'banner_bottom' }],
             dropdownValue: null,
             dropdownValueType: null,
@@ -81,7 +71,6 @@ export default {
             file: null,
             image: '',
             fileName: '',
-            // dog_id: this.dog.id,
             formData: new FormData(),
         };
     },
@@ -93,7 +82,6 @@ export default {
             var files = e.target.files || e.dataTransfer.files;
             if (!files.length) return;
             this.formData.append('image', files[0]);
-            // this.formData.append('_method', 'PUT');
             this.file = files[0];
             this.fileName = this.file.name;
             console.log(this.fileName);
@@ -105,28 +93,10 @@ export default {
             this.formData.append('link', this.link);
             this.formData.append('status', this.dropdownValue?.name);
             this.formData.append('type', this.dropdownValueType?.name);
+            console.log(this.formData);
             return axios
-                .post(
-                    'http://dvcon-admin-nodejs.dvconsulting.org:4545/dvcon-dev/api/v1/admin/banner/add',
-                    this.formData,
-                    // {
-                    //     title: this.title,
-                    //     subtitle: this.subtitle,
-                    //     link: this.link,
-                    //     status: this.dropdownValue?.name,
-                    //     type: this.dropdownValueType?.name,
-                    //     image: this.file,
-                    // },
-                    {
-                        headers: {
-                            source: 'dvcon',
-                            apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
-                            token: sessionStorage.getItem('token'),
-                        },
-                    }
-                )
+                .post('/banner/add', this.formData)
                 .then((res) => {
-                    // alert(res.data.data[0]);
                     this.$router.push({ name: 'User' });
                     console.log(res);
                     alert('Banner Successfully Added');

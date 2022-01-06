@@ -26,6 +26,10 @@
                 </div>
                 <div class="p-grid p-formgrid">
                     <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
+                        <label for="state2">Type</label>
+                        <Dropdown v-model="dropdownValueType" :options="dropdownValueTypes" optionLabel="name" :placeholder="dropdownValueType" />
+                    </div>
+                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                         <label for="subtitle2"
                             >Image
                             <!-- <span class="img-info">(File size must be at least 500*900px) </span> -->
@@ -40,12 +44,7 @@
                     <div class="p-col-12 p-mb-2 p-lg-2 p-mb-lg-0 p-field" style="display: block; text-align: center">
                         <div style="color: gray; font-size: 13px; padding-bottom: 10px"><span>(Acceptable file types "jpg", "png", "jpeg", "gif")</span></div>
 
-                        <img :src="'http://dvcon-admin-nodejs.dvconsulting.org:4545' + fileName" :alt="fileName" class="product-image" />
-                    </div>
-
-                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
-                        <label for="state2">Type</label>
-                        <Dropdown v-model="dropdownValueType" :options="dropdownValueTypes" optionLabel="name" :placeholder="dropdownValueType" />
+                        <img :src="'http://dvcon-admin-nodejs.dvconsulting.org:4545' + fileName1" :alt="fileName1" class="product-image" />
                     </div>
                 </div>
             </div>
@@ -61,12 +60,13 @@
 
 <script>
 // import axios from 'axios';
+
 import BannerService from '../../service/API/BannerService';
 export default {
     name: 'EditBanner',
     data() {
         return {
-            dropdownValues: [{ name: 'Select' }, { name: 'active' }, { name: 'inactive' }],
+            dropdownValues: [{ name: 'active' }, { name: 'inactive' }],
             dropdownValueTypes: [{ name: 'main_banner' }, { name: 'banner_top' }, { name: 'banner_bottom' }],
             dropdownValue: null,
             dropdownValueType: null,
@@ -74,8 +74,10 @@ export default {
             subtitle: null,
             link: null,
             file: null,
+            file1: null,
             image: '',
-            fileName: '',
+            fileName1: '',
+            formData: new FormData(),
         };
     },
     created() {
@@ -90,7 +92,7 @@ export default {
                 this.link = res.data.data[0].link;
                 this.dropdownValueType = res.data.data[0].bannerPostion;
                 this.dropdownValue = res.data.data[0].status;
-                this.fileName = res.data.data[0].bannerImage;
+                this.fileName1 = res.data.data[0].bannerImage;
                 console.log(res.data.data[0].bannerImage);
             })
             .catch((err) => {
@@ -102,10 +104,16 @@ export default {
             var files = e.target.files || e.dataTransfer.files;
             if (!files.length) return;
             this.formData.append('image', files[0]);
-            // this.formData.append('_method', 'PUT');
+            this.file1 = files[0];
             this.file = files[0];
+            this.fileName1 = this.file.name;
             this.fileName = this.file.name;
-            console.log(this.fileName);
+            console.log(this.fileName1);
+            // var output = document.getElementById('output');
+            // output.src = URL.createObjectURL(e.target.files[0]);
+            // output.onload = function () {
+            //     URL.revokeObjectURL(output.src); // free memory
+            // };
         },
         confirm(event) {
             this.$confirm.require({
@@ -114,15 +122,38 @@ export default {
                 message: 'Are you sure you want to proceed?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
+                    console.log(this.formData);
+                    this.formData.append('id', this.$route.params.id);
+                    this.formData.append('title', this.title);
+                    this.formData.append('subtitle', this.subtitle);
+                    this.formData.append('link', this.link);
+                    this.formData.append('status', 'active');
+
+                    // this.formData.append('status', this.dropdownValue?.name);
+                    this.formData.append('type', 'banner_top');
+
+                    // console.log(this.formData);
+                    // return axios
+                    //     .put('banner/edit', this.formData)
+                    //     .then((res) => {
+                    //         console.log(res);
+                    //         alert('Banner Successfully Added');
+                    //         this.$router.push({ name: 'BannerManagement' });
+                    //     })
+                    //     .catch((err) => {
+                    //         console.log(err);
+                    //         alert(err);
+                    //     });
+
                     this.bannerService
-                        .updateBanner(this.$route.params.id, this.title, this.subtitle)
+                        .updateBanner(this.formData)
                         .then((res) => {
                             console.warn(res);
                             this.$router.push({ name: 'BannerManagement' });
                         })
                         .catch((res) => alert(res));
 
-                    this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+                    // this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
                 },
                 reject: () => {
                     this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });

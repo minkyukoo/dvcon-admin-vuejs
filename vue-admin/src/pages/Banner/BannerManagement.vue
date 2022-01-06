@@ -123,14 +123,13 @@
 import { useRoute } from 'vue-router';
 import BannerService from '../../service/API/BannerService';
 import axios from 'axios';
-
 export default {
     data() {
         return {
-            dropdownValues: [{ name: 'active' }, { name: 'inactive' }, { name: 'deleted' }],
-            dropdownValue: null,
-            calendarValue1: null,
-            calendarValue2: null,
+            dropdownValues: [{ name: 'active' }, { name: 'inactive' }],
+            dropdownValue: '',
+            calendarValue1: '',
+            calendarValue2: '',
             isModalVisible: false,
             products: null,
             title: null,
@@ -144,7 +143,6 @@ export default {
     mounted() {
         const route = useRoute();
         console.log(route.params);
-
         this.bannerService
             .getBannerList(this.title, this.dropdownValue, this.calendarValue1, this.calendarValue2)
             .then((data) => {
@@ -157,8 +155,9 @@ export default {
     },
     methods: {
         searchBannner() {
+            console.log(this.dropdownValue?.name);
             this.bannerService
-                .getBannerList(this.title, this.dropdownValue, this.calendarValue1, this.calendarValue2)
+                .getBannerList(this.title, this.dropdownValue?.name, this.calendarValue1, this.calendarValue2)
                 .then((data) => {
                     this.products = data;
                     this.loading1 = false;
@@ -227,7 +226,6 @@ export default {
                     axios({ method: 'delete', url: '/banner/delete', data: { deleteIdArray: id } }).then(function (response) {
                         console.log(response);
                     });
-
                     this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Deleted successfully', life: 3000 });
                 },
                 reject: () => {
@@ -284,33 +282,26 @@ export default {
 ::v-deep(.p-datatable-frozen-tbody) {
     font-weight: bold;
 }
-
 ::v-deep(.p-datatable-scrollable .p-frozen-column) {
     font-weight: bold;
 }
-
 ::v-deep(.p-progressbar) {
     height: 0.5rem;
     background-color: #d8dadc;
-
     .p-progressbar-value {
         background-color: #607d8b;
     }
 }
-
 ::v-deep(.p-datatable .p-sortable-column .p-column-title) {
     display: block;
 }
-
 .p-datatable .p-column-filter {
     display: none;
 }
-
 .table-header {
     display: flex;
     justify-content: space-between;
 }
-
 .customer-badge {
     border-radius: 2px;
     padding: 0.25em 0.5rem;
@@ -318,58 +309,47 @@ export default {
     font-weight: 700;
     font-size: 12px;
     letter-spacing: 0.3px;
-
     &.status-qualified {
         background: #c8e6c9;
         color: #256029;
     }
-
     &.status-unqualified {
         background: #ffcdd2;
         color: #c63737;
     }
-
     &.status-negotiation {
         background: #feedaf;
         color: #8a5340;
     }
-
     &.status-new {
         background: #b3e5fc;
         color: #23547b;
     }
-
     &.status-renewal {
         background: #eccfff;
         color: #694382;
     }
-
     &.status-proposal {
         background: #ffd8b2;
         color: #805b36;
     }
 }
-
 .p-progressbar-value.ui-widget-header {
     background: #607d8b;
 }
-
 @media (max-width: 640px) {
     .p-progressbar {
         margin-top: 0.5rem;
     }
 }
-
 .product-image {
     width: 100px;
     height: 100px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-
 .orders-subtable {
     padding: 1rem;
 }
-
 .product-badge {
     border-radius: 2px;
     padding: 0.25em 0.5rem;
@@ -377,23 +357,19 @@ export default {
     font-weight: 700;
     font-size: 12px;
     letter-spacing: 0.3px;
-
     &.status-instock {
         background: #c8e6c9;
         color: #256029;
     }
-
     &.status-outofstock {
         background: #ffcdd2;
         color: #c63737;
     }
-
     &.status-lowstock {
         background: #feedaf;
         color: #8a5340;
     }
 }
-
 .order-badge {
     border-radius: 2px;
     padding: 0.25em 0.5rem;
@@ -401,22 +377,18 @@ export default {
     font-weight: 700;
     font-size: 12px;
     letter-spacing: 0.3px;
-
     &.order-delivered {
         background: #c8e6c9;
         color: #256029;
     }
-
     &.order-cancelled {
         background: #ffcdd2;
         color: #c63737;
     }
-
     &.order-pending {
         background: #feedaf;
         color: #8a5340;
     }
-
     &.order-returned {
         background: #eccfff;
         color: #694382;
@@ -432,15 +404,12 @@ export default {
         }
     }
 }
-
 .true-icon {
     color: #256029;
 }
-
 .false-icon {
     color: #c63737;
 }
-
 .w-100 {
     width: 100%;
 }

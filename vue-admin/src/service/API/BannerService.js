@@ -7,22 +7,18 @@ export default class BannerService {
                 status: stat,
                 startDate: sdate,
                 endDate: edate,
+                sortBy: 'id',
+                sortOrder: 'desc',
             })
             .then((res) => res.data.data.banners);
     }
     async viewBanner(ids) {
         return await axios.post(`/banner/id`, { id: ids }).then((res) => res);
     }
-    async updateBanner(ids, titlee, stitlee) {
-        return await axios
-            .put(`/banner/edit`, {
-                id: ids,
-                title: titlee,
-                subtitle: stitlee,
-            })
-            .then((res) => res);
+    async updateBanner(formdata) {
+        return await axios.put(`/banner/edit`, formdata).then((res) => res);
     }
-    async addBanner(name, mobile, email, gender, pass, confirm_pass) {
-        return await axios.post(`/user/add`, { name: name, mobile: mobile, email: email, gender: gender, password: pass, confirm_password: confirm_pass }).then((res) => res.data.data[0]);
-    }
+    // async createBanner(titl, subtit, lnk, stat, typ, img) {
+    //     return await axios.post(`/banner/add`, { title: titl, subtitle: subtit, link: lnk, status: stat, type: typ, image: img }).then((res) => res.data.data[0]);
+    // }
 }
