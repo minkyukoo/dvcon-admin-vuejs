@@ -1,25 +1,26 @@
 <template>
-    <div class="p-col-12 p-pb-0">
-        <Button @click="$router.go(-1)" label="Go Back" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
-    </div>
-    <div class="card">
-        <div class="p-grid p-fluid">
-            <div class="p-col-12">
-                <h5>Correction</h5>
-                <div class="p-grid p-formgrid p-mb-3">
-                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
+    <div class="p-grid">
+        <Toast />
+        <div class="p-col-12 p-pb-0">
+            <Button @click="$router.go(-1)" label="Go Back" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
+        </div>
+        <div class="p-col-12">
+            <div class="card p-fluid">
+                <h4><strong>Correction</strong></h4>
+                <div class="p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-3">
                         <label for="title2">Title</label>
                         <InputText type="text" placeholder="Title" :modelValue="title" id="title2" v-model="title"></InputText>
                     </div>
-                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
+                    <div class="p-field p-col-12 p-md-3">
                         <label for="subtitle2">Subtitle</label>
                         <InputText type="text" placeholder="Subtitle" :modelValue="subtitle" id="subtitle2" v-model="subtitle"></InputText>
                     </div>
-                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
+                    <div class="p-field p-col-12 p-md-3">
                         <label for="state2">state</label>
                         <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" :placeholder="dropdownValue" />
                     </div>
-                    <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
+                    <div class="p-field p-col-12 p-md-3">
                         <label for="title2">Link</label>
                         <InputText type="text" :modelValue="link" placeholder="link" id="title2" v-model="link"></InputText>
                     </div>
@@ -41,18 +42,19 @@
                             <Button label="Select File" class="SelectBtn" />
                         </div>
                     </div>
-                    <div class="p-col-12 p-mb-2 p-lg-2 p-mb-lg-0 p-field" style="display: block; text-align: center">
-                        <div style="color: gray; font-size: 13px; padding-bottom: 10px"><span>(Acceptable file types "jpg", "png", "jpeg", "gif")</span></div>
+                    <div class="p-field p-col-12 p-md-3" style="display: block; text-align: center">
+                        <div style="color: gray; font-size: 13px; padding-bottom: 10px">
+                            <span>(Acceptable file types "jpg", "png", "jpeg", "gif")</span>
+                        </div>
 
                         <img :src="'http://dvcon-admin-nodejs.dvconsulting.org:4545' + fileName1" :alt="fileName1" class="product-image" />
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="p-d-flex p-jc-end p-ai-center">
-            <ConfirmPopup group="popup"></ConfirmPopup>
-            <div>
-                <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="confirm($event)"></Button>
+                <div class="p-d-flex p-jc-end">
+                    <ConfirmPopup group="popup"></ConfirmPopup>
+                    <Button @click="cancel" icon="pi pi-times" label="Cancel" class="w-auto p-mr-2"></Button>
+                    <Button ref="popup" @click="confirm($event)" label="confirm" icon="pi pi-check" class="p-mr-2"></Button>
+                </div>
             </div>
         </div>
     </div>
@@ -115,6 +117,12 @@ export default {
             //     URL.revokeObjectURL(output.src); // free memory
             // };
         },
+        cancel() {
+            this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+            setTimeout(() => {
+                this.$router.go(-1);
+            }, 2000);
+        },
         confirm(event) {
             this.$confirm.require({
                 target: event.currentTarget,
@@ -131,6 +139,7 @@ export default {
 
                     // this.formData.append('status', this.dropdownValue?.name);
                     this.formData.append('type', 'banner_top');
+                    
 
                     // console.log(this.formData);
                     // return axios
@@ -165,6 +174,9 @@ export default {
 </script>
 
 <style scoped>
+.p-fluid .p-button {
+    width: auto;
+}
 .img-info {
     font-size: 11px;
     font-weight: 400;
