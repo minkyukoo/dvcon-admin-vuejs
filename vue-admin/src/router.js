@@ -85,11 +85,21 @@ const routes = [
     },
     {
         path: '/notice',
-        name: 'NoticePage',
-        component: () => import('./pages/Notice.vue'),
+        name: 'NoticeList',
+        component: () => import('./pages/notice/NoticeList.vue'),
         beforeEnter: guard,
         meta: {
             breadcrumb: [{ parent: 'Pages', label: 'NoticePage' }],
+        },
+    },
+    {
+        path: '/add-notice',
+        name: 'Addnotice',
+        exact: true,
+        component: () => import('./pages/notice/AddNotice.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'Notice', label: 'Add Notice' }],
         },
     },
     {

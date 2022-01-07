@@ -139,7 +139,6 @@ export default {
 
                     // this.formData.append('status', this.dropdownValue?.name);
                     this.formData.append('type', 'banner_top');
-                    
 
                     // console.log(this.formData);
                     // return axios

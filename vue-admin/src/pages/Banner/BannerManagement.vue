@@ -64,12 +64,13 @@
                         <template #empty> No customers found. </template>
                         <template #loading> Loading customers data. Please wait. </template>
 
-                        <Column field="Number" header="Number" style="min-width: 3rem">
+                        <!-- <Column field="Number" header="Number" style="min-width: 3rem">
                             <template #body="{ data }">
                                 <span class="p-column-title">Number</span>
-                                {{ data.id }}
+                                {{ data.length }}
                             </template>
-                        </Column>
+                        </Column> -->
+
                         <Column field="Title" header="Title" style="min-width: 12rem">
                             <template #body="{ data }">
                                 <span class="p-column-title">Title</span>
@@ -86,6 +87,16 @@
                             <template #body="{ data }">
                                 <span class="p-column-title">Type</span>
                                 {{ data.bannerPostion }}
+                            </template>
+                        </Column>
+                        <Column field="Change Order" header="Change Order" style="min-width: 12rem">
+                            <template #body="{ data }">
+                                <span class="p-column-title">Change Order</span>
+                                <p style="display: none">{{ data.status }}</p>
+                                <div style="display: flex">
+                                    <Button label="UP" class="p-button-help p-button-outlined p-mr-2 p-mb-2" @click="up(data.id)" />
+                                    <Button label="Down" class="p-button-help p-button-outlined p-mr-2 p-mb-2" @click="down(data.id)" />
+                                </div>
                             </template>
                         </Column>
                         <Column field="Creation-Date" header="Creation-Date" style="min-width: 12rem">
@@ -108,7 +119,7 @@
                                     <router-link :to="'/edit-banner/' + data.id"
                                         ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link
                                     >
-                                    <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined p-mr-2 p-mb-2" @click="confirm(data.id)(data.id)" />
+                                    <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-button-outlined p-mr-2 p-mb-2" @click="confirm(data.id)" />
                                 </div>
                             </template>
                         </Column>
@@ -127,6 +138,7 @@ export default {
     data() {
         return {
             dropdownValues: [{ name: 'active' }, { name: 'inactive' }],
+            serial: 0,
             dropdownValue: '',
             calendarValue1: '',
             calendarValue2: '',
@@ -154,6 +166,30 @@ export default {
             .catch((err) => console.log(err));
     },
     methods: {
+        up(ids) {
+            axios({ method: 'post', url: '/banner/up', data: { id: ids } }).then(function (response) {
+                console.log(response);
+            });
+            setTimeout(() => {
+                this.bannerService.getBannerList().then((data) => {
+                    this.products = data;
+                    console.log(data);
+                    this.loading1 = false;
+                });
+            }, 500);
+        },
+        down(ids) {
+            axios({ method: 'post', url: '/banner/down', data: { id: ids } }).then(function (response) {
+                console.log(response);
+            });
+            setTimeout(() => {
+                this.bannerService.getBannerList().then((data) => {
+                    this.products = data;
+                    console.log(data);
+                    this.loading1 = false;
+                });
+            }, 500);
+        },
         searchBannner() {
             console.log(this.dropdownValue?.name);
             this.bannerService

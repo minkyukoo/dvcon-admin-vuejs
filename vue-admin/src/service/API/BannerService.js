@@ -7,8 +7,8 @@ export default class BannerService {
                 status: stat,
                 startDate: sdate,
                 endDate: edate,
-                sortBy: 'id',
-                sortOrder: 'desc',
+                // sortBy: 'id',
+                // sortOrder: 'desc',
             })
             .then((res) => res.data.data.banners);
     }
