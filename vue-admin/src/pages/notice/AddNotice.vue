@@ -20,22 +20,22 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="p-col-12">
-                    <span class="p-float-label">
-                        <Textarea inputId="textarea" rows="5" cols="30" v-model="value12"></Textarea>
-                        <label for="textarea">Write Your Comment...</label>
-                    </span>
-                </div> -->
                 <div class="p-col-12">
                     <span class="p-float-label">
-                        <QuillEditor theme="snow" toolbar="essential" />
+                        <Textarea inputId="textarea" rows="5" cols="30" v-model="desc"></Textarea>
+                        <label for="textarea">Write Your Comment...</label>
+                    </span>
+                </div>
+                <div class="p-col-12">
+                    <span class="p-float-label">
+                        <Quill-Editor v-model="content" ref="myQuillEditor" :options="editorOption" />
                     </span>
                 </div>
             </div>
             <div class="p-d-flex p-jc-end p-ai-center">
                 <div>
                     <Button label="reset" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reinitialize"> </Button>
-                    <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="addBanner"></Button>
+                    <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="addnotice"></Button>
                 </div>
             </div>
         </form>
@@ -43,17 +43,30 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { QuillEditor } from '@vueup/vue-quill';
+import NoticeService from '../../service/API/NoticeService';
+// import axios from 'axios';
 export default {
     name: 'CreateBanner',
     // props: ['dog', 'image'],
+    components: {
+        QuillEditor,
+    },
     data() {
         return {
-            dropdownValues: [{ name: 'active' }, { name: 'inactive' }],
+            editorOption: {
+                content: '',
+                debug: 'info',
+                placeholder: 'Type your comment....',
+                readonly: true,
+                theme: 'snow',
+            },
+            dropdownValues: [{ name: 'open' }, { name: 'close' }],
             dropdownValueTypes: [{ name: 'main_banner' }, { name: 'banner_top' }, { name: 'banner_bottom' }],
             dropdownValue: null,
             dropdownValueType: null,
             title: null,
+            desc: null,
             subtitle: null,
             link: null,
             file: null,
@@ -62,38 +75,20 @@ export default {
             formData: new FormData(),
         };
     },
+    created() {
+        this.noticeService = new NoticeService();
+    },
+    watch: {
+        content(val) {
+            console.log(val);
+        },
+    },
     methods: {
-        reinitialize() {
-            (this.dropdownValue = null), (this.dropdownValueType = null), (this.title = null), (this.subtitle = null), (this.link = null), (this.fileName = null), (this.file = {});
-        },
-        onFileChange(e) {
-            var files = e.target.files || e.dataTransfer.files;
-            if (!files.length) return;
-            this.formData.append('image', files[0]);
-            this.file = files[0];
-            this.fileName = this.file.name;
-            console.log(this.fileName);
-        },
-        addBanner() {
-            console.log(this.file);
-            this.formData.append('title', this.title);
-            this.formData.append('subtitle', this.subtitle);
-            this.formData.append('link', this.link);
-            this.formData.append('status', this.dropdownValue?.name);
-            this.formData.append('type', this.dropdownValueType?.name);
-            console.log(this.formData);
-            return axios
-                .post('/banner/add', this.formData)
-                .then((res) => {
-                    this.$router.push({ name: 'User' });
-                    console.log(res);
-                    alert('Banner Successfully Added');
-                    this.$router.push({ name: 'BannerManagement' });
-                })
-                .catch((err) => {
-                    console.log(err);
-                    alert(err);
-                });
+        addnotice() {
+            this.noticeService.addNotice(this.title, this.desc).then(() => {
+                alert('added succesfully');
+                this.$router.push({ name: 'NoticeList' });
+            });
         },
     },
 };
@@ -134,5 +129,8 @@ export default {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+.ql-editor {
+    height: 200px;
 }
 </style>

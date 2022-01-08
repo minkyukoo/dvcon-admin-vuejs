@@ -70,7 +70,16 @@
                                 {{ data.length }}
                             </template>
                         </Column> -->
-
+                        <Column field="Change Order" header="Change Order" style="min-width: 12rem">
+                            <template #body="{ data }">
+                                <span class="p-column-title">Change Order</span>
+                                <p style="display: none">{{ data.status }}</p>
+                                <div style="display: flex">
+                                    <Button label="UP" class="p-button-help p-button-outlined p-mr-2 p-mb-2" @click="up(data.id)" />
+                                    <Button label="Down" class="p-button-help p-button-outlined p-mr-2 p-mb-2" @click="down(data.id)" />
+                                </div>
+                            </template>
+                        </Column>
                         <Column field="Title" header="Title" style="min-width: 12rem">
                             <template #body="{ data }">
                                 <span class="p-column-title">Title</span>
@@ -89,16 +98,7 @@
                                 {{ data.bannerPostion }}
                             </template>
                         </Column>
-                        <Column field="Change Order" header="Change Order" style="min-width: 12rem">
-                            <template #body="{ data }">
-                                <span class="p-column-title">Change Order</span>
-                                <p style="display: none">{{ data.status }}</p>
-                                <div style="display: flex">
-                                    <Button label="UP" class="p-button-help p-button-outlined p-mr-2 p-mb-2" @click="up(data.id)" />
-                                    <Button label="Down" class="p-button-help p-button-outlined p-mr-2 p-mb-2" @click="down(data.id)" />
-                                </div>
-                            </template>
-                        </Column>
+
                         <Column field="Creation-Date" header="Creation-Date" style="min-width: 12rem">
                             <template #body="{ data }">
                                 <span class="p-column-title">Creation-Date</span>
