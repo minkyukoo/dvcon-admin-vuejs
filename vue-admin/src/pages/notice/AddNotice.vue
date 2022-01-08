@@ -28,7 +28,7 @@
                 </div> -->
                 <div class="p-col-12">
                     <span class="p-float-label">
-                        <QuillEditor theme="snow" toolbar="essential" />
+                        <QuillEditor theme="snow" v-model="xyz" toolbar="essential" />
                     </span>
                 </div>
             </div>
@@ -49,6 +49,7 @@ export default {
     // props: ['dog', 'image'],
     data() {
         return {
+            xyz:'this',
             dropdownValues: [{ name: 'active' }, { name: 'inactive' }],
             dropdownValueTypes: [{ name: 'main_banner' }, { name: 'banner_top' }, { name: 'banner_bottom' }],
             dropdownValue: null,
@@ -63,6 +64,9 @@ export default {
         };
     },
     methods: {
+        abc(){
+            console.log(this.xyz);
+        },
         reinitialize() {
             (this.dropdownValue = null), (this.dropdownValueType = null), (this.title = null), (this.subtitle = null), (this.link = null), (this.fileName = null), (this.file = {});
         },
@@ -75,7 +79,8 @@ export default {
             console.log(this.fileName);
         },
         addBanner() {
-            console.log(this.file);
+            this.abc();
+            // console.log(this.file);
             this.formData.append('title', this.title);
             this.formData.append('subtitle', this.subtitle);
             this.formData.append('link', this.link);

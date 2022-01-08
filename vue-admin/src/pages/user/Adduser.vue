@@ -50,7 +50,7 @@
     </div>
 </template>
 <script>
-import validateAddUser from '../../validations/validateAddUser';
+import validateAddUser from '../../validations/user/validateAddUser';
 import UserService from '../../service/API/UserService';
 export default {
     data() {

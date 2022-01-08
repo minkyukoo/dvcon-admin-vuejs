@@ -42,7 +42,7 @@
     </div>
 </template>
 <script>
-import validateEditUser from '../../validations/validateEditUser';
+import validateEditUser from '../../validations/user/validateEditUser';
 import UserService from '../../service/API/UserService';
 export default {
     data() {
