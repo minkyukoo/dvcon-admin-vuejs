@@ -26,6 +26,11 @@
                         <label for="textarea">Write Your Comment...</label>
                     </span>
                 </div>
+                <div class="p-col-12">
+                    <span class="p-float-label">
+                        <QuillEditor theme="snow" toolbar="essential" />
+                    </span>
+                </div>
             </div>
             <div class="p-d-flex p-jc-end p-ai-center">
                 <div>

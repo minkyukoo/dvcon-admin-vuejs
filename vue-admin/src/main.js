@@ -87,11 +87,10 @@ import Tree from 'primevue/tree';
 import TreeSelect from 'primevue/treeselect';
 import TreeTable from 'primevue/treetable';
 import TriStateCheckbox from 'primevue/tristatecheckbox';
-
 import CodeHighlight from './AppCodeHighlight';
-
 import i18n from './config/i18n';
-
+import { QuillEditor } from '@vueup/vue-quill';
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
 import 'prismjs/themes/prism-coy.css';
@@ -125,6 +124,7 @@ app.directive('ripple', Ripple);
 app.directive('code', CodeHighlight);
 app.directive('badge', BadgeDirective);
 
+app.component('QuillEditor', QuillEditor);
 app.component('Accordion', Accordion);
 app.component('AccordionTab', AccordionTab);
 app.component('AutoComplete', AutoComplete);
