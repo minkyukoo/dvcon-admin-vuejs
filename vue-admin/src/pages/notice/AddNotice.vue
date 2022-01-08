@@ -1,6 +1,11 @@
 <template>
     <div class="p-col-12 p-pb-0">
-        <Button @click="$router.go(-1)" label="Go Back" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
+        <Button
+            @click="$router.go(-1)"
+            label="Go Back"
+            icon="pi pi-angle-left"
+            class="p-button-text p-mr-2 p-mb-2"
+        />
     </div>
     <div class="card">
         <Toast />
@@ -16,7 +21,12 @@
 
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="state2">state</label>
-                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
+                            <Dropdown
+                                v-model="dropdownValue"
+                                :options="dropdownValues"
+                                optionLabel="name"
+                                placeholder="Select"
+                            />
                         </div>
                     </div>
                 </div>
@@ -25,17 +35,35 @@
                         <Textarea inputId="textarea" rows="5" cols="30" v-model="value12"></Textarea>
                         <label for="textarea">Write Your Comment...</label>
                     </span>
-                </div> -->
+                </div>-->
                 <div class="p-col-12">
                     <span class="p-float-label">
-                        <QuillEditor theme="snow" v-model="xyz" toolbar="essential" />
+                        <QuillEditor
+                            id="quill"
+                            theme="snow"
+                            v-model="xyz"
+                            toolbar="essential"
+                            @change="onEditorChange($event)"
+                        />
                     </span>
                 </div>
             </div>
             <div class="p-d-flex p-jc-end p-ai-center">
                 <div>
-                    <Button label="reset" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reinitialize"> </Button>
-                    <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="addBanner"></Button>
+                    <Button
+                        label="reset"
+                        icon="pi pi-replay"
+                        iconPos="left"
+                        class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"
+                        v-on:click="reinitialize"
+                    ></Button>
+                    <Button
+                        label="confirm"
+                        icon="pi pi-save"
+                        iconPos="left"
+                        class="p-button p-button-sm p-mr-2 p-mb-2"
+                        @click="addBanner"
+                    ></Button>
                 </div>
             </div>
         </form>
@@ -49,7 +77,6 @@ export default {
     // props: ['dog', 'image'],
     data() {
         return {
-            xyz:'this',
             dropdownValues: [{ name: 'active' }, { name: 'inactive' }],
             dropdownValueTypes: [{ name: 'main_banner' }, { name: 'banner_top' }, { name: 'banner_bottom' }],
             dropdownValue: null,
@@ -64,8 +91,8 @@ export default {
         };
     },
     methods: {
-        abc(){
-            console.log(this.xyz);
+        onEditorChange ({ quill, html, text }) {
+            console.log('editor change!', quill, html, text)
         },
         reinitialize() {
             (this.dropdownValue = null), (this.dropdownValueType = null), (this.title = null), (this.subtitle = null), (this.link = null), (this.fileName = null), (this.file = {});
@@ -79,7 +106,6 @@ export default {
             console.log(this.fileName);
         },
         addBanner() {
-            this.abc();
             // console.log(this.file);
             this.formData.append('title', this.title);
             this.formData.append('subtitle', this.subtitle);
