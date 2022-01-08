@@ -54,7 +54,7 @@ export default {
     },
     data() {
         return {
-            content: 'oyiugergeh',
+            content: '',
             editorOption: {
                 debug: 'info',
                 placeholder: 'Type your comment....',
