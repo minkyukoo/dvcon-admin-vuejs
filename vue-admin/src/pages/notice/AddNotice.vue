@@ -1,11 +1,6 @@
 <template>
     <div class="p-col-12 p-pb-0">
-        <Button
-            @click="$router.go(-1)"
-            label="Go Back"
-            icon="pi pi-angle-left"
-            class="p-button-text p-mr-2 p-mb-2"
-        />
+        <Button @click="$router.go(-1)" label="Go Back" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
     </div>
     <div class="card">
         <Toast />
@@ -21,24 +16,19 @@
 
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="state2">state</label>
-                            <Dropdown
-                                v-model="dropdownValue"
-                                :options="dropdownValues"
-                                optionLabel="name"
-                                placeholder="Select"
-                            />
+                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
                         </div>
                     </div>
                 </div>
-                <div class="p-col-12">
+                <!-- <div class="p-col-12">
                     <span class="p-float-label">
                         <Textarea inputId="textarea" rows="5" cols="30" v-model="desc"></Textarea>
                         <label for="textarea">Write Your Comment...</label>
                     </span>
-                </div>
+                </div> -->
                 <div class="p-col-12">
                     <span class="p-float-label">
-                        <Quill-Editor style="height: 200px" v-model="content" ref="myQuillEditor" :options="editorOption" />
+                        <Quill-Editor style="height: 200px" v-model:content="modelname" ref="myQuillEditor" :options="editorOption" />
                     </span>
                 </div>
             </div>
@@ -58,15 +48,19 @@ import NoticeService from '../../service/API/NoticeService';
 // import axios from 'axios';
 export default {
     name: 'CreateBanner',
-    // props: ['dog', 'image'],
     components: {
         QuillEditor,
     },
     data() {
         return {
-            content: '',
+            modelname: '',
             editorOption: {
-                debug: 'info',
+                // debug: 'info',
+                // modules: {
+                //     toolbar: 'essential',
+                // },
+                toolbar: 'essential',
+                contentType: 'text',
                 placeholder: 'Type your comment....',
                 readonly: true,
                 theme: 'snow',
@@ -76,7 +70,7 @@ export default {
             dropdownValue: null,
             dropdownValueType: null,
             title: null,
-            desc: null,
+            // desc: null,
             subtitle: null,
             link: null,
             file: null,
@@ -91,13 +85,11 @@ export default {
 
     methods: {
         addnotice() {
-            alert(this.myQuillEditor.root.innerHTML);
-            this.noticeService.addNotice(this.title, this.desc).then(() => {
-                // alert('added succesfully');
-                // this.$router.push({ name: 'NoticeList' });
+            console.log(this.modelname);
+            this.noticeService.addNotice(this.title, this.modelname).then(() => {
+                this.$router.push({ name: 'NoticeList' });
             });
         },
-        getHTML() {},
     },
 };
 </script>

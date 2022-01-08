@@ -123,8 +123,6 @@ export default {
             this.file = files[0];
             this.fileName = this.file.name;
             this.fileExtension = this.fileName.replace(/^.*\./, '');
-
-            
             console.log(this.fileName);
         },
         addBanner() {

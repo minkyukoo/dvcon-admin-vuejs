@@ -133,7 +133,7 @@
 
 <script>
 import { useRoute } from 'vue-router';
-// import validateUsersearch from '../../validations/validateUserSearch';
+// import validateUsersearch from '../../validations/user/validateUserSearch';
 // import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import UserService from '../../service/API/UserService';
 import axios from 'axios';
