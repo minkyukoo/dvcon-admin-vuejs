@@ -1,6 +1,11 @@
 <template>
     <div class="p-col-12 p-pb-0">
-        <Button @click="$router.go(-1)" label="Go Back" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
+        <Button
+            @click="$router.go(-1)"
+            label="Go Back"
+            icon="pi pi-angle-left"
+            class="p-button-text p-mr-2 p-mb-2"
+        />
     </div>
     <div class="card">
         <Toast />
@@ -16,7 +21,12 @@
 
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="state2">state</label>
-                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
+                            <Dropdown
+                                v-model="dropdownValue"
+                                :options="dropdownValues"
+                                optionLabel="name"
+                                placeholder="Select"
+                            />
                         </div>
                     </div>
                 </div>
