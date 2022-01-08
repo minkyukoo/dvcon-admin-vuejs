@@ -104,7 +104,7 @@
                             <span class="p-column-title">Management</span>
                             <p style="display: none">{{ data.status }}</p>
                             <div style="display: flex">
-                                <router-link :to="'/user/edit-user/' + data.id"
+                                <router-link :to="'/edit-notice/' + data.id"
                                     ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> {{ $t('button.edit') }}</Button></router-link
                                 >
                                 <Button :label="$t('button.delete')" icon="pi pi-trash" class="p-button-danger p-button-outlined p-mr-2 p-mb-2" @click="confirm(data.id)" />

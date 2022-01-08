@@ -28,7 +28,7 @@
                 </div>
                 <div class="p-col-12">
                     <span class="p-float-label">
-                        <Quill-Editor v-model="content" ref="myQuillEditor" :options="editorOption" />
+                        <Quill-Editor style="height: 200px" v-model="content" ref="myQuillEditor" :options="editorOption" />
                     </span>
                 </div>
             </div>
@@ -54,8 +54,8 @@ export default {
     },
     data() {
         return {
+            content: 'oyiugergeh',
             editorOption: {
-                content: '',
                 debug: 'info',
                 placeholder: 'Type your comment....',
                 readonly: true,
@@ -78,18 +78,16 @@ export default {
     created() {
         this.noticeService = new NoticeService();
     },
-    watch: {
-        content(val) {
-            console.log(val);
-        },
-    },
+
     methods: {
         addnotice() {
+            alert(this.myQuillEditor.root.innerHTML);
             this.noticeService.addNotice(this.title, this.desc).then(() => {
-                alert('added succesfully');
-                this.$router.push({ name: 'NoticeList' });
+                // alert('added succesfully');
+                // this.$router.push({ name: 'NoticeList' });
             });
         },
+        getHTML() {},
     },
 };
 </script>

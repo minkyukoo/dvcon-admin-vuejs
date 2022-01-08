@@ -74,6 +74,16 @@ const routes = [
         },
     },
     {
+        path: '/edit-notice/:id',
+        name: 'editNotice',
+        exact: true,
+        component: () => import('./pages/notice/EditNotice.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'Notice', label: 'Edit Notice' }],
+        },
+    },
+    {
         path: '/user/edit-user/:id',
         name: 'UpdateUser',
         exact: true,

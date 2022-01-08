@@ -18,4 +18,12 @@ export default class NoticeService {
             })
             .then((res) => res);
     }
+    async viewNotice(ids) {
+        return await axios
+            .post(`/notice/add`, {
+                id: ids,
+                
+            })
+            .then((res) => res);
+    }
 }
