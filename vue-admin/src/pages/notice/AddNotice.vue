@@ -20,12 +20,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-col-12">
+                <!-- <div class="p-col-12">
                     <span class="p-float-label">
                         <Textarea inputId="textarea" rows="5" cols="30" v-model="value12"></Textarea>
                         <label for="textarea">Write Your Comment...</label>
                     </span>
-                </div>
+                </div> -->
                 <div class="p-col-12">
                     <span class="p-float-label">
                         <QuillEditor theme="snow" toolbar="essential" />
