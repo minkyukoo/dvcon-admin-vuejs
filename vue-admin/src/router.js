@@ -113,6 +113,16 @@ const routes = [
         },
     },
     {
+        path: '/view-notice/:id',
+        name: 'ViewNotice',
+        exact: true,
+        component: () => import('./pages/notice/ViewNotice.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'Notice', label: 'View Notice' }],
+        },
+    },
+    {
         path: '/query',
         name: 'Query',
         exact: true,

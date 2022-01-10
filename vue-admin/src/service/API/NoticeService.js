@@ -20,10 +20,9 @@ export default class NoticeService {
     }
     async viewNotice(ids) {
         return await axios
-            .post(`/notice/add`, {
+            .post(`/notice/id`, {
                 id: ids,
-                
             })
-            .then((res) => res);
+            .then((res) => res.data.data[0]);
     }
 }

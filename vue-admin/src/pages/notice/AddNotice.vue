@@ -28,7 +28,7 @@
                 </div> -->
                 <div class="p-col-12">
                     <span class="p-float-label">
-                        <Quill-Editor style="height: 200px" v-model:content="modelname" ref="myQuillEditor" :options="editorOption" />
+                        <Quill-Editor style="height: 200px" v-model:content="modelname" ref="myQuillEditor" :options="editorOption" contentType="html" />
                     </span>
                 </div>
             </div>
