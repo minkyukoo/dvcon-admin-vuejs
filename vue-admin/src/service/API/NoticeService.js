@@ -25,4 +25,13 @@ export default class NoticeService {
             })
             .then((res) => res.data.data[0]);
     }
+    async editNotice(titl, desc, ids) {
+        return await axios
+            .put(`/notice/edit`, {
+                title: titl,
+                description: desc,
+                id: ids,
+            })
+            .then((res) => res);
+    }
 }
