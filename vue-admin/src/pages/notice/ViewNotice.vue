@@ -28,7 +28,7 @@
                         <strong>
                             <label for="description">Description:</label>
                         </strong>
-                        <div class="renderHtml designi" v-html="mydata.desc"></div>
+                        <div class="renderHtml" v-html="mydata.desc"></div>
                     </div>
                 </div>
 
@@ -78,7 +78,7 @@ export default {
                 accept: () => {
                     axios({ method: 'delete', url: `/user/delete`, data: { deleteIdArray: id } }).then((res) => {
                         console.warn(res);
-                        this.$router.push({ name: 'User' });
+                        this.$router.push({ name: 'NoticeList' });
                     });
 
                     this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Deleted successfully', life: 3000 });
@@ -104,7 +104,7 @@ export default {
 .p-fluid .p-button {
     width: auto;
 }
-.designi {
+.renderHtml {
     background-color: #fcfcfc;
     padding: 25px;
     border: 1px solid rgba(70, 77, 242, 0.2);
