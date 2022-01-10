@@ -309,7 +309,7 @@ export default {
                 message: 'Are you sure you want to delete?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    axios({ method: 'delete', url: '/notice/delete', data: { deleteIdArray: id } }).then(function (response) {
+                    axios({ method: 'delete', url: '/faq/delete', data: { deleteIdArray: id } }).then(function (response) {
                         console.log(response);
                     });
 
@@ -320,7 +320,7 @@ export default {
                 },
             });
             setTimeout(() => {
-                this.noticeService.getNoticeList(this.title, this.status, this.startdate, this.enddate).then((data) => {
+                this.faqService.getFaqList().then((data) => {
                     this.customer1 = data;
                     this.loading1 = false;
                     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
