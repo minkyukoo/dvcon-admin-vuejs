@@ -2,24 +2,37 @@
     <ConfirmDialog group="dialog" />
     <div class="p-grid">
         <div class="p-col-12 p-pb-0">
-            <Button @click="$router.go(-1)" label="Go Back" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
+            <Button
+                @click="$router.go(-1)"
+                label="Go Back"
+                icon="pi pi-angle-left"
+                class="p-button-text p-mr-2 p-mb-2"
+            />
         </div>
         <div class="p-col-12">
             <div class="card p-fluid">
-                <h4><strong>More Information</strong></h4>
+                <h4>
+                    <strong>More Information</strong>
+                </h4>
                 <div class="p-formgrid p-grid">
                     <div class="p-field p-col">
-                        <strong> <label for="title">Title:</label></strong>
+                        <strong>
+                            <label for="title">Title:</label>
+                        </strong>
                         <p>{{ mydata.title }}</p>
                     </div>
                     <div class="p-field p-col">
-                        <strong><label for="status">Status:</label></strong>
+                        <strong>
+                            <label for="status">Status:</label>
+                        </strong>
                         <p>{{ mydata.status }}</p>
                     </div>
                 </div>
                 <div class="p-formgrid p-grid">
                     <div class="p-field p-col">
-                        <strong><label for="description">Description:</label></strong>
+                        <strong>
+                            <label for="description">Description:</label>
+                        </strong>
                         <div class="renderHtml designi" v-html="mydata.desc"></div>
                     </div>
                 </div>
@@ -27,11 +40,19 @@
                 <div class="p-d-flex p-jc-end">
                     <!-- <router-link to="/view-user"
                         ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2" disabled><i class="pi pi-eye p-mr-2"></i>point</Button>
-                    </router-link> -->
-                    <router-link :to="'/edit-notice/' + $route.params.id"
-                        ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> Edit</Button></router-link
+                    </router-link>-->
+                    <router-link :to="'/edit-notice/' + $route.params.id">
+                        <Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2">
+                            <i class="pi pi-user-edit p-mr-2"></i> Edit
+                        </Button>
+                    </router-link>
+                    <Button
+                        @click="del($route.params.id)"
+                        label="delete"
+                        class="p-button-outlined p-button-danger p-mr-2 p-mb-2"
                     >
-                    <Button @click="del($route.params.id)" label="delete" class="p-button-outlined p-button-danger p-mr-2 p-mb-2"><i class="pi pi-trash p-mr-2"></i> delete</Button>
+                        <i class="pi pi-trash p-mr-2"></i> delete
+                    </Button>
                 </div>
             </div>
         </div>
@@ -95,12 +116,11 @@ export default {
 .p-fluid .p-button {
     width: auto;
 }
-.designi{
-background-color: #e1e2f3;
+.designi {
+    background-color: #fcfcfc;
     padding: 25px;
-    border: 1px solid lightgray;
+    border: 1px solid rgba(70, 77, 242, 0.2);
     border-radius: 5px;
     margin-top: 15px;
 }
-
 </style>

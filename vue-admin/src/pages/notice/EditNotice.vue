@@ -29,8 +29,8 @@
             <div class="p-d-flex p-jc-end p-ai-center">
                 <div>
                     <ConfirmPopup group="popup"></ConfirmPopup>
-                    <Button label="cancel" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reinitialize"> </Button>
-                    <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="confirm($event)"></Button>
+                    <Button label="cancel" icon="pi pi-times" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="cancel"> </Button>
+                    <Button label="confirm" icon="pi pi-check" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="confirm($event)"></Button>
                 </div>
             </div>
         </form>
