@@ -20,7 +20,7 @@
                 <div class="p-formgrid p-grid">
                     <div class="p-field p-col">
                         <strong><label for="description">Description:</label></strong>
-                        <div>{{ libText(mydata.desc) }}</div>
+                        <div class="renderHtml" v-html="mydata.desc" ></div>
                     </div>
                 </div>
 
@@ -55,7 +55,6 @@ export default {
                 desc: '',
                 status: '',
             },
-            storedesc: null,
         };
     },
     created() {
@@ -80,18 +79,6 @@ export default {
                     this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
                 },
             });
-        },
-        stringToHTML(str) {
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(str, 'text/html');
-            return doc.body;
-        },
-        libText(vall) {
-            var str = vall;
-            var div = document.createElement('div');
-            div.innerHTML = str;
-            console.log(div);
-            return div;
         },
     },
     mounted() {
