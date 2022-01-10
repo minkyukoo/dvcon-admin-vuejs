@@ -43,8 +43,8 @@
                         <div class="text-red">{{ error.calendarValue1 }}</div>
                     </div>
                 </div>
-                <div class="p-d-flex p-jc-between p-ai-center p-mt-6">
-                    <div class="">
+                <div class="p-d-flex p-jc-between p-ai-lg-center p-ai-start p-mt-6 p-flex-column p-flex-lg-row">
+                    <div class="p-mb-4 p-mb-lg-0">
                         <Button :label="$t('button.today')" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="today"></Button>
                         <Button :label="$t('button.lastWeek')" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastweek"></Button>
                         <Button :label="$t('button.lastMonth')" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastmonth"></Button>
