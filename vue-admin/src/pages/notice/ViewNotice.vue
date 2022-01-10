@@ -20,7 +20,7 @@
                 <div class="p-formgrid p-grid">
                     <div class="p-field p-col">
                         <strong><label for="description">Description:</label></strong>
-                        <div class="renderHtml" v-html="mydata.desc" ></div>
+                        <div class="renderHtml designi" v-html="mydata.desc"></div>
                     </div>
                 </div>
 
@@ -95,4 +95,12 @@ export default {
 .p-fluid .p-button {
     width: auto;
 }
+.designi{
+background-color: #e1e2f3;
+    padding: 25px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
 </style>
