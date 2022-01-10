@@ -107,7 +107,7 @@
                                 <router-link :to="'/view-notice/' + data.id"
                                     ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> {{ $t('button.view') }}</Button>
                                 </router-link>
-                                <router-link :to="'/edit-notice/' + data.id"
+                                <router-link @mouseenter="editnotice(data.id)" :to="'/edit-notice/' + data.id"
                                     ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> {{ $t('button.edit') }}</Button></router-link
                                 >
 
@@ -194,6 +194,11 @@ export default {
                 this.calendarValue1 = this.calendarValue1.toISOString().slice(0, 10) + 1;
                 console.log(this.calendarValue1);
             }
+        },
+        editnotice(ids) {
+            this.noticeService.viewNotice(ids).then((res) => {
+                localStorage.setItem('desc', res.description);
+            });
         },
         resetUser() {
             this.title = '';

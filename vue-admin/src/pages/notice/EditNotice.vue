@@ -12,12 +12,11 @@
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="title2">Title</label>
                             <InputText type="text" placeholder="Title" id="title2" v-model="mydata.title"></InputText>
-                            <p>{{ xyz }}</p>
                         </div>
 
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="state2">state</label>
-                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="myadata.status" />
+                            <Dropdown id="state2" v-model="mydata.status" :options="dropdownValues" optionLabel="name" :placeholder="mydata.status" />
                         </div>
                     </div>
                 </div>
@@ -29,7 +28,7 @@
                 </div> -->
                 <div class="p-col-12">
                     <span class="p-float-label">
-                        <Quill-Editor style="height: 230px" v-model:content="xyz" ref="myQuillEditor" :options="editorOption" contentType="html" />
+                        <Quill-Editor enable style="height: 230px" v-model:content="modelname" ref="myQuillEditor" :options="editorOption" contentType="html" />
                     </span>
                 </div>
             </div>
@@ -62,7 +61,7 @@ export default {
             visibleFull: false,
             products: null,
             selectedProduct: null,
-            xyz: '',
+            modelname: localStorage.getItem('desc'),
             mydata: {
                 title: '',
                 status: '',
@@ -129,8 +128,7 @@ export default {
         this.noticeService.viewNotice(this.$route.params.id).then((res) => {
             this.mydata.title = res.title;
             this.mydata.status = res.status;
-            this.xyz = res.description;
-            alert(typeof this.modelname);
+            this.modelname = res.description;
         });
     },
 };
