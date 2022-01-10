@@ -448,7 +448,7 @@ const routes = [
     {
         path: '/faq',
         name: 'Faq',
-        component: () => import('./pages/Faq.vue'),
+        component: () => import('./pages/faq/FaqList.vue'),
         beforeEnter: guard,
         meta: {
             breadcrumb: [{ parent: 'Pages', label: 'Faq' }],
@@ -468,7 +468,7 @@ const routes = [
     {
         path: '/faq/add',
         name: 'Faqadd',
-        component: () => import('./pages/Faqadd.vue'),
+        component: () => import('./pages/faq/AddFaq.vue'),
         beforeEnter: guard,
         meta: {
             breadcrumb: [{ parent: 'Pages', label: 'Faqadd' }],
