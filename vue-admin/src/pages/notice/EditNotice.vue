@@ -11,12 +11,13 @@
                     <div class="p-grid p-formgrid p-mb-3">
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="title2">Title</label>
-                            <InputText type="text" placeholder="Title" id="title2" v-model="title"></InputText>
+                            <InputText type="text" placeholder="Title" id="title2" v-model="mydata.title"></InputText>
+                            <p>{{ xyz }}</p>
                         </div>
 
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="state2">state</label>
-                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
+                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="myadata.status" />
                         </div>
                     </div>
                 </div>
@@ -28,7 +29,7 @@
                 </div> -->
                 <div class="p-col-12">
                     <span class="p-float-label">
-                        <Quill-Editor style="height: 230px" v-model="content" ref="myQuillEditor" :options="editorOption" />
+                        <Quill-Editor style="height: 230px" v-model:content="xyz" ref="myQuillEditor" :options="editorOption" contentType="html" />
                     </span>
                 </div>
             </div>
@@ -43,13 +44,13 @@
 </template>
 <script>
 import validateEditUser from '../../validations/user/validateEditUser';
-import UserService from '../../service/API/UserService';
+import NoticeService from '../../service/API/NoticeService';
 export default {
     data() {
         return {
-            dropdownItems: [
-                { name: 'male', code: 'm' },
-                { name: 'female', code: 'f' },
+            dropdownValues: [
+                { name: 'open', code: 'm' },
+                { name: 'close', code: 'f' },
             ],
             dropdownItem: null,
             display: false,
@@ -61,17 +62,16 @@ export default {
             visibleFull: false,
             products: null,
             selectedProduct: null,
+            xyz: '',
             mydata: {
-                name: '',
-                Email: '',
-                phone: '',
-                gender: '',
+                title: '',
+                status: '',
             },
             error: {},
         };
     },
     created() {
-        this.userService = new UserService();
+        this.noticeService = new NoticeService();
     },
     methods: {
         open() {
@@ -125,20 +125,14 @@ export default {
             });
         },
     },
-    // mounted() {
-    //     this.userService
-    //         .viewUser(this.$route.params.id)
-    //         .then((res) => {
-    //             this.mydata.name = res.data.data[0].name;
-    //             this.mydata.Email = res.data.data[0].email;
-    //             this.mydata.phone = res.data.data[0].mobile;
-    //             this.mydata.gender = res.data.data[0].gender === 'm' ? 'male' : 'female';
-    //             console.log(res.data.data);
-    //         })
-    //         .catch((err) => {
-    //             alert(err);
-    //         });
-    // },
+    mounted() {
+        this.noticeService.viewNotice(this.$route.params.id).then((res) => {
+            this.mydata.title = res.title;
+            this.mydata.status = res.status;
+            this.xyz = res.description;
+            alert(typeof this.modelname);
+        });
+    },
 };
 </script>
 
