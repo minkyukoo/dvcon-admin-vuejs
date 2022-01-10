@@ -2,12 +2,7 @@
     <ConfirmDialog group="dialog" />
     <div class="p-grid">
         <div class="p-col-12 p-pb-0">
-            <Button
-                @click="$router.go(-1)"
-                label="Go Back"
-                icon="pi pi-angle-left"
-                class="p-button-text p-mr-2 p-mb-2"
-            />
+            <Button @click="$router.go(-1)" label="Go Back" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
         </div>
         <div class="p-col-12">
             <div class="card p-fluid">
@@ -42,17 +37,9 @@
                         ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2" disabled><i class="pi pi-eye p-mr-2"></i>point</Button>
                     </router-link>-->
                     <router-link :to="'/edit-notice/' + $route.params.id">
-                        <Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2">
-                            <i class="pi pi-user-edit p-mr-2"></i> Edit
-                        </Button>
+                        <Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"> <i class="pi pi-user-edit p-mr-2"></i> Edit </Button>
                     </router-link>
-                    <Button
-                        @click="del($route.params.id)"
-                        label="delete"
-                        class="p-button-outlined p-button-danger p-mr-2 p-mb-2"
-                    >
-                        <i class="pi pi-trash p-mr-2"></i> delete
-                    </Button>
+                    <Button @click="del($route.params.id)" label="delete" class="p-button-outlined p-button-danger p-mr-2 p-mb-2"> <i class="pi pi-trash p-mr-2"></i> delete </Button>
                 </div>
             </div>
         </div>
@@ -107,6 +94,7 @@ export default {
             this.mydata.title = res.title;
             this.mydata.status = res.status;
             this.mydata.desc = res.description;
+            localStorage.setItem('desc', res.description);
         });
     },
 };
