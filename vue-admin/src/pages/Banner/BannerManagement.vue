@@ -33,8 +33,8 @@
                     <h1>{{ calendarValue2 }}</h1>
                 </div> -->
             </div>
-            <div class="p-d-flex p-jc-between p-ai-center">
-                <div class="">
+            <div class="p-d-flex p-jc-between p-ai-lg-center p-ai-start p-mt-6 p-flex-column p-flex-lg-row">
+                <div class="p-mb-4 p-mb-lg-0">
                     <Button label="today" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="today"></Button>
                     <Button label="last week" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastweek"></Button>
                     <Button label="last month" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastmonth"></Button>
@@ -75,8 +75,8 @@
                                 <span class="p-column-title">Change Order</span>
                                 <p style="display: none">{{ data.status }}</p>
                                 <div style="display: flex">
-                                    <Button label="UP" class="p-button-help p-button-outlined p-mr-2 p-mb-2" @click="up(data.id)" />
-                                    <Button label="Down" class="p-button-help p-button-outlined p-mr-2 p-mb-2" @click="down(data.id)" />
+                                    <Button label="" icon="pi pi-arrow-up" class="p-button-plain p-button-text p-mr-2 p-mb-2" @click="up(data.id)" />
+                                    <Button label="" icon="pi pi-arrow-down" class="p-button-plain p-button-text p-mr-2 p-mb-2" @click="down(data.id)" />
                                 </div>
                             </template>
                         </Column>
