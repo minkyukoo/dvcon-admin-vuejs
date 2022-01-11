@@ -123,13 +123,13 @@ const routes = [
         },
     },
     {
-        path: '/query',
-        name: 'Query',
+        path: '/inquiry',
+        name: 'inquiry',
         exact: true,
-        component: () => import('./components/menu/Query.vue'),
+        component: () => import('./pages/inquery/InquiryList.vue'),
         beforeEnter: guard,
         meta: {
-            breadcrumb: [{ parent: 'Query', label: '1.1 Query' }],
+            breadcrumb: [{ parent: 'Inuery', label: 'inquiry list' }],
         },
     },
     {
