@@ -447,8 +447,8 @@ const routes = [
     },
     {
         path: '/cms',
-        name: 'cms',
-        component: () => import('./pages/Cms.vue'),
+        name: 'Cms',
+        component: () => import('./pages/cms/Cms.vue'),
         beforeEnter: guard,
         meta: {
             breadcrumb: [{ parent: 'Pages', label: 'Cms' }],
