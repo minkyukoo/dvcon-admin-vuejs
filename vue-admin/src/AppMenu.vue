@@ -44,17 +44,16 @@ export default {
                 { label: 'User management', icon: 'pi pi-users', to: '/user' },
                 { label: 'Banner management', icon: 'pi pi-images', to: '/banner-management' },
                 { label: 'FAQ', icon: 'pi pi-question-circle', to: '/faq' },
+                { label: 'Notice', icon: 'pi pi-bell', to: '/notice' },
+                { label: 'CMS', icon: 'pi pi-book', to: '/cms' },
                 {
                     label: 'Inquiry',
                     icon: 'pi pi-inbox',
                     items: [
-                        {label: "Inquiry type", icon: "pi pi-tags", to: "/inquiry-type"},
-                        {label: "1:1 inquiry", icon: "pi pi-comments", to: "/inquiry"},
+                        { label: 'Inquiry type', icon: 'pi pi-tags', to: '/inquiry-type' },
+                        { label: '1:1 inquiry', icon: 'pi pi-comments', to: '/inquiry' },
                     ],
                 },
-                // {label: "1:1 Query", icon: "pi pi-file-o", to: "/query"},
-                { label: 'Notice', icon: 'pi pi-bell', to: '/notice' },
-                { label: 'CMS', icon: 'pi pi-book', to: '/cms' },
                 // onprogress ==> file not ready , when the file ll be ready change the path
                 {
                     label: 'UI Kit',
