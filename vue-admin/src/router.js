@@ -448,7 +448,7 @@ const routes = [
     {
         path: '/faq',
         name: 'Faq',
-        component: () => import('./pages/Faq.vue'),
+        component: () => import('./pages/faq/FaqList.vue'),
         beforeEnter: guard,
         meta: {
             breadcrumb: [{ parent: 'Pages', label: 'Faq' }],
@@ -456,25 +456,34 @@ const routes = [
     },
 
     {
-        path: '/faq/edit',
+        path: '/faq/edit/:id',
         name: 'Faqedit',
-        component: () => import('./pages/Faqedit.vue'),
+        component: () => import('./pages/faq/EditFaq.vue'),
         beforeEnter: guard,
         meta: {
-            breadcrumb: [{ parent: 'Pages', label: 'Faqedit' }],
+            breadcrumb: [{ parent: 'Pages', label: 'EditFaq' }],
         },
     },
 
     {
         path: '/faq/add',
         name: 'Faqadd',
-        component: () => import('./pages/Faqadd.vue'),
+        component: () => import('./pages/faq/AddFaq.vue'),
         beforeEnter: guard,
         meta: {
             breadcrumb: [{ parent: 'Pages', label: 'Faqadd' }],
         },
     },
-
+    {
+        path: '/faq/view/:id',
+        name: 'ViewFaq',
+        exact: true,
+        component: () => import('./pages/faq/ViewFaq.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'Faq', label: 'View Faq' }],
+        },
+    },
     {
         path: '/cms/edit',
         name: 'Cmsedit',
