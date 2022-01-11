@@ -123,10 +123,20 @@ const routes = [
         },
     },
     {
-        path: '/inquiry',
-        name: 'inquiry',
+        path: '/inquiry-type',
+        name: 'InquiryType',
         exact: true,
-        component: () => import('./pages/inquery/InquiryList.vue'),
+        component: () => import('./pages/inquiry/InquiryType.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'Query', label: '1.1 Query' }],
+        },
+    },
+    {
+        path: '/inquiry',
+        name: 'Inquiry',
+        exact: true,
+        component: () => import('./pages/inquiry/Inquiry.vue'),
         beforeEnter: guard,
         meta: {
             breadcrumb: [{ parent: 'Inuery', label: 'inquiry list' }],

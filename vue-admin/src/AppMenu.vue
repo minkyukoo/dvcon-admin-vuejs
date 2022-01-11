@@ -45,11 +45,11 @@ export default {
                 { label: 'Banner management', icon: 'pi pi-images', to: '/banner-management' },
                 { label: 'FAQ', icon: 'pi pi-question-circle', to: '/faq' },
                 {
-                    label: 'Customer center',
-                    icon: 'pi pi-file-o',
+                    label: 'Inquiry',
+                    icon: 'pi pi-inbox',
                     items: [
-                        { label: 'Inquiry type', icon: 'pi pi-file-o', to: '/inquiry' },
-                        { label: '1:1 Query', icon: 'pi pi-file-o', to: '/inquiry' },
+                        {label: "Inquiry type", icon: "pi pi-tags", to: "/inquiry-type"},
+                        {label: "1:1 inquiry", icon: "pi pi-comments", to: "/inquiry"},
                     ],
                 },
                 // {label: "1:1 Query", icon: "pi pi-file-o", to: "/query"},
