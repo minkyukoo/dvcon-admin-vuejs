@@ -91,7 +91,7 @@ export default {
                     this.faqService.editFaq(this.mydata.title, this.mydata.status.code == undefined ? this.mydata.status : this.mydata.status.code, this.modelname, this.$route.params.id).then((res) => {
                         console.warn(res);
                         localStorage.removeItem('desc');
-                        this.$router.push({ name: 'faq' });
+                        this.$router.push({ name: 'Faq' });
                     });
                 },
                 reject: () => {

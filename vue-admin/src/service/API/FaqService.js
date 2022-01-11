@@ -1,13 +1,14 @@
 import axios from 'axios';
 export default class FaqService {
-    async getFaqList() {
+    async getFaqList(sdata, stat, sdate, edate) {
         return await axios
             .post(`/faq`, {
-                title: '',
-                description: '',
-                status: '',
+                searchData: sdata,
+                status: stat,
                 sortBy: 'id',
-                sortOrder: 'asc', //desc
+                sortOrder: 'desc',
+                startDate: sdate,
+                endDate: edate,
             })
             .then((res) => res.data.data.faq);
     }

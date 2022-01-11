@@ -18,14 +18,6 @@
                     </div>
                 </div>
                 <div class="p-formgrid p-grid p-mb-3">
-                    <!-- <div class="p-field p-col">
-                        <label for="state">gender</label>
-                        <Dropdown id="state" v-model="dropdownItem" :options="dropdownItems" optionLabel="name" placeholder="Select One"></Dropdown>
-                    </div> -->
-                    <!-- <div class="p-field p-col-12 p-md-3">
-                        <label for="pass">Password</label>
-                        <InputText id="pass" type="password" placeholder="password" />
-                    </div> -->
                     <div class="p-field p-col-12 p-md-3">
                         <label for="pass">{{ $t('search.label.startDate') }}</label>
                         <Calendar :class="`${error.calendarValue ? 'p-invalid' : ''}`" :showIcon="true" :showButtonBar="true" v-model="startdate" dateFormat="yy.mm.dd" :placeholder="$t('search.placeholder.date')"></Calendar>
@@ -47,7 +39,7 @@
                     </div>
                     <div>
                         <Button :label="$t('button.reset')" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="resetUser"></Button>
-                        <Button :label="$t('button.search')" icon="pi pi-search" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="searchuser"></Button>
+                        <Button :label="$t('button.search')" icon="pi pi-search" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="searchfaq"></Button>
                     </div>
                 </div>
             </div>
@@ -139,7 +131,7 @@ export default {
             visibleTop: false,
             visibleBottom: false,
             visibleFull: false,
-            status: 'open',
+            status: '',
             startdate: '',
             enddate: '',
             customer1: null,
@@ -160,7 +152,7 @@ export default {
     mounted() {
         const route = useRoute();
         console.log(route.params);
-        this.faqService.getFaqList().then((data) => {
+        this.faqService.getFaqList(this.title, this.status, this.startdate, this.enddate).then((data) => {
             this.customer1 = data;
             this.loading1 = false;
             console.log(data);
@@ -193,19 +185,18 @@ export default {
 
         resetUser() {
             this.title = '';
-            this.status = 'open';
+            this.status = '';
             this.error = {};
             this.startdate = '';
             this.enddate = '';
-            this.noticeService.getNoticeList(this.title, this.status, this.startdate, this.enddate).then((data) => {
+            this.faqService.getFaqList(this.title, this.status, this.startdate, this.enddate).then((data) => {
                 this.customer1 = data;
                 this.loading1 = false;
                 this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
             });
         },
-        searchuser() {
-            console.log(this.startdate);
-            this.noticeService.getNoticeList(this.title, this.status?.name == undefined ? 'open' : this.title, this.status?.name, this.startdate, this.enddate).then((data) => {
+        searchfaq() {
+            this.faqService.getFaqList(this.title, this.status.name == undefined ? this.status : this.status.name, this.startdate, this.enddate).then((data) => {
                 this.customer1 = data;
                 this.loading1 = false;
                 this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
@@ -259,23 +250,23 @@ export default {
             this.$refs.op.toggle(event);
         },
 
-        onRowExpand(event) {
-            this.$toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
-        },
-        onRowCollapse(event) {
-            this.$toast.add({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
-        },
-        expandAll() {
-            this.expandedRows = this.products.filter((p) => p.id);
-            this.$toast.add({ severity: 'success', summary: 'All Rows Expanded', life: 3000 });
-        },
-        collapseAll() {
-            this.expandedRows = null;
-            this.$toast.add({ severity: 'success', summary: 'All Rows Collapsed', life: 3000 });
-        },
-        formatCurrency(value) {
-            return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-        },
+        // onRowExpand(event) {
+        //     this.$toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
+        // },
+        // onRowCollapse(event) {
+        //     this.$toast.add({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
+        // },
+        // expandAll() {
+        //     this.expandedRows = this.products.filter((p) => p.id);
+        //     this.$toast.add({ severity: 'success', summary: 'All Rows Expanded', life: 3000 });
+        // },
+        // collapseAll() {
+        //     this.expandedRows = null;
+        //     this.$toast.add({ severity: 'success', summary: 'All Rows Collapsed', life: 3000 });
+        // },
+        // formatCurrency(value) {
+        //     return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        // },
         formatDate(value) {
             // return value.toLocaleDateString('en-US', {
             //     year: 'numeric',
