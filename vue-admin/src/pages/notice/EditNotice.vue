@@ -43,8 +43,8 @@ export default {
     data() {
         return {
             dropdownValues: [
-                { name: 'open', code: 'm' },
-                { name: 'close', code: 'f' },
+                { name: 'active', code: 'm' },
+                { name: 'inactive', code: 'f' },
             ],
             dropdownItem: null,
             display: false,

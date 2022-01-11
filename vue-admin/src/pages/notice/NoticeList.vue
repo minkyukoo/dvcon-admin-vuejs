@@ -132,7 +132,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            dropdownValues: [{ name: 'open' }, { name: 'close' }],
+            dropdownValues: [{ name: 'active' }, { name: 'inactive' }, { name: 'deleted' }],
             selected: [],
             selectedItemss: '',
             render: true,
@@ -144,7 +144,7 @@ export default {
             visibleTop: false,
             visibleBottom: false,
             visibleFull: false,
-            status: 'open',
+            status: '',
             startdate: '',
             enddate: '',
             customer1: null,
@@ -202,7 +202,7 @@ export default {
         },
         resetUser() {
             this.title = '';
-            this.status = 'open';
+            this.status = '';
             this.error = {};
             this.startdate = '';
             this.enddate = '';
@@ -213,8 +213,7 @@ export default {
             });
         },
         searchuser() {
-            console.log(this.startdate);
-            this.noticeService.getNoticeList(this.title, this.status?.name == undefined ? 'open' : this.title, this.status?.name, this.startdate, this.enddate).then((data) => {
+            this.noticeService.getNoticeList(this.title, this.status?.name, this.startdate, this.enddate).then((data) => {
                 this.customer1 = data;
                 this.loading1 = false;
                 this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
