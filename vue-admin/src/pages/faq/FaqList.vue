@@ -106,7 +106,7 @@
                                 <!-- <router-link :to="'/view-notice/' + data.id"
                                     ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> {{ $t('button.view') }}</Button>
                                 </router-link> -->
-                                <router-link @mouseenter="editnotice(data.id)" :to="'/edit-notice/' + data.id"
+                                <router-link @mouseenter="editfaq(data.id)" :to="'/faq/edit/' + data.id"
                                     ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> {{ $t('button.edit') }}</Button></router-link
                                 >
 
@@ -169,6 +169,11 @@ export default {
     },
     watch: {},
     methods: {
+        editfaq(ids) {
+            this.faqService.viewFaq(ids).then((res) => {
+                localStorage.setItem('desc', res.description);
+            });
+        },
         selects() {
             let xyz = [];
             let data = this.selected;
@@ -312,8 +317,7 @@ export default {
                     axios({ method: 'delete', url: '/faq/delete', data: { deleteIdArray: id } }).then(function (response) {
                         console.log(response);
                     });
-
-                    this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Deleted successfully', life: 3000 });
+                    ~this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Deleted successfully', life: 3000 });
                 },
                 reject: () => {
                     this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });

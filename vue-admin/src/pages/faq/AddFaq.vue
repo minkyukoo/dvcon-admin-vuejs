@@ -26,7 +26,8 @@
                         <label for="textarea">Write Your Comment...</label>
                     </span>
                 </div> -->
-                <div class="p-col-12">
+                <div class="p-col-12 p-field">
+                    <label>Answer :</label>
                     <span class="p-float-label">
                         <Quill-Editor style="height: 200px" v-model:content="modelname" ref="myQuillEditor" :options="editorOption" contentType="html" />
                     </span>

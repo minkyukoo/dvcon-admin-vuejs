@@ -456,12 +456,12 @@ const routes = [
     },
 
     {
-        path: '/faq/edit',
+        path: '/faq/edit/:id',
         name: 'Faqedit',
-        component: () => import('./pages/Faqedit.vue'),
+        component: () => import('./pages/faq/EditFaq.vue'),
         beforeEnter: guard,
         meta: {
-            breadcrumb: [{ parent: 'Pages', label: 'Faqedit' }],
+            breadcrumb: [{ parent: 'Pages', label: 'EditFaq' }],
         },
     },
 
