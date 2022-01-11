@@ -1,5 +1,11 @@
 <template>
-    <div class="menu-wrapper" :class="{ 'layout-sidebar-active': sidebarActive }" @click="onMenuClick" @mouseover="onSidebarMouseOver" @mouseleave="onSidebarMouseLeave">
+    <div
+        class="menu-wrapper"
+        :class="{ 'layout-sidebar-active': sidebarActive }"
+        @click="onMenuClick"
+        @mouseover="onSidebarMouseOver"
+        @mouseleave="onSidebarMouseLeave"
+    >
         <div class="sidebar-logo">
             <router-link to="/">
                 <img src="assets/layout/images/logo-freya-single.svg" alt="freya-layout" />
@@ -40,21 +46,20 @@ export default {
     data() {
         return {
             menu: [
-                {label: "Dashboard", icon: "pi pi-home", to: "/"},
-                {label: "User management", icon: "pi pi-users", to: "/user"},
-                {label: "Banner management", icon: "pi pi-images", to: "/banner-management"},
-                {label: "FAQ", icon: "pi pi-question-circle", to: "/faq"},
+                { label: "Dashboard", icon: "pi pi-home", to: "/" },
+                { label: "User management", icon: "pi pi-users", to: "/user" },
+                { label: "Banner management", icon: "pi pi-images", to: "/banner-management" },
+                { label: "FAQ", icon: "pi pi-question-circle", to: "/faq" },
+                { label: "Notice", icon: "pi pi-bell", to: "/notice" },
+                { label: "CMS", icon: "pi pi-book", to: "/cms" },
                 {
                     label: 'Inquiry',
                     icon: 'pi pi-inbox',
                     items: [
-                        {label: "Inquiry type", icon: "pi pi-tags", to: "/inquiry-type"},
-                        {label: "1:1 inquiry", icon: "pi pi-comments", to: "/inquiry"},
+                        { label: "Inquiry type", icon: "pi pi-tags", to: "/inquiry-type" },
+                        { label: "1:1 inquiry", icon: "pi pi-comments", to: "/inquiry" },
                     ],
                 },
-                // {label: "1:1 Query", icon: "pi pi-file-o", to: "/query"},
-                {label: "Notice", icon: "pi pi-bell", to: "/notice"},
-                {label: "CMS", icon: "pi pi-book", to: "/cms"},
                 // onprogress ==> file not ready , when the file ll be ready change the path
                 {
                     label: 'UI Kit',
@@ -97,17 +102,17 @@ export default {
                     label: 'Pages',
                     icon: 'pi pi-briefcase',
                     items: [
-                        {label: "Crud", icon: "pi pi-pencil", to: "/crud"},
-                        {label: "Calendar", icon: "pi pi-calendar-plus", to: "/calendar"},
-                        {label: 'Timeline', icon: 'pi pi-calendar', to: '/timeline'},
-                        {label: "Landing", icon: "pi pi-globe", url: "assets/pages/landing.html", target: "_blank"},
-                        {label: "Login", icon: "pi pi-sign-in", to: "/login"},
-                        {label: "Invoice", icon: "pi pi-dollar", to: "/invoice"},
-                        {label: "Help", icon: "pi pi-question-circle", to: "/help"},
-                        {label: "Error", icon: "pi pi-times-circle", to: "/error"},
-                        {label: "Not Found", icon: "pi pi-exclamation-circle", to: "/notfound"},
-                        {label: "Access Denied", icon: "pi pi-lock", to: "/access"},
-                        {label: "Empty", icon: "pi pi-circle-off", to: "/empty"}
+                        { label: "Crud", icon: "pi pi-pencil", to: "/crud" },
+                        { label: "Calendar", icon: "pi pi-calendar-plus", to: "/calendar" },
+                        { label: 'Timeline', icon: 'pi pi-calendar', to: '/timeline' },
+                        { label: "Landing", icon: "pi pi-globe", url: "assets/pages/landing.html", target: "_blank" },
+                        { label: "Login", icon: "pi pi-sign-in", to: "/login" },
+                        { label: "Invoice", icon: "pi pi-dollar", to: "/invoice" },
+                        { label: "Help", icon: "pi pi-question-circle", to: "/help" },
+                        { label: "Error", icon: "pi pi-times-circle", to: "/error" },
+                        { label: "Not Found", icon: "pi pi-exclamation-circle", to: "/notfound" },
+                        { label: "Access Denied", icon: "pi pi-lock", to: "/access" },
+                        { label: "Empty", icon: "pi pi-circle-off", to: "/empty" }
                     ],
                 },
                 {
@@ -158,8 +163,8 @@ export default {
                 {
                     label: "Start", icon: "pi pi-download",
                     items: [
-                        {label: "Buy Now", icon: "pi pi-shopping-cart", command: () => window.open("https://www.primefaces.org/store", "_blank")},
-                        {label: "Documentation", icon: "pi pi-info-circle", to: "/documentation"},
+                        { label: "Buy Now", icon: "pi pi-shopping-cart", command: () => window.open("https://www.primefaces.org/store", "_blank") },
+                        { label: "Documentation", icon: "pi pi-info-circle", to: "/documentation" },
                     ],
                 },
             ],
