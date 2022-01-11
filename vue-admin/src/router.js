@@ -474,7 +474,16 @@ const routes = [
             breadcrumb: [{ parent: 'Pages', label: 'Faqadd' }],
         },
     },
-
+    {
+        path: '/faq/view/:id',
+        name: 'ViewFaq',
+        exact: true,
+        component: () => import('./pages/faq/ViewFaq.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'Faq', label: 'View Faq' }],
+        },
+    },
     {
         path: '/cms/edit',
         name: 'Cmsedit',
