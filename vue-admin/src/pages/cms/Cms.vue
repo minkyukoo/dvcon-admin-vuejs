@@ -29,7 +29,7 @@
                         <h5>{{ $t('table.userlist.heading') }}</h5>
                     </div>
                     <div>
-                        <Button label="Primary" class="p-mr-2 p-mb-2" @click="exceldownload"><i class="pi pi-download p-mr-2"></i>{{ $t('button.downloadExcel') }}</Button>
+                        <!-- <Button label="Primary" class="p-mr-2 p-mb-2" @click="exceldownload"><i class="pi pi-download p-mr-2"></i>{{ $t('button.downloadExcel') }}</Button> -->
                         <router-link to="/add-user">
                             <Button label="Primary" class="p-mr-2 p-mb-2"><i class="pi pi-plus p-mr-2"></i> {{ $t('button.new') }}</Button>
                         </router-link>
@@ -43,7 +43,7 @@
                     <template #empty> No customers found. </template>
                     <template #loading> Loading customers data. Please wait. </template>
 
-                    <column selectionMode="multiple" style="width: 16px; text-align: center" />
+                    <!-- <column selectionMode="multiple" style="width: 16px; text-align: center" /> -->
                     <Column :header="$t('table.userlist.thead.id')" style="min-width: 12rem">
                         <template #body="{ data }">
                             <span class="p-column-title">Id</span>
@@ -56,13 +56,19 @@
                             {{ data.title }}
                         </template>
                     </Column>
+                    <Column field="name" :header="$t('Status')" style="min-width: 12rem">
+                        <template #body="{ data }">
+                            <span class="p-column-title">Status</span>
+                            {{ data.status }}
+                        </template>
+                    </Column>
 
-                    <Column :header="$t('Description')" style="min-width: 12rem">
+                    <!-- <Column :header="$t('Description')" style="min-width: 12rem">
                         <template #body="{ data }">
                             <span class="p-column-title">Description</span>
                             {{ data.description }}
                         </template>
-                    </Column>
+                    </Column> -->
 
                     <Column :header="$t('table.userlist.thead.createdDate')" style="min-width: 12rem">
                         <template #body="{ data }">
@@ -70,15 +76,21 @@
                             {{ formatDate(data.createdDate) }}
                         </template>
                     </Column>
+                    <Column :header="$t('Updated-Date')" style="min-width: 12rem">
+                        <template #body="{ data }">
+                            <span class="p-column-title">Updated-Date</span>
+                            {{ data.updatedDate == null ? 'Not Available' : formatDate(data.updatedDate) }}
+                        </template>
+                    </Column>
                     <Column :header="$t('Management')">
                         <template #body="{ data }">
                             <span class="p-column-title">Management</span>
                             <p style="display: none">{{ data.id }}</p>
                             <div style="display: flex">
-                                <router-link :to="'/user/view-user/' + data.id"
+                                <router-link @mouseenter="editcms(data.id)" :to="'/cms/view/' + data.id"
                                     ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> {{ $t('button.view') }}</Button>
                                 </router-link>
-                                <router-link :to="'/user/edit-user/' + data.id"
+                                <router-link @mouseenter="editcms(data.id)" :to="'/cms/edit/' + data.id"
                                     ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> {{ $t('button.edit') }}</Button></router-link
                                 >
                                 <Button :label="$t('button.delete')" icon="pi pi-trash" class="p-button-danger p-button-outlined p-mr-2 p-mb-2" @click="confirm(data.id)" />
@@ -164,6 +176,11 @@ export default {
                 this.calendarValue1 = this.calendarValue1.toISOString().slice(0, 10) + 1;
                 console.log(this.calendarValue1);
             }
+        },
+        editcms(ids) {
+            this.cmsService.viewCms(ids).then((res) => {
+                localStorage.setItem('desc', res.description);
+            });
         },
         resetUser() {
             this.name = '';
@@ -329,7 +346,7 @@ export default {
                 message: 'Are you sure you want to delete?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    axios({ method: 'delete', url: '/user/delete', data: { deleteIdArray: id } }).then(function (response) {
+                    axios({ method: 'delete', url: '/cms/delete', data: { deleteIdArray: id } }).then(function (response) {
                         console.log(response);
                     });
 
@@ -340,9 +357,8 @@ export default {
                 },
             });
             setTimeout(() => {
-                this.userService.getUserList(this.name, this.email, this.mobile, this.calendarValue, this.calendarValue1).then((data) => {
+                this.cmsService.getCmsList().then((data) => {
                     this.customer1 = data;
-                    console.log(data);
                     this.loading1 = false;
                     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
                 });

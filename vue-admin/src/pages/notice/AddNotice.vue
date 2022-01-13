@@ -65,7 +65,7 @@ export default {
                 readonly: true,
                 theme: 'snow',
             },
-            dropdownValues: [{ name: 'active' }, { name: 'inactive' }],
+            dropdownValues: [{ name: 'active' }],
             dropdownValueTypes: [{ name: 'main_banner' }, { name: 'banner_top' }, { name: 'banner_bottom' }],
             dropdownValue: null,
             dropdownValueType: null,

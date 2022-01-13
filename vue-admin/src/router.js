@@ -485,19 +485,19 @@ const routes = [
         },
     },
     {
-        path: '/faq/view/:id',
-        name: 'ViewFaq',
+        path: '/cms/view/:id',
+        name: 'ViewCms',
         exact: true,
-        component: () => import('./pages/faq/ViewFaq.vue'),
+        component: () => import('./pages/cms/ViewCms.vue'),
         beforeEnter: guard,
         meta: {
-            breadcrumb: [{ parent: 'Faq', label: 'View Faq' }],
+            breadcrumb: [{ parent: 'Faq', label: 'View Cms' }],
         },
     },
     {
-        path: '/cms/edit',
+        path: '/cms/edit/:id',
         name: 'Cmsedit',
-        component: () => import('./pages/Cmsedit.vue'),
+        component: () => import('./pages/cms/EditCms.vue'),
         beforeEnter: guard,
         meta: {
             breadcrumb: [{ parent: 'Pages', label: 'Cmsedit' }],
