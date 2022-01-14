@@ -1,89 +1,400 @@
 <template>
     <div class="p-grid">
+        <Toast />
         <div class="p-col-12">
             <div class="card p-fluid">
-                <h4><strong>Search</strong></h4>
-                <div class="p-formgrid p-grid">
+                <h4>
+                    <strong>{{ $t('search.title') }}</strong>
+                </h4>
+                <div class="p-formgrid p-grid p-mb-3">
                     <div class="p-field p-col-12 p-md-3">
-                        <label for="pass">Start Date:</label>
-                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue" placeholder="YYYY.MM.DD"></Calendar>
+                        <label for="pass">{{ $t('search.label.startDate') }}</label>
+                        <Calendar :class="`${error.calendarValue ? 'p-invalid' : ''}`" :showIcon="true" :showButtonBar="true" v-model="calendarValue" dateFormat="yy.mm.dd" :placeholder="$t('search.placeholder.date')"></Calendar>
+                        <div class="text-red">{{ error.calendarValue }}</div>
                     </div>
-                    <div class="p-field p-col">
-                        <label for="nameuser">Content/Author</label>
-                        <InputText id="nameuser" type="text" placeholder="Search" />
+                    <div class="p-field p-col-12 p-md-3">
+                        <label for="nameuser">{{ $t('Contents') }}</label>
+                        <InputText id="nameuser" :class="`${error.name ? 'p-invalid' : ''}`" type="text" :placeholder="$t('search.placeholder.search')" v-model="name" />
+                        <div class="text-red">{{ error.name }}</div>
                     </div>
-                   
-                   
-                    <div class="p-field p-col">
-                        <label for="state">type</label>
-                        <Dropdown id="state" v-model="dropdownItem" :options="dropdownItems" optionLabel="name" placeholder="Select Type"></Dropdown>
+                    <div class="p-field p-col-12 p-md-3">
+                        <label for="s-state">Type</label>
+                        <Dropdown id="s-state" v-model="state" :options="contenttypes" optionLabel="name" placeholder="Select State"></Dropdown>
                     </div>
                 </div>
-                 <div class="p-formgrid p-grid">
+                <div class="p-formgrid p-grid p-mb-3">
                     <div class="p-field p-col-12 p-md-3">
-                        <label for="pass">Last Date:</label>
-                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue2" placeholder="YYYY.MM.DD"></Calendar>
+                        <label for="verify-pass">{{ $t('search.label.lastDate') }}</label>
+                        <Calendar :class="`${error.calendarValue1 ? 'p-invalid' : ''}`" :showIcon="true" :showButtonBar="true" v-model="calendarValue1" dateFormat="yy.mm.dd" :placeholder="$t('search.placeholder.date')"></Calendar>
+                        <div class="text-red">{{ error.calendarValue1 }}</div>
                     </div>
-                      <div class="p-field p-col">
+                    <div class="p-field p-col-12 p-md-3">
                         <label for="s-state">type</label>
                         <Dropdown id="s-state" v-model="state" :options="states" optionLabel="name" placeholder="Select State"></Dropdown>
                     </div>
-                    <div class="p-field p-col">
-                        <label for="language">language</label>
-                        <Dropdown id="language" v-model="language" :options="languages" optionLabel="name" placeholder="Select Language"></Dropdown>
-                    </div>
                 </div>
-
-                <div class="p-d-flex p-mt-2">
-                    <Button label="Primary" class="p-mr-2 p-mb-2"><i class="pi pi-search p-mr-2"></i> search</Button>
-                    <Button label="Help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-refresh p-mr-2"></i> redo</Button>
-                    
+                <div class="p-d-flex p-jc-between p-ai-lg-center p-ai-start p-mt-6 p-flex-column p-flex-lg-row">
+                    <div class="p-mb-4 p-mb-lg-0">
+                        <Button :label="$t('button.today')" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="today"></Button>
+                        <Button :label="$t('button.lastWeek')" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastweek"></Button>
+                        <Button :label="$t('button.lastMonth')" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastmonth"></Button>
+                        <Button :label="$t('button.last6Months')" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastsixmonth"></Button>
+                        <Button :label="$t('button.lastYear')" icon="pi pi-calendar" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="lastyear"></Button>
+                    </div>
+                    <div>
+                        <Button :label="$t('button.reset')" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" @click="resetUser"></Button>
+                        <Button :label="$t('button.search')" icon="pi pi-search" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="searchuser"></Button>
+                    </div>
                 </div>
             </div>
         </div>
-       
+        <div class="p-col-12">
+            <div class="card">
+                <div class="p-d-flex p-jc-between p-mb-2">
+                    <div>
+                        <h5>
+                            <b>{{ $t('Inquiry List') }}</b>
+                        </h5>
+                    </div>
+                    <div></div>
+                </div>
+
+                <DataTable :value="customer1" :paginator="true" class="p-datatable-gridlines" :rows="5" dataKey="id" :rowHover="true" :loading="loading1" :filters="filters1" responsiveLayout="scroll" v-model:selection="selected">
+                    <!-- v-model:selection="selected" -->
+                    <ConfirmDialog group="dialog" />
+
+                    <template #empty> No customers found. </template>
+                    <template #loading> Loading customers data. Please wait. </template>
+
+                    <column selectionMode="multiple" style="width: 16px; text-align: center" />
+                    <Column field="name" :header="$t('Number')" style="min-width: 12rem">
+                        <template #body="{ index }">
+                            <span class="p-column-title">Number</span>
+                            {{ index + 1 }}
+                        </template>
+                    </Column>
+                    <Column :header="$t('Inquiry Type')" style="min-width: 12rem">
+                        <template #body="{ data }">
+                            <span class="p-column-title">Inquiry Type</span>
+                            {{ data.inqueryTypeTitle }}
+                        </template>
+                    </Column>
+                    <Column :header="$t('Contents')" style="min-width: 12rem">
+                        <template #body="{ data }">
+                            <span class="p-column-title">Contents</span>
+                            {{ data.description }}
+                        </template>
+                    </Column>
+                    <Column :header="$t('state')" style="min-width: 12rem">
+                        <template #body="{ data }">
+                            <span class="p-column-title">state</span>
+                            {{ data.status }}
+                        </template>
+                    </Column>
+                    <Column :header="$t('registration date')" style="min-width: 12rem">
+                        <template #body="{ data }">
+                            <span class="p-column-title">registration date</span>
+                            {{ formatDate(data.createdDate) }}
+                        </template>
+                    </Column>
+                    <Column :header="$t('Reply date')" style="min-width: 12rem">
+                        <template #body="{ data }">
+                            <span class="p-column-title">Reply date</span>
+                            {{ formatDate(data.updatedDate) }}
+                        </template>
+                    </Column>
+                    <Column :header="$t('See More')">
+                        <template #body="{ data }">
+                            <span class="p-column-title">See More</span>
+                            <p style="display: none">{{ data.id }}</p>
+                            <div style="display: flex">
+                                <router-link :to="'/user/view-user/' + data.id"
+                                    ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> {{ $t('button.view') }}</Button>
+                                </router-link>
+                                <router-link :to="'/user/edit-user/' + data.id"
+                                    ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> {{ $t('button.edit') }}</Button></router-link
+                                >
+                                <Button :label="$t('button.delete')" icon="pi pi-trash" class="p-button-danger p-button-outlined p-mr-2 p-mb-2" @click="confirm(data.id)" />
+                            </div>
+                        </template>
+                    </Column>
+                </DataTable>
+            </div>
+        </div>
     </div>
 </template>
-<script>
 
+<script>
+import { useRoute } from 'vue-router';
+// import validateUsersearch from '../../validations/user/validateUserSearch';
+// import { FilterMatchMode, FilterOperator } from 'primevue/api';
+import InquiryService from '../../service/API/InquiryService';
+import axios from 'axios';
+// import ProductService from '../service/ProductService';
+// import axios from 'axios';
 export default {
-    name: 'Inquiry',
     data() {
         return {
-			
-            calendarValue:null,
-            calendarValue2:null,
+            contenttypes: '',
+            selected: [],
+            selectedItemss: '',
+            render: true,
+            display: false,
+            position: 'center',
+            visibleLeft: false,
+            visibleRight: false,
+            visibleTop: false,
+            visibleBottom: false,
+            visibleFull: false,
+            calendarValue: '',
+            calendarValue1: '',
+            customer1: null,
+            loading1: true,
+            idFrozen: false,
+            products: null,
+            expandedRows: [],
+            user: null,
+            statuses: ['unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal'],
             dropdownItems: [
-                { name: 'Member information related enquries', code: 'Member information related enquries' },
-                { name: 'HJCBT mobile app error', code: 'HJCBT mobile app error' },
-                { name: 'Medical angel request', code: 'Medical angel request' },
-                { name: 'pre-cream report', code: 'pre-cream report' },
-                { name: 'payment related inquries', code: 'payment related inquries' },
+                { name: 'male', code: 'male' },
+                { name: 'female', code: 'female' },
+                { name: 'others', code: 'others' },
             ],
             dropdownItem: null,
-            state:null,
-            states: [
-                { name: 'open', code: 'open' },
-                { name: 'close', code: 'close' },
-               
-            ],
-            language:null,
-            languages: [
-                { name: 'English', code: 'English' },
-                { name: 'Hindi', code: 'Hindi' },
-                { name: 'Korean', code: 'Korean' },
-                { name: 'Japanese', code: 'Japanese' },
-               
-            ],
-           
+            error: {},
         };
     },
-    
+    customerService: null,
+    productService: null,
+    created() {
+        this.inquiryService = new InquiryService();
+    },
+    mounted() {
+        const route = useRoute();
+        console.log(route.params);
+        this.inquiryService.getInquiryList().then((data) => {
+            this.customer1 = data;
+            this.loading1 = false;
+            this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+        });
+        this.inquiryService.getInquiryType().then((data) => {
+            this.contenttypes = data;
+        });
+    },
+    watch: {},
+    methods: {
+        selects() {
+            let xyz = [];
+            let data = this.selected;
+            for (var a = 0; a < data.length; a++) {
+                xyz.push(data[a].id);
+            }
+            this.selectedItemss = xyz.toString();
+            if (this.calendarValue !== '') {
+                this.calendarValue = this.calendarValue.toISOString().slice(0, 10);
+                console.log(this.calendarValue);
+            }
+            if (this.calendarValue1 !== '') {
+                this.calendarValue1 = this.calendarValue1.toISOString().slice(0, 10) + 1;
+                console.log(this.calendarValue1);
+            }
+        },
+        resetUser() {
+            this.name = '';
+            this.email = '';
+            this.mobile = '';
+            this.error = {};
+            this.calendarValue = '';
+            this.calendarValue1 = '';
+            this.userService.getUserList(this.name, this.email, this.mobile).then((data) => {
+                this.customer1 = data;
+                this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            });
+        },
+        searchuser() {
+            this.userService.getUserList(this.name, this.email, this.mobile, this.calendarValue, this.calendarValue1).then((data) => {
+                this.customer1 = data;
+                console.log(data);
+                this.loading1 = false;
+                this.customer1.forEach((xyx) => (xyx.date = new Date(xyx.date)));
+                this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            });
+        },
+        today() {
+            const utc = new Date().toJSON().slice(0, 10).replace(/-/g, '.');
+            this.calendarValue = utc;
+            this.calendarValue1 = utc;
+            // this.userService.getUserListsingle(utc).then((data) => {
+            //     this.customer1 = data;
+            //     console.log(data);
+            //     this.loading1 = false;
+            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            // });
+        },
+        lastweek() {
+            const date = new Date();
+            const edate = new Date();
+            date.setDate(date.getDate() - 7);
+            const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
+            this.calendarValue = startDate;
+            this.calendarValue1 = edate;
+            // this.userService.getUserListsingle(startDate).then((data) => {
+            //     this.customer1 = data;
+            //     console.log(data);
+            //     this.loading1 = false;
+            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            // });
+        },
+        lastmonth() {
+            const date = new Date();
+            const edate = new Date();
+            date.setDate(date.getDate() - 31);
+            const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
+            this.calendarValue = startDate;
+            this.calendarValue1 = edate;
+            // this.userService.getUserListsingle(startDate).then((data) => {
+            //     this.customer1 = data;
+            //     console.log(data);
+            //     this.loading1 = false;
+            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            // });
+        },
+        lastsixmonth() {
+            const date = new Date();
+            const edate = new Date();
+            date.setDate(date.getDate() - 182);
+            const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
+            this.calendarValue = startDate;
+            this.calendarValue1 = edate;
+            // this.userService.getUserListsingle(startDate).then((data) => {
+            //     this.customer1 = data;
+            //     console.log(data);
+            //     this.loading1 = false;
+            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            // });
+        },
+        lastyear() {
+            const date = new Date();
+            const edate = new Date();
+            date.setDate(date.getDate() - 365);
+            const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
+            this.calendarValue = startDate;
+            this.calendarValue1 = edate;
+            // this.userService.getUserListsingle(startDate).then((data) => {
+            //     this.customer1 = data;
+            //     console.log(data);
+            //     this.loading1 = false;
+            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+            // });
+        },
+        exceldownload() {
+            this.selects();
+            this.userService.downloadExcel(this.name, this.mobile, this.email, this.calendarValue, this.calendarValue1, this.selectedItemss).then((response) => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'Userlist.xlsx'); //or any other extension
+                document.body.appendChild(link);
+                link.click();
+            });
+        },
+        open() {
+            this.display = true;
+        },
+        close() {
+            this.display = false;
+        },
+        toggle(event) {
+            this.$refs.op.toggle(event);
+        },
+
+        onRowExpand(event) {
+            this.$toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
+        },
+        onRowCollapse(event) {
+            this.$toast.add({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
+        },
+        expandAll() {
+            this.expandedRows = this.products.filter((p) => p.id);
+            this.$toast.add({ severity: 'success', summary: 'All Rows Expanded', life: 3000 });
+        },
+        collapseAll() {
+            this.expandedRows = null;
+            this.$toast.add({ severity: 'success', summary: 'All Rows Collapsed', life: 3000 });
+        },
+        formatCurrency(value) {
+            return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        },
+        formatDate(value) {
+            // return value.toLocaleDateString('en-US', {
+            //     year: 'numeric',
+            //     month: '2-digit',
+            //     day: '2-digit',
+            // });
+            const date = new Date(value);
+            var dd = date.getDate();
+            var mm = date.getMonth() + 1;
+            var yyyy = date.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd;
+            }
+            if (mm < 10) {
+                mm = '0' + mm;
+            }
+            return (value = yyyy + '.' + mm + '.' + dd);
+        },
+        calculateCustomerTotal(name) {
+            let total = 0;
+            if (this.customer3) {
+                for (let customer of this.customer3) {
+                    if (customer.representative.name === name) {
+                        total++;
+                    }
+                }
+            }
+
+            return total;
+        },
+
+        confirm(id) {
+            this.$confirm.require({
+                group: 'dialog',
+                header: 'Confirmation',
+                message: 'Are you sure you want to delete?',
+                icon: 'pi pi-exclamation-triangle',
+                accept: () => {
+                    axios({ method: 'delete', url: '/user/delete', data: { deleteIdArray: id } }).then(function (response) {
+                        console.log(response);
+                    });
+
+                    this.$toast.add({ severity: 'info', summary: 'Deleted', detail: 'Deleted successfully', life: 3000 });
+                },
+                reject: () => {
+                    this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+                },
+            });
+            setTimeout(() => {
+                this.userService.getUserList(this.name, this.email, this.mobile, this.calendarValue, this.calendarValue1).then((data) => {
+                    this.customer1 = data;
+                    console.log(data);
+                    this.loading1 = false;
+                    this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+                });
+            }, 2000);
+        },
+    },
 };
 </script>
 
-<style scoped>
-.p-fluid .p-button {
-    width: auto;
+<style lang="scss" scoped>
+.p-datatable-tbody {
+    .p-button {
+        white-space: nowrap;
+    }
+}
+.p-fluid {
+    .p-button {
+        width: auto;
+    }
 }
 </style>

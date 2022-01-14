@@ -3,6 +3,12 @@ export default class InquiryService {
     async getInquirytypeList() {
         return await axios.post(`/inquery_type`).then((res) => res.data.data.inqueryType);
     }
+    async getInquiryList() {
+        return await axios.post(`/inquery`).then((res) => res.data.data.inquery);
+    }
+    async getInquiryType() {
+        return await axios.post(`inquery/typeList`).then((res) => res.data.data);
+    }
     async addInquiryType(titl) {
         return await axios
             .post(`/inquery_type/add`, {

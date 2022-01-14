@@ -132,7 +132,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            dropdownValues: [{ name: 'active' }, { name: 'inactive' }, { name: 'deleted' }],
+            dropdownValues: [{ name: 'active',id:1 }, { name: 'inactive' }],
             selected: [],
             selectedItemss: '',
             render: true,
