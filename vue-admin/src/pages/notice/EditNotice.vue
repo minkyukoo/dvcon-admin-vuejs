@@ -42,10 +42,7 @@ import NoticeService from '../../service/API/NoticeService';
 export default {
     data() {
         return {
-            dropdownValues: [
-                { name: 'active', code: 'm' },
-                { name: 'inactive', code: 'f' },
-            ],
+            dropdownValues: [{ name: 'active' }, { name: 'inactive' }],
             dropdownItem: null,
             display: false,
             position: 'center',
@@ -87,7 +84,7 @@ export default {
                 message: 'Are you sure you want to proceed?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    this.noticeService.editNotice(this.mydata.title, this.modelname, this.$route.params.id).then((res) => {
+                    this.noticeService.editNotice(this.mydata.title, this.modelname, this.$route.params.id,this.mydata.status.name==undefined?this.mydata.status:this.mydata.status.name).then((res) => {
                         console.warn(res);
                         localStorage.removeItem('desc');
                         this.$router.push({ name: 'NoticeList' });

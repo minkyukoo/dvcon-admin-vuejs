@@ -65,9 +65,9 @@ export default {
                 readonly: true,
                 theme: 'snow',
             },
-            dropdownValues: [{ name: 'active' }],
+            dropdownValues: [{ name: 'active' }, { name: 'Inactive' }],
             dropdownValueTypes: [{ name: 'main_banner' }, { name: 'banner_top' }, { name: 'banner_bottom' }],
-            dropdownValue: null,
+            dropdownValue: 'active',
             dropdownValueType: null,
             title: null,
             // desc: null,
@@ -86,7 +86,7 @@ export default {
     methods: {
         addnotice() {
             console.log(this.modelname);
-            this.noticeService.addNotice(this.title, this.modelname).then(() => {
+            this.noticeService.addNotice(this.title, this.modelname, this.dropdownValue.name == undefined ? this.dropdownValue : this.dropdownValue.name).then(() => {
                 this.$router.push({ name: 'NoticeList' });
             });
         },

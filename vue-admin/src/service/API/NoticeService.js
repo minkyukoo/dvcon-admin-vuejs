@@ -10,11 +10,12 @@ export default class NoticeService {
             })
             .then((res) => res.data.data.notice);
     }
-    async addNotice(titl, desc) {
+    async addNotice(titl, desc, stat) {
         return await axios
             .post(`/notice/add`, {
                 title: titl,
                 description: desc,
+                status: stat,
             })
             .then((res) => res);
     }
@@ -25,12 +26,13 @@ export default class NoticeService {
             })
             .then((res) => res.data.data[0]);
     }
-    async editNotice(titl, desc, ids) {
+    async editNotice(titl, desc, ids,stat) {
         return await axios
             .put(`/notice/edit`, {
                 title: titl,
                 description: desc,
                 id: ids,
+                status:stat
             })
             .then((res) => res);
     }

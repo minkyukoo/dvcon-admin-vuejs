@@ -129,7 +129,27 @@ const routes = [
         component: () => import('./pages/inquiry/InquiryType.vue'),
         beforeEnter: guard,
         meta: {
-            breadcrumb: [{ parent: 'Query', label: '1.1 Query' }],
+            breadcrumb: [{ parent: 'pages', label: 'InquiryType' }],
+        },
+    },
+    {
+        path: '/add-inquiry-type',
+        name: 'AddInquiryType',
+        exact: true,
+        component: () => import('./pages/inquiry/AddInquiryType.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'pages', label: 'AddInquiryType' }],
+        },
+    },
+    {
+        path: '/edit-inquiry-type/:id',
+        name: 'EditInquiryType',
+        exact: true,
+        component: () => import('./pages/inquiry/EditInquiryType.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'pages', label: 'EditInquiryType' }],
         },
     },
     {
@@ -482,6 +502,15 @@ const routes = [
         beforeEnter: guard,
         meta: {
             breadcrumb: [{ parent: 'Pages', label: 'Faqadd' }],
+        },
+    },
+    {
+        path: '/cms/add',
+        name: 'Cmsadd',
+        component: () => import('./pages/cms/AddCms.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'Pages', label: 'Add cms' }],
         },
     },
     {

@@ -1,22 +1,23 @@
 import axios from 'axios';
 export default class CmsService {
-    async getCmsList() {
+    async getCmsList(titl) {
         return await axios
             .post(`/cms`, {
-                title: '',
+                searchData: titl,
                 sortBy: 'id',
                 sortOrder: 'desc',
             })
             .then((res) => res.data.data.cms);
     }
-    // async addNotice(titl, desc) {
-    //     return await axios
-    //         .post(`/notice/add`, {
-    //             title: titl,
-    //             description: desc,
-    //         })
-    //         .then((res) => res);
-    // }
+    async addCms(titl, desc, ckey) {
+        return await axios
+            .post(`/cms/add`, {
+                title: titl,
+                description: desc,
+                cmsKey: ckey,
+            })
+            .then((res) => res);
+    }
     async viewCms(ids) {
         return await axios
             .post(`/cms/id`, {
