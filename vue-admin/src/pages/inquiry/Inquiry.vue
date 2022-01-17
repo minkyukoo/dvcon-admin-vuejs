@@ -194,20 +194,21 @@ export default {
     watch: {},
     methods: {
         selects() {
-            let xyz = [];
-            let data = this.selected;
-            for (var a = 0; a < data.length; a++) {
-                xyz.push(data[a].id);
-            }
-            alert(xyz);
-            this.selectedItemss = xyz.toString();
-            if (this.calendarValue !== '') {
-                this.calendarValue = this.calendarValue.toISOString().slice(0, 10);
-                console.log(this.calendarValue);
-            }
-            if (this.calendarValue1 !== '') {
-                this.calendarValue1 = this.calendarValue1.toISOString().slice(0, 10) + 1;
-                console.log(this.calendarValue1);
+            if (this.operation == null) {
+                this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'Please Select one dropdown Option.', life: 3000 });
+            } else {
+                let xyz = [];
+                let data = this.selected;
+                for (var a = 0; a < data.length; a++) {
+                    xyz.push(data[a].id);
+                }
+                this.selectedItemss = xyz.toString();
+                if (xyz.length < 1) {
+                    this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'Please Select items from list to perform this operation.', life: 3000 });
+                }
+                if (this.operation.code == 'delete' && xyz.length > 0) {
+                    this.confirm(this.selectedItemss);
+                }
             }
         },
         resetUser() {
