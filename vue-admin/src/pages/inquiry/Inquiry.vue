@@ -166,7 +166,7 @@ export default {
             operation: null,
             states: [
                 { name: 'open', code: 'open' },
-                { name: 'close', code: 'close' },
+                { name: 'close', code: 'closed' },
             ],
             state: '',
             content: '',
