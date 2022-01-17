@@ -14,12 +14,12 @@
                     </div>
                     <div class="p-field p-col-12 p-md-3">
                         <label for="nameuser">{{ $t('Contents') }}</label>
-                        <InputText id="nameuser" :class="`${error.name ? 'p-invalid' : ''}`" type="text" :placeholder="$t('search.placeholder.search')" v-model="name" />
+                        <InputText id="nameuser" :class="`${error.name ? 'p-invalid' : ''}`" type="text" :placeholder="$t('search.placeholder.search')" v-model="content" />
                         <div class="text-red">{{ error.name }}</div>
                     </div>
                     <div class="p-field p-col-12 p-md-3">
                         <label for="s-state">Type</label>
-                        <Dropdown id="s-state" v-model="state" :options="contenttypes" optionLabel="name" placeholder="Select State"></Dropdown>
+                        <Dropdown id="s-state" v-model="contenttype" :options="contenttypes" optionLabel="name" placeholder="Select Content-Type"></Dropdown>
                     </div>
                 </div>
                 <div class="p-formgrid p-grid p-mb-3">
@@ -29,7 +29,7 @@
                         <div class="text-red">{{ error.calendarValue1 }}</div>
                     </div>
                     <div class="p-field p-col-12 p-md-3">
-                        <label for="s-state">type</label>
+                        <label for="s-state">Status</label>
                         <Dropdown id="s-state" v-model="state" :options="states" optionLabel="name" placeholder="Select State"></Dropdown>
                     </div>
                 </div>
@@ -56,9 +56,15 @@
                             <b>{{ $t('Inquiry List') }}</b>
                         </h5>
                     </div>
+                    <div class="p-field p-col-12 p-md-3"></div>
                     <div></div>
                 </div>
-
+                <div class="p-formgroup-inline">
+                    <div class="p-field">
+                        <Dropdown id="s-state" v-model="operation" :options="operations" optionLabel="name" placeholder="select"></Dropdown>
+                    </div>
+                    <Button label="Apply" @click="selects"></Button>
+                </div>
                 <DataTable :value="customer1" :paginator="true" class="p-datatable-gridlines" :rows="5" dataKey="id" :rowHover="true" :loading="loading1" :filters="filters1" responsiveLayout="scroll" v-model:selection="selected">
                     <!-- v-model:selection="selected" -->
                     <ConfirmDialog group="dialog" />
@@ -109,11 +115,11 @@
                             <p style="display: none">{{ data.id }}</p>
                             <div style="display: flex">
                                 <router-link :to="'/user/view-user/' + data.id"
-                                    ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> {{ $t('button.view') }}</Button>
+                                    ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> {{ $t('Change') }}</Button>
                                 </router-link>
-                                <router-link :to="'/user/edit-user/' + data.id"
+                                <!-- <router-link :to="'/user/edit-user/' + data.id"
                                     ><Button label="help" class="p-button-outlined p-button-help p-mr-2 p-mb-2"><i class="pi pi-user-edit p-mr-2"></i> {{ $t('button.edit') }}</Button></router-link
-                                >
+                                > -->
                                 <Button :label="$t('button.delete')" icon="pi pi-trash" class="p-button-danger p-button-outlined p-mr-2 p-mb-2" @click="confirm(data.id)" />
                             </div>
                         </template>
@@ -136,6 +142,7 @@ export default {
     data() {
         return {
             contenttypes: '',
+            contenttype: '',
             selected: [],
             selectedItemss: '',
             render: true,
@@ -155,11 +162,14 @@ export default {
             expandedRows: [],
             user: null,
             statuses: ['unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal'],
-            dropdownItems: [
-                { name: 'male', code: 'male' },
-                { name: 'female', code: 'female' },
-                { name: 'others', code: 'others' },
+            operations: [{ name: 'delete', code: 'delete' }],
+            operation: null,
+            states: [
+                { name: 'open', code: 'open' },
+                { name: 'close', code: 'close' },
             ],
+            state: '',
+            content: '',
             dropdownItem: null,
             error: {},
         };
@@ -172,7 +182,7 @@ export default {
     mounted() {
         const route = useRoute();
         console.log(route.params);
-        this.inquiryService.getInquiryList().then((data) => {
+        this.inquiryService.getInquiryList(this.state, this.contenttype, this.content, this.calendarValue, this.calendarValue1).then((data) => {
             this.customer1 = data;
             this.loading1 = false;
             this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
@@ -189,6 +199,7 @@ export default {
             for (var a = 0; a < data.length; a++) {
                 xyz.push(data[a].id);
             }
+            alert(xyz);
             this.selectedItemss = xyz.toString();
             if (this.calendarValue !== '') {
                 this.calendarValue = this.calendarValue.toISOString().slice(0, 10);
@@ -200,36 +211,35 @@ export default {
             }
         },
         resetUser() {
-            this.name = '';
-            this.email = '';
-            this.mobile = '';
-            this.error = {};
+            this.content = '';
+            this.contenttype = '';
+            this.state = '';
             this.calendarValue = '';
             this.calendarValue1 = '';
-            this.userService.getUserList(this.name, this.email, this.mobile).then((data) => {
+            this.inquiryService.getInquiryList(this.state, this.contenttype, this.content, this.calendarValue, this.calendarValue1).then((data) => {
                 this.customer1 = data;
+                this.loading1 = false;
                 this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
             });
         },
         searchuser() {
-            this.userService.getUserList(this.name, this.email, this.mobile, this.calendarValue, this.calendarValue1).then((data) => {
-                this.customer1 = data;
-                console.log(data);
-                this.loading1 = false;
-                this.customer1.forEach((xyx) => (xyx.date = new Date(xyx.date)));
-                this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-            });
+            console.log(this.content);
+            console.log(this.contenttype);
+            console.log(this.state);
+            console.log(this.calendarValue);
+            console.log(this.calendarValue1);
+            this.inquiryService
+                .getInquiryList(this.state.code == undefined ? this.state : this.state.code, this.contenttype.id == undefined ? this.contenttype : this.contenttype.id, this.content, this.calendarValue, this.calendarValue1)
+                .then((data) => {
+                    this.customer1 = data;
+                    this.loading1 = false;
+                    this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+                });
         },
         today() {
             const utc = new Date().toJSON().slice(0, 10).replace(/-/g, '.');
             this.calendarValue = utc;
             this.calendarValue1 = utc;
-            // this.userService.getUserListsingle(utc).then((data) => {
-            //     this.customer1 = data;
-            //     console.log(data);
-            //     this.loading1 = false;
-            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-            // });
         },
         lastweek() {
             const date = new Date();
@@ -238,12 +248,6 @@ export default {
             const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
             this.calendarValue = startDate;
             this.calendarValue1 = edate;
-            // this.userService.getUserListsingle(startDate).then((data) => {
-            //     this.customer1 = data;
-            //     console.log(data);
-            //     this.loading1 = false;
-            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-            // });
         },
         lastmonth() {
             const date = new Date();
@@ -252,12 +256,6 @@ export default {
             const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
             this.calendarValue = startDate;
             this.calendarValue1 = edate;
-            // this.userService.getUserListsingle(startDate).then((data) => {
-            //     this.customer1 = data;
-            //     console.log(data);
-            //     this.loading1 = false;
-            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-            // });
         },
         lastsixmonth() {
             const date = new Date();
@@ -266,12 +264,6 @@ export default {
             const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
             this.calendarValue = startDate;
             this.calendarValue1 = edate;
-            // this.userService.getUserListsingle(startDate).then((data) => {
-            //     this.customer1 = data;
-            //     console.log(data);
-            //     this.loading1 = false;
-            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-            // });
         },
         lastyear() {
             const date = new Date();
@@ -280,23 +272,6 @@ export default {
             const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
             this.calendarValue = startDate;
             this.calendarValue1 = edate;
-            // this.userService.getUserListsingle(startDate).then((data) => {
-            //     this.customer1 = data;
-            //     console.log(data);
-            //     this.loading1 = false;
-            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-            // });
-        },
-        exceldownload() {
-            this.selects();
-            this.userService.downloadExcel(this.name, this.mobile, this.email, this.calendarValue, this.calendarValue1, this.selectedItemss).then((response) => {
-                const url = window.URL.createObjectURL(new Blob([response.data]));
-                const link = document.createElement('a');
-                link.href = url;
-                link.setAttribute('download', 'Userlist.xlsx'); //or any other extension
-                document.body.appendChild(link);
-                link.click();
-            });
         },
         open() {
             this.display = true;
@@ -363,7 +338,7 @@ export default {
                 message: 'Are you sure you want to delete?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    axios({ method: 'delete', url: '/user/delete', data: { deleteIdArray: id } }).then(function (response) {
+                    axios({ method: 'delete', url: '/inquery/delete', data: { deleteIdArray: id } }).then(function (response) {
                         console.log(response);
                     });
 
@@ -374,12 +349,13 @@ export default {
                 },
             });
             setTimeout(() => {
-                this.userService.getUserList(this.name, this.email, this.mobile, this.calendarValue, this.calendarValue1).then((data) => {
-                    this.customer1 = data;
-                    console.log(data);
-                    this.loading1 = false;
-                    this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-                });
+                this.inquiryService
+                    .getInquiryList(this.state.code == undefined ? this.state : this.state.code, this.contenttype.id == undefined ? this.contenttype : this.contenttype.id, this.content, this.calendarValue, this.calendarValue1)
+                    .then((data) => {
+                        this.customer1 = data;
+                        this.loading1 = false;
+                        this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
+                    });
             }, 2000);
         },
     },

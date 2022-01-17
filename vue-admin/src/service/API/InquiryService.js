@@ -3,8 +3,16 @@ export default class InquiryService {
     async getInquirytypeList() {
         return await axios.post(`/inquery_type`).then((res) => res.data.data.inqueryType);
     }
-    async getInquiryList() {
-        return await axios.post(`/inquery`).then((res) => res.data.data.inquery);
+    async getInquiryList(stat, contentype, content, sdate, edate) {
+        return await axios
+            .post(`/inquery`, {
+                status: stat,
+                typeId: contentype,
+                searchData: content,
+                from_date: sdate,
+                to_date: edate,
+            })
+            .then((res) => res.data.data.inquery);
     }
     async getInquiryType() {
         return await axios.post(`inquery/typeList`).then((res) => res.data.data);
