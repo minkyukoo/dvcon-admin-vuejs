@@ -32,11 +32,26 @@ export default class InquiryService {
             })
             .then((res) => res.data.data[0]);
     }
+    async viewInquiry(ids) {
+        return await axios
+            .post(`/inquery/id`, {
+                id: ids,
+            })
+            .then((res) => res.data.data[0]);
+    }
     async editInquiryType(titl, stat, ids) {
         return await axios
             .put(`/inquery_type/edit`, {
                 title: titl,
                 status: stat,
+                id: ids,
+            })
+            .then((res) => res);
+    }
+    async editInquiry(txt, ids) {
+        return await axios
+            .put(`/inquery/edit`, {
+                replyText: txt,
                 id: ids,
             })
             .then((res) => res);

@@ -114,7 +114,7 @@
                             <span class="p-column-title">See More</span>
                             <p style="display: none">{{ data.id }}</p>
                             <div style="display: flex">
-                                <router-link :to="'/user/view-user/' + data.id"
+                                <router-link :to="'/edit-inquiry/' + data.id"
                                     ><Button label="info" class="p-button-outlined p-button-info p-mr-2 p-mb-2"><i class="pi pi-eye p-mr-2"></i> {{ $t('Change') }}</Button>
                                 </router-link>
                                 <!-- <router-link :to="'/user/edit-user/' + data.id"

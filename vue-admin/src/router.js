@@ -163,6 +163,16 @@ const routes = [
         },
     },
     {
+        path: '/edit-inquiry/:id',
+        name: 'EditInquiry',
+        exact: true,
+        component: () => import('./pages/inquiry/EditInquiry.vue'),
+        beforeEnter: guard,
+        meta: {
+            breadcrumb: [{ parent: 'pages', label: 'EditInquiry' }],
+        },
+    },
+    {
         path: '/formlayout',
         name: 'formlayout',
         component: () => import('./components/FormLayoutDemo.vue'),
