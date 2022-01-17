@@ -202,7 +202,8 @@ export default {
                 for (var a = 0; a < data.length; a++) {
                     xyz.push(data[a].id);
                 }
-                this.selectedItemss = xyz.toString();
+                // this.selectedItemss = xyz.toString();
+                this.selectedItemss = xyz;
                 if (xyz.length < 1) {
                     this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'Please Select items from list to perform this operation.', life: 3000 });
                 }
