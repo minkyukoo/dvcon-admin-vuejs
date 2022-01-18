@@ -12,11 +12,13 @@
                         <div class="p-col-12 p-mb-2 p-lg-6 p-mb-lg-0 p-field">
                             <label for="title2">Title*</label>
                             <InputText type="text" placeholder="Title" id="title2" v-model="title"></InputText>
+                            <!-- <div class="text-red">{{ error.title }}</div> -->
                         </div>
 
                         <div class="p-col-12 p-mb-2 p-lg-6 p-mb-lg-0 p-field">
                             <label for="state2">state*</label>
                             <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" :placeholder="dropdownValue" />
+                            <!-- <div class="text-red">{{ error.dropdownValue }}</div> -->
                         </div>
                     </div>
                 </div>
@@ -34,6 +36,7 @@
 
 <script>
 import InquiryService from '../../service/API/InquiryService';
+import validateEditType from '../../validations/inquiry/validateEditType';
 // import axios from 'axios';
 export default {
     name: 'CreateBanner',
@@ -65,10 +68,21 @@ export default {
                 message: 'Are you sure you want to proceed?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    this.inquiryService.editInquiryType(this.title, this.dropdownValue.name == undefined ? this.dropdownValue : this.dropdownValue.name, this.$route.params.id).then((res) => {
-                        console.warn(res);
-                        this.$router.push({ name: 'InquiryType' });
-                    });
+                    let vcheckData = {
+                        title: this.title,
+                        state: this.dropdownValue.name == undefined ? 'active' : this.dropdownValue.name,
+                    };
+                    const { isInvalid, error } = validateEditType(vcheckData);
+                    if (isInvalid) {
+                        this.error = error;
+                    } else {
+                        this.error = {};
+
+                        this.inquiryService.editInquiryType(this.title, this.dropdownValue.name == undefined ? this.dropdownValue : this.dropdownValue.name, this.$route.params.id).then((res) => {
+                            console.warn(res);
+                            this.$router.push({ name: 'InquiryType' });
+                        });
+                    }
                 },
                 reject: () => {
                     this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });

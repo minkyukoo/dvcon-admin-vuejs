@@ -11,12 +11,14 @@
                     <div class="p-grid p-formgrid p-mb-3">
                         <div class="p-col-12 p-mb-2 p-lg-6 p-mb-lg-0 p-field">
                             <label for="title2">Title*</label>
-                            <InputText type="text" placeholder="Title" id="title2" v-model="title"></InputText>
+                            <InputText type="text" :class="`${error.title ? 'p-invalid' : ''}`" placeholder="Title" id="title2" v-model="title"></InputText>
+                            <div class="text-red">{{ error.title }}</div>
                         </div>
 
                         <div class="p-col-12 p-mb-2 p-lg-6 p-mb-lg-0 p-field">
                             <label for="state2">state*</label>
-                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="active" />
+                            <Dropdown :class="`${error.dropdownValue ? 'p-invalid' : ''}`" v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="active" />
+                            <div class="text-red">{{ error.dropdownValue }}</div>
                         </div>
                     </div>
                 </div>
@@ -32,6 +34,7 @@
 
 <script>
 import InquiryService from '../../service/API/InquiryService';
+import validateAddType from '../../validations/inquiry/validateAddType';
 // import axios from 'axios';
 export default {
     name: 'CreateBanner',
@@ -41,7 +44,7 @@ export default {
             dropdownValueTypes: [{ name: 'main_banner' }, { name: 'banner_top' }, { name: 'banner_bottom' }],
             dropdownValue: 'active',
             dropdownValueType: null,
-            title: null,
+            title: '',
             // desc: null,
             subtitle: null,
             link: null,
@@ -49,6 +52,7 @@ export default {
             image: '',
             fileName: '',
             formData: new FormData(),
+            error: {},
         };
     },
     created() {
@@ -57,9 +61,20 @@ export default {
 
     methods: {
         addinquirytype() {
-            this.inquiryService.addInquiryType(this.title).then(() => {
-                this.$router.push({ name: 'InquiryType' });
-            });
+            let vcheckData = {
+                title: this.title,
+                state: this.dropdownValue.name == undefined ? 'active' : this.dropdownValue.name,
+            };
+            const { isInvalid, error } = validateAddType(vcheckData);
+            if (isInvalid) {
+                this.error = error;
+            } else {
+                this.error = {};
+
+                this.inquiryService.addInquiryType(this.title).then(() => {
+                    this.$router.push({ name: 'InquiryType' });
+                });
+            }
         },
     },
 };

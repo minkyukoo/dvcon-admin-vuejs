@@ -230,12 +230,7 @@ export default {
             const utc = new Date().toJSON().slice(0, 10).replace(/-/g, '.');
             this.calendarValue = utc;
             this.calendarValue1 = utc;
-            // this.userService.getUserListsingle(utc).then((data) => {
-            //     this.customer1 = data;
-            //     console.log(data);
-            //     this.loading1 = false;
-            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-            // });
+            
         },
         lastweek() {
             const date = new Date();
@@ -244,12 +239,7 @@ export default {
             const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
             this.calendarValue = startDate;
             this.calendarValue1 = edate;
-            // this.userService.getUserListsingle(startDate).then((data) => {
-            //     this.customer1 = data;
-            //     console.log(data);
-            //     this.loading1 = false;
-            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-            // });
+           
         },
         lastmonth() {
             const date = new Date();
@@ -258,12 +248,7 @@ export default {
             const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
             this.calendarValue = startDate;
             this.calendarValue1 = edate;
-            // this.userService.getUserListsingle(startDate).then((data) => {
-            //     this.customer1 = data;
-            //     console.log(data);
-            //     this.loading1 = false;
-            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-            // });
+           
         },
         lastsixmonth() {
             const date = new Date();
@@ -272,12 +257,7 @@ export default {
             const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
             this.calendarValue = startDate;
             this.calendarValue1 = edate;
-            // this.userService.getUserListsingle(startDate).then((data) => {
-            //     this.customer1 = data;
-            //     console.log(data);
-            //     this.loading1 = false;
-            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-            // });
+            
         },
         lastyear() {
             const date = new Date();
@@ -286,12 +266,7 @@ export default {
             const startDate = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate();
             this.calendarValue = startDate;
             this.calendarValue1 = edate;
-            // this.userService.getUserListsingle(startDate).then((data) => {
-            //     this.customer1 = data;
-            //     console.log(data);
-            //     this.loading1 = false;
-            //     this.customer1.forEach((customer) => (customer.createdDate = new Date(customer.createdDate)));
-            // });
+            
         },
         exceldownload() {
             this.selects();
