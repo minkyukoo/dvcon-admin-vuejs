@@ -11,31 +11,31 @@
                     <div class="p-grid p-formgrid p-mb-3">
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="title2">Title</label>
-                            <InputText type="text" placeholder="Title" id="title2" v-model="title"></InputText>
+                            <InputText :class="`${error.title ? 'p-invalid' : ''}`" type="text" placeholder="Title" id="title2" v-model="title"></InputText>
+                            <div class="text-red">{{ error.title }}</div>
                         </div>
 
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="state2">state</label>
-                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
+                            <Dropdown :class="`${error.dropdownValue ? 'p-invalid' : ''}`" v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Privacy Policy" />
+                            <div class="text-red">{{ error.dropdownValue }}</div>
                         </div>
                     </div>
                 </div>
-                <!-- <div class="p-col-12">
-                    <span class="p-float-label">
-                        <Textarea inputId="textarea" rows="5" cols="30" v-model="desc"></Textarea>
-                        <label for="textarea">Write Your Comment...</label>
-                    </span>
-                </div> -->
                 <div class="p-col-12 p-field">
                     <label>Description :</label>
-                    <span class="p-float-label">
-                        <Quill-Editor style="height: 200px" v-model:content="modelname" ref="myQuillEditor" :options="editorOption" contentType="html" />
-                    </span>
+                    <div :class="`${error.modelname ? 'p-invalid' : ''}`">
+                        <span class="p-float-label">
+                            <Quill-Editor style="height: 200px" v-model:content="modelname" ref="myQuillEditor" :options="editorOption" contentType="html" />
+                        </span>
+                    </div>
+                    <div class="text-red">
+                        <p>{{ error.modelname }}</p>
+                    </div>
                 </div>
             </div>
             <div class="p-d-flex p-jc-end p-ai-center">
                 <div>
-                    <!-- <Button label="reset" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reinitialize"> </Button> -->
                     <Button label="Add Faq" icon="pi pi-plus" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="addcms"></Button>
                 </div>
             </div>
@@ -46,6 +46,7 @@
 <script>
 import { QuillEditor } from '@vueup/vue-quill';
 import CmsService from '../../service/API/CmsService';
+import validateAddCms from '../../validations/cms/validateAddCms';
 // import axios from 'axios';
 export default {
     name: 'CreateBanner',
@@ -69,7 +70,7 @@ export default {
             dropdownValueTypes: [{ name: 'main_banner' }, { name: 'banner_top' }, { name: 'banner_bottom' }],
             dropdownValue: '1',
             dropdownValueType: null,
-            title: null,
+            title: '',
             // desc: null,
             subtitle: null,
             link: null,
@@ -77,6 +78,7 @@ export default {
             image: '',
             fileName: '',
             formData: new FormData(),
+            error: {},
         };
     },
     created() {
@@ -85,10 +87,23 @@ export default {
 
     methods: {
         addcms() {
-            console.log(this.dropdownValue.id);
-            this.cmsService.addCms(this.title, this.modelname, this.dropdownValue.id == undefined ? this.dropdownValue : this.dropdownValue.id).then(() => {
-                this.$router.push({ name: 'Cms' });
-            });
+            let vcheckData = {
+                title: this.title,
+                state: this.dropdownValue.name == undefined ? 'Privacy Policy' : this.dropdownValue.name,
+                modelname: this.modelname,
+            };
+            const { isInvalid, error } = validateAddCms(vcheckData);
+            if (isInvalid) {
+                this.error = error;
+                console.log(error);
+            } else {
+                this.error = {};
+
+                // console.log(this.dropdownValue.id);
+                this.cmsService.addCms(this.title, this.modelname, this.dropdownValue.id == undefined ? this.dropdownValue : this.dropdownValue.id).then(() => {
+                    this.$router.push({ name: 'Cms' });
+                });
+            }
         },
     },
 };
@@ -132,5 +147,8 @@ export default {
 }
 .ql-editor {
     height: 200px;
+}
+.invalid-quill {
+    border: 1px solid red;
 }
 </style>

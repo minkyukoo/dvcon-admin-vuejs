@@ -11,12 +11,14 @@
                     <div class="p-grid p-formgrid p-mb-3">
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="title2">question</label>
-                            <InputText type="text" placeholder="Title" id="title2" v-model="mydata.title"></InputText>
+                            <InputText :class="`${error.title ? 'p-invalid' : ''}`" type="text" placeholder="Title" id="title2" v-model="mydata.title"></InputText>
+                            <div class="text-red">{{ error.title }}</div>
                         </div>
 
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="state2">state</label>
-                            <Dropdown id="state2" v-model="mydata.status" :options="dropdownValues" optionLabel="name" :placeholder="mydata.status" />
+                            <Dropdown :class="`${error.state ? 'p-invalid' : ''}`" id="state2" v-model="mydata.status" :options="dropdownValues" optionLabel="name" :placeholder="mydata.status" />
+                            <div class="text-red">{{ error.state }}</div>
                         </div>
                     </div>
                 </div>
@@ -25,6 +27,7 @@
                     <span class="p-float-label">
                         <Quill-Editor style="height: 230px" v-model:content="modelname" ref="myQuillEditor" :options="editorOption" contentType="html" />
                     </span>
+                    <div class="text-red">{{ error.modelname }}</div>
                 </div>
             </div>
             <div class="p-d-flex p-jc-end p-ai-center">
@@ -38,7 +41,7 @@
     </div>
 </template>
 <script>
-// import validateEditUser from '../../validations/user/validateEditUser';
+import validateAddFaq from '../../validations/faq/validateAddFaq';
 import FaqService from '../../service/API/FaqService';
 export default {
     data() {
@@ -88,11 +91,26 @@ export default {
                 message: 'Are you sure you want to proceed?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    this.faqService.editFaq(this.mydata.title, this.mydata.status.code == undefined ? this.mydata.status : this.mydata.status.code, this.modelname, this.$route.params.id).then((res) => {
+                    let vcheckData = {
+                        title: this.mydata.title,
+                        state: this.mydata.status.name == undefined ? this.mydata.status : this.mydata.status.name,
+                        modelname: this.modelname,
+                    };
+                    console.log(vcheckData);
+                    const { isInvalid, error } = validateAddFaq(vcheckData);
+                    if (isInvalid) {
+                        this.error = error;
+                        console.log(error);
+                    } else {
+                        this.error = {};
+                        console.log('pass');
+                        this.faqService.editFaq(this.mydata.title, this.mydata.status.code == undefined ? this.mydata.status : this.mydata.status.code, this.modelname, this.$route.params.id).then((res) => {
                         console.warn(res);
                         localStorage.removeItem('desc');
                         this.$router.push({ name: 'Faq' });
                     });
+                    }
+                    
                 },
                 reject: () => {
                     this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });

@@ -64,6 +64,7 @@ export default {
             let vcheckData = {
                 title: this.title,
                 state: this.dropdownValue.name == undefined ? 'active' : this.dropdownValue.name,
+                
             };
             const { isInvalid, error } = validateAddType(vcheckData);
             if (isInvalid) {

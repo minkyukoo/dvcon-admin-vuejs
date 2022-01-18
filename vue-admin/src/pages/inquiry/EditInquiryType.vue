@@ -11,14 +11,14 @@
                     <div class="p-grid p-formgrid p-mb-3">
                         <div class="p-col-12 p-mb-2 p-lg-6 p-mb-lg-0 p-field">
                             <label for="title2">Title*</label>
-                            <InputText type="text" placeholder="Title" id="title2" v-model="title"></InputText>
-                            <!-- <div class="text-red">{{ error.title }}</div> -->
+                            <InputText :class="`${error.title ? 'p-invalid' : ''}`" type="text" placeholder="Title" id="title2" v-model="title"></InputText>
+                            <div class="text-red">{{ error.title }}</div>
                         </div>
 
                         <div class="p-col-12 p-mb-2 p-lg-6 p-mb-lg-0 p-field">
                             <label for="state2">state*</label>
-                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" :placeholder="dropdownValue" />
-                            <!-- <div class="text-red">{{ error.dropdownValue }}</div> -->
+                            <Dropdown :class="`${error.dropdownValue ? 'p-invalid' : ''}`" v-model="dropdownValue" :options="dropdownValues" optionLabel="name" :placeholder="dropdownValue" />
+                            <div class="text-red">{{ error.dropdownValue }}</div>
                         </div>
                     </div>
                 </div>
@@ -47,6 +47,7 @@ export default {
             dropdownValue: 'active',
             dropdownValueType: null,
             title: '',
+            error: {},
         };
     },
     created() {

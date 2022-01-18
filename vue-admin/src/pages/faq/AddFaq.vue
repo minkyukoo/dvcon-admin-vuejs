@@ -11,12 +11,14 @@
                     <div class="p-grid p-formgrid p-mb-3">
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="title2">question</label>
-                            <InputText type="text" placeholder="Title" id="title2" v-model="title"></InputText>
+                            <InputText :class="`${error.title ? 'p-invalid' : ''}`" type="text" placeholder="Title" id="title2" v-model="title"></InputText>
+                            <div class="text-red">{{ error.title }}</div>
                         </div>
 
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="state2">state</label>
-                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
+                            <Dropdown :class="`${error.state ? 'p-invalid' : ''}`" v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
+                            <div class="text-red">{{ error.state }}</div>
                         </div>
                     </div>
                 </div>
@@ -31,6 +33,7 @@
                     <span class="p-float-label">
                         <Quill-Editor style="height: 200px" v-model:content="modelname" ref="myQuillEditor" :options="editorOption" contentType="html" />
                     </span>
+                    <div class="text-red">{{ error.modelname }}</div>
                 </div>
             </div>
             <div class="p-d-flex p-jc-end p-ai-center">
@@ -46,6 +49,7 @@
 <script>
 import { QuillEditor } from '@vueup/vue-quill';
 import FaqService from '../../service/API/FaqService';
+import validateAddFaq from '../../validations/faq/validateAddFaq';
 // import axios from 'axios';
 export default {
     name: 'CreateBanner',
@@ -64,9 +68,9 @@ export default {
             },
             dropdownValues: [{ name: 'activation' }],
             dropdownValueTypes: [{ name: 'main_banner' }, { name: 'banner_top' }, { name: 'banner_bottom' }],
-            dropdownValue: null,
+            dropdownValue: '',
             dropdownValueType: null,
-            title: null,
+            title: '',
             // desc: null,
             subtitle: null,
             link: null,
@@ -74,6 +78,7 @@ export default {
             image: '',
             fileName: '',
             formData: new FormData(),
+            error: {},
         };
     },
     created() {
@@ -82,9 +87,23 @@ export default {
 
     methods: {
         addfaq() {
-            this.faqService.addFaq(this.title, this.modelname).then(() => {
-                this.$router.push({ name: 'Faq' });
-            });
+            let vcheckData = {
+                title: this.title,
+                state: this.dropdownValue.name == undefined ? '' : this.dropdownValue.name,
+                modelname: this.modelname,
+            };
+            console.log(vcheckData);
+            const { isInvalid, error } = validateAddFaq(vcheckData);
+            if (isInvalid) {
+                this.error = error;
+                console.log(error);
+            } else {
+                this.error = {};
+                console.log('pass');
+                this.faqService.addFaq(this.title, this.modelname).then(() => {
+                    this.$router.push({ name: 'Faq' });
+                });
+            }
         },
     },
 };

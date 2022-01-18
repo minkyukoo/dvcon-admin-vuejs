@@ -11,7 +11,8 @@
                     <div class="p-grid p-formgrid p-mb-3">
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="title2">Title</label>
-                            <InputText type="text" placeholder="Title" id="title2" v-model="mydata.title"></InputText>
+                            <InputText :class="`${error.title ? 'p-invalid' : ''}`" type="text" placeholder="Title" id="title2" v-model="mydata.title"></InputText>
+                            <div class="text-red">{{ error.title }}</div>
                         </div>
 
                         <!-- <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
@@ -25,6 +26,9 @@
                     <span class="p-float-label">
                         <Quill-Editor style="height: 230px" v-model:content="modelname" ref="myQuillEditor" :options="editorOption" contentType="html" />
                     </span>
+                    <div class="text-red">
+                        <p>{{ error.modelname }}</p>
+                    </div>
                 </div>
             </div>
             <div class="p-d-flex p-jc-end p-ai-center">
@@ -40,6 +44,7 @@
 <script>
 // import validateEditUser from '../../validations/user/validateEditUser';
 import CmsService from '../../service/API/CmsService';
+import validateEditCms from '../../validations/cms/validateEditCms';
 export default {
     data() {
         return {
@@ -88,11 +93,23 @@ export default {
                 message: 'Are you sure you want to proceed?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    this.cmsService.editCms(this.mydata.title, this.modelname, this.$route.params.id).then((res) => {
-                        console.warn(res);
-                        localStorage.removeItem('desc');
-                        this.$router.push({ name: 'Cms' });
-                    });
+                    let vcheckData = {
+                        title: this.mydata.title,
+                        modelname: this.modelname,
+                    };
+                    const { isInvalid, error } = validateEditCms(vcheckData);
+                    if (isInvalid) {
+                        this.error = error;
+                        console.log(error);
+                    } else {
+                        this.error = {};
+
+                        this.cmsService.editCms(this.mydata.title, this.modelname, this.$route.params.id).then((res) => {
+                            console.warn(res);
+                            localStorage.removeItem('desc');
+                            this.$router.push({ name: 'Cms' });
+                        });
+                    }
                 },
                 reject: () => {
                     this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });

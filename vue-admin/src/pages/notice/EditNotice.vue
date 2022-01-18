@@ -11,12 +11,14 @@
                     <div class="p-grid p-formgrid p-mb-3">
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="title2">Title</label>
-                            <InputText type="text" placeholder="Title" id="title2" v-model="mydata.title"></InputText>
+                            <InputText :class="`${error.title ? 'p-invalid' : ''}`" type="text" placeholder="Title" id="title2" v-model="mydata.title"></InputText>
+                            <div class="text-red">{{ error.title }}</div>
                         </div>
 
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="state2">state</label>
-                            <Dropdown id="state2" v-model="mydata.status" :options="dropdownValues" optionLabel="name" :placeholder="mydata.status" />
+                            <Dropdown :class="`${error.state ? 'p-invalid' : ''}`" id="state2" v-model="mydata.status" :options="dropdownValues" optionLabel="name" :placeholder="mydata.status" />
+                            <div class="text-red">{{ error.state }}</div>
                         </div>
                     </div>
                 </div>
@@ -24,6 +26,7 @@
                     <span class="p-float-label">
                         <Quill-Editor style="height: 230px" v-model:content="modelname" ref="myQuillEditor" :options="editorOption" contentType="html" />
                     </span>
+                    <div class="text-red">{{ error.modelname }}</div>
                 </div>
             </div>
             <div class="p-d-flex p-jc-end p-ai-center">
@@ -38,6 +41,7 @@
 </template>
 <script>
 // import validateEditUser from '../../validations/user/validateEditUser';
+import validateAddNotice from '../../validations/notice/validateAddNotice';
 import NoticeService from '../../service/API/NoticeService';
 export default {
     data() {
@@ -84,11 +88,25 @@ export default {
                 message: 'Are you sure you want to proceed?',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    this.noticeService.editNotice(this.mydata.title, this.modelname, this.$route.params.id,this.mydata.status.name==undefined?this.mydata.status:this.mydata.status.name).then((res) => {
-                        console.warn(res);
-                        localStorage.removeItem('desc');
-                        this.$router.push({ name: 'NoticeList' });
-                    });
+                    let vcheckData = {
+                        title: this.mydata.title,
+                        state: this.mydata.status.name == undefined ? this.mydata.status : this.mydata.status.name,
+                        modelname: this.modelname,
+                    };
+                    console.log(vcheckData);
+                    const { isInvalid, error } = validateAddNotice(vcheckData);
+                    if (isInvalid) {
+                        this.error = error;
+                        console.log(error);
+                    } else {
+                        this.error = {};
+                        console.log('pass');
+                        this.noticeService.editNotice(this.mydata.title, this.modelname, this.$route.params.id, this.mydata.status.name == undefined ? this.mydata.status : this.mydata.status.name).then((res) => {
+                            console.warn(res);
+                            localStorage.removeItem('desc');
+                            this.$router.push({ name: 'NoticeList' });
+                        });
+                    }
                 },
                 reject: () => {
                     this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });

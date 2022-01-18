@@ -11,30 +11,26 @@
                     <div class="p-grid p-formgrid p-mb-3">
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="title2">Title</label>
-                            <InputText type="text" placeholder="Title" id="title2" v-model="title"></InputText>
+                            <InputText :class="`${error.title ? 'p-invalid' : ''}`" type="text" placeholder="Title" id="title2" v-model="title"></InputText>
+                            <div class="text-red">{{ error.title }}</div>
                         </div>
 
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="state2">state</label>
-                            <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
+                            <Dropdown :class="`${error.dropdownValue ? 'p-invalid' : ''}`" v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="active" />
+                            <div class="text-red">{{ error.dropdownValue }}</div>
                         </div>
                     </div>
                 </div>
-                <!-- <div class="p-col-12">
-                    <span class="p-float-label">
-                        <Textarea inputId="textarea" rows="5" cols="30" v-model="desc"></Textarea>
-                        <label for="textarea">Write Your Comment...</label>
-                    </span>
-                </div> -->
                 <div class="p-col-12">
                     <span class="p-float-label">
                         <Quill-Editor style="height: 200px" v-model:content="modelname" ref="myQuillEditor" :options="editorOption" contentType="html" />
                     </span>
+                    <div class="text-red">{{ error.modelname }}</div>
                 </div>
             </div>
             <div class="p-d-flex p-jc-end p-ai-center">
                 <div>
-                    <!-- <Button label="reset" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reinitialize"> </Button> -->
                     <Button label="Add Notice" icon="pi pi-plus" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="addnotice"></Button>
                 </div>
             </div>
@@ -45,6 +41,7 @@
 <script>
 import { QuillEditor } from '@vueup/vue-quill';
 import NoticeService from '../../service/API/NoticeService';
+import validateAddNotice from '../../validations/notice/validateAddNotice';
 // import axios from 'axios';
 export default {
     name: 'CreateBanner',
@@ -55,10 +52,6 @@ export default {
         return {
             modelname: '',
             editorOption: {
-                // debug: 'info',
-                // modules: {
-                //     toolbar: 'essential',
-                // },
                 toolbar: 'essential',
                 contentType: 'text',
                 placeholder: 'Type your comment....',
@@ -69,7 +62,7 @@ export default {
             dropdownValueTypes: [{ name: 'main_banner' }, { name: 'banner_top' }, { name: 'banner_bottom' }],
             dropdownValue: 'active',
             dropdownValueType: null,
-            title: null,
+            title: '',
             // desc: null,
             subtitle: null,
             link: null,
@@ -77,6 +70,7 @@ export default {
             image: '',
             fileName: '',
             formData: new FormData(),
+            error: {},
         };
     },
     created() {
@@ -85,10 +79,24 @@ export default {
 
     methods: {
         addnotice() {
-            console.log(this.modelname);
-            this.noticeService.addNotice(this.title, this.modelname, this.dropdownValue.name == undefined ? this.dropdownValue : this.dropdownValue.name).then(() => {
-                this.$router.push({ name: 'NoticeList' });
-            });
+            let vcheckData = {
+                title: this.title,
+                state: this.dropdownValue.name == undefined ? '' : this.dropdownValue.name,
+                modelname: this.modelname,
+            };
+            console.log(vcheckData);
+            const { isInvalid, error } = validateAddNotice(vcheckData);
+            if (isInvalid) {
+                this.error = error;
+                console.log(error);
+            } else {
+                this.error = {};
+                console.log('pass');
+                this.noticeService.addNotice(this.title, this.modelname, this.dropdownValue.name == undefined ? this.dropdownValue : this.dropdownValue.name).then(() => {
+                    this.$router.push({ name: 'NoticeList' });
+                });
+            }
+            // console.log(this.modelname);
         },
     },
 };
