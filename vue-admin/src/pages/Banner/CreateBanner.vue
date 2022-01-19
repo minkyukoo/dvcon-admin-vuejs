@@ -1,11 +1,6 @@
 <template>
     <div class="p-col-12 p-pb-0">
-        <Button
-            @click="$router.go(-1)"
-            label="Go Back"
-            icon="pi pi-angle-left"
-            class="p-button-text p-mr-2 p-mb-2"
-        />
+        <Button @click="$router.go(-1)" label="Go Back" icon="pi pi-angle-left" class="p-button-text p-mr-2 p-mb-2" />
     </div>
     <div class="card">
         <Toast />
@@ -16,40 +11,30 @@
                     <div class="p-grid p-formgrid p-mb-3">
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="title2">Title</label>
-                            <InputText type="text" placeholder="Title" id="title2" v-model="title"></InputText>
+                            <InputText :class="`${error.title ? 'p-invalid' : ''}`" type="text" placeholder="Title" id="title2" v-model="title"></InputText>
+                            <div class="text-red">{{ error.title }}</div>
                         </div>
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="subtitle2">Subtitle</label>
-                            <InputText
-                                type="text"
-                                placeholder="Subtitle"
-                                id="subtitle2"
-                                v-model="subtitle"
-                            ></InputText>
+                            <InputText :class="`${error.subtitle ? 'p-invalid' : ''}`" type="text" placeholder="Subtitle" id="subtitle2" v-model="subtitle"></InputText>
+                            <div class="text-red">{{ error.subtitle }}</div>
                         </div>
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="state2">state</label>
-                            <Dropdown
-                                v-model="dropdownValue"
-                                :options="dropdownValues"
-                                optionLabel="name"
-                                placeholder="Select"
-                            />
+                            <Dropdown :class="`${error.state ? 'p-invalid' : ''}`" v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
+                            <div class="text-red">{{ error.state }}</div>
                         </div>
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="title2">Link</label>
-                            <InputText type="text" placeholder="link" id="title2" v-model="link"></InputText>
+                            <InputText :class="`${error.link ? 'p-invalid' : ''}`" type="text" placeholder="link" id="title2" v-model="link"></InputText>
+                            <div class="text-red">{{ error.link }}</div>
                         </div>
                     </div>
                     <div class="p-grid p-formgrid p-mb-3">
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="state2">Type</label>
-                            <Dropdown
-                                v-model="dropdownValueType"
-                                :options="dropdownValueTypes"
-                                optionLabel="name"
-                                placeholder="Select"
-                            />
+                            <Dropdown :class="`${error.type ? 'p-invalid' : ''}`" v-model="dropdownValueType" :options="dropdownValueTypes" optionLabel="name" placeholder="Select" />
+                            <div class="text-red">{{ error.type }}</div>
                         </div>
                         <div class="p-col-12 p-mb-2 p-lg-3 p-mb-lg-0 p-field">
                             <label for="subtitle2">
@@ -62,6 +47,7 @@
                                 <input type="file" class="select-file" v-on:change="onFileChange" />
                                 <Button label="Select File" class="SelectBtn" />
                             </div>
+                            <div class="text-red">{{ error.file }}</div>
                             <img id="frame" src width="100px" height="100px" />
                         </div>
                     </div>
@@ -69,20 +55,8 @@
             </div>
             <div class="p-d-flex p-jc-end p-ai-center">
                 <div>
-                    <Button
-                        label="reset"
-                        icon="pi pi-replay"
-                        iconPos="left"
-                        class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2"
-                        v-on:click="reinitialize"
-                    ></Button>
-                    <Button
-                        label="confirm"
-                        icon="pi pi-save"
-                        iconPos="left"
-                        class="p-button p-button-sm p-mr-2 p-mb-2"
-                        @click="addBanner"
-                    ></Button>
+                    <Button label="reset" icon="pi pi-replay" iconPos="left" class="p-button p-button-outlined p-button-sm p-mr-2 p-mb-2" v-on:click="reinitialize"></Button>
+                    <Button label="confirm" icon="pi pi-save" iconPos="left" class="p-button p-button-sm p-mr-2 p-mb-2" @click="addBanner"></Button>
                 </div>
             </div>
         </form>
@@ -91,7 +65,7 @@
 
 <script>
 import axios from 'axios';
-// import validateCreatebanner from '../../validations/banner/validateCreateBanner';
+import validateCreateBanner from '../../validations/banner/validateCreateBanner';
 export default {
     name: 'CreateBanner',
     // props: ['dog', 'image'],
@@ -101,15 +75,15 @@ export default {
             dropdownValueTypes: [{ name: 'main_banner' }, { name: 'banner_top' }, { name: 'banner_bottom' }],
             dropdownValue: null,
             dropdownValueType: null,
-            title: null,
-            subtitle: null,
-            link: null,
-            file: null,
+            title: '',
+            subtitle: '',
+            link: '',
+            file: '',
             image: '',
             fileName: '',
             fileExtension: '',
             formData: new FormData(),
-            error: {}
+            error: {},
         };
     },
     methods: {
@@ -126,25 +100,41 @@ export default {
             console.log(this.fileName);
         },
         addBanner() {
-            console.log(this.file);
-            this.formData.append('title', this.title);
-            this.formData.append('subtitle', this.subtitle);
-            this.formData.append('link', this.link);
-            this.formData.append('status', this.dropdownValue?.name);
-            this.formData.append('type', this.dropdownValueType?.name);
-            console.log(this.formData);
-            return axios
-                .post('/banner/add', this.formData)
-                .then((res) => {
-                    this.$router.push({ name: 'User' });
-                    console.log(res);
-                    alert('Banner Successfully Added');
-                    this.$router.push({ name: 'BannerManagement' });
-                })
-                .catch((err) => {
-                    console.log(err);
-                    alert(err);
-                });
+            let vcheckData = {
+                title: this.title,
+                subtitle: this.subtitle,
+                state: this.dropdownValue == null ? '' : 'something',
+                link: this.link,
+                type: this.dropdownValueType == null ? '' : 'something',
+                file: this.file == '' ? '' : 'something',
+            };
+            const { isInvalid, error } = validateCreateBanner(vcheckData);
+            if (isInvalid) {
+                this.error = error;
+                console.log(error);
+            } else {
+                this.error = {};
+                console.log('pass');
+                console.log(this.file);
+                this.formData.append('title', this.title);
+                this.formData.append('subtitle', this.subtitle);
+                this.formData.append('link', this.link);
+                this.formData.append('status', this.dropdownValue?.name);
+                this.formData.append('type', this.dropdownValueType?.name);
+                console.log(this.formData);
+                return axios
+                    .post('/banner/add', this.formData)
+                    .then((res) => {
+                        this.$router.push({ name: 'User' });
+                        console.log(res);
+                        alert('Banner Successfully Added');
+                        this.$router.push({ name: 'BannerManagement' });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        alert(err);
+                    });
+            }
         },
     },
 };

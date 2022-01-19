@@ -5,7 +5,9 @@
         </div>
         <div class="p-col-12">
             <div class="card p-fluid">
-                <h4><strong>{{$t('page.user.addUser.heading')}}</strong></h4>
+                <h4>
+                    <strong>{{ $t('page.user.addUser.heading') }}</strong>
+                </h4>
                 <div class="p-formgrid p-grid">
                     <div class="p-field p-col">
                         <label for="nameuser">Name</label>
@@ -43,7 +45,7 @@
                 </div>
 
                 <div class="p-d-flex p-jc-end">
-                    <Button label="Primary" class="p-mr-2 p-mb-2" @click="Adduser"><i class="pi pi-plus p-mr-2"></i> {{$t('button.createUser')}}</Button>
+                    <Button label="Primary" class="p-mr-2 p-mb-2" @click="Adduser"><i class="pi pi-plus p-mr-2"></i> {{ $t('button.createUser') }}</Button>
                 </div>
             </div>
         </div>
